@@ -1,0 +1,35 @@
+<ion-content padding>
+  <form #form="ngForm" (ngSubmit)="login(form)" style="height:100%;">
+    <ion-grid class="signin-grid" style="padding-top: 10%;background-color: rgb(248, 248, 248);height: 100%;">
+
+      <ion-row justify-content-center>
+        <ion-col size="3"></ion-col>
+        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12" style="border: 3px solid #97b6ec;">
+          <div text-center>
+            <h3 style="text-align:center ;">BIT Online Portal Log In</h3>
+          </div>
+
+          <div padding>
+            <ion-item>
+              <ion-input name="reg_no" type="text" placeholder="BIT Registration No" ngModel required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input name="id_no" type="text" placeholder="NIC" ngModel required></ion-input>
+            </ion-item>
+          </div>
+          <div padding>
+            <ion-button size="large" type="submit" [disabled]="form.invalid" expand="block">
+              Login</ion-button>
+          </div>
+          <div padding *ngIf="invalidLogin" ngModel required>
+            <ion-label style="text-align: center;">Please Insert Correct Registeration No and NIC No</ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="3"></ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+
+  </form>
+</ion-content>
