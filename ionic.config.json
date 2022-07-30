@@ -1,0 +1,7 @@
+{
+  "name": "BITAppOneNew",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
