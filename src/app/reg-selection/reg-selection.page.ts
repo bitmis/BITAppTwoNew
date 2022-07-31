@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+ 
 
 @Component({
   selector: 'app-reg-selection',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegSelectionPage implements OnInit {
 
-  constructor() { }
+  constructor(  ) { }
 
   ngOnInit() {
   }

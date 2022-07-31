@@ -11,7 +11,8 @@ const routes: Routes = [
   {
     path: 'lateral-entry',
     loadChildren: () => import('../lateral-entry/lateral-entry.module').then( m => m.LateralEntryPageModule)
-  },
+  }
+  
 ];
 
 @NgModule({
