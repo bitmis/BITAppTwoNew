@@ -13,9 +13,17 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(reg_no: string, id_no: string): Observable<any> {
+  login_DIT(reg_no: string, id_no: string): Observable<any> {
     return this.http.get(AUTH_API + '/get_dit_regno_nic' + "/"+reg_no+"/"+id_no
      );
   }
+
+  login_HDIT(reg_no: string, id_no: string): Observable<any> {
+    return this.http.get(AUTH_API + '/get_hdit_regno_nic' + "/"+reg_no+"/"+id_no
+     );
+  }
+
+
+
 }
 //https://www.bezkoder.com/angular-12-jwt-auth/

@@ -13,6 +13,8 @@ export class LoginPage implements OnInit {
   password: string = "";
 
   response: any;
+  invalid_DIT_Login: boolean = false;
+  invalid_HDIT_Login: boolean = false;
   invalidLogin: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) { }
@@ -24,21 +26,46 @@ export class LoginPage implements OnInit {
 
     console.log(form['value']);
 
-    this.authService.login(form['value']['reg_no'], form['value']['id_no']).subscribe((res) => {
-
+    this.authService.login_DIT(form['value']['reg_no'], form['value']['id_no']).subscribe((res) => {
 
       this.response = res;
       console.log(this.response);
       if (this.response == null) {
 
-        this.invalidLogin = true;
+        this.invalid_DIT_Login = true;
 
       } else {
 
-      //  this.router.navigateByUrl('/main-menu');
-        // Navigate to /results?page=1
-       // this.router.navigate(['/main-menu'], { queryParams: { login_response: this.response['registration_no'] } });
-        this.router.navigate(['/reg-selection', { id: '11212', foo: this.response['year'] }]);
+
+        this.router.navigate(['/reg-selection',
+          {
+            id_no: this.response['id_no'],
+            registration_no: this.response['registration_no'],
+            year: this.response['year']
+          }]);
+
+        this.invalidLogin = false;
+      }
+
+    });
+
+    this.authService.login_HDIT(form['value']['reg_no'], form['value']['id_no']).subscribe((res) => {
+
+      this.response = res;
+      console.log( this.response);
+      if (this.response == null) {
+
+        this.invalid_HDIT_Login = true;
+
+      } else {
+
+        this.router.navigate(['/reg-selection',
+          {
+            id_no: this.response['id_no'],
+            registration_no: this.response['registration_no'],
+            year: this.response['year']
+          }]);
+
         this.invalidLogin = false;
       }
 
