@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar color="dark">
     <ion-title style="color: white;">Lateral Entry Registration</ion-title>
-    <ion-button color="medium" slot="end" style="padding-right:1%"  routerLink="/login">
-      <ion-icon name="log-out-outline" ></ion-icon>
+    <ion-button color="medium" slot="end" style="padding-right:1%" routerLink="/login">
+      <ion-icon name="log-out-outline"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
@@ -10,27 +10,42 @@
 <ion-content>
 
   <ion-grid>
-    <ion-row>
-      <ion-card>
-        <ion-item lines="none">
-          <ion-label position="stacked">NIC No</ion-label>
-          
-   </ion-item>
-      </ion-card>
-    </ion-row>
-    <ion-row>
-      <ion-col class="button-col" >
-        <ion-button color="medium" class="selection-button" routerLink="./lateral-entry" >Start Lateral Entry Application </ion-button>
+    <ion-row class="header-data-row">
+      <ion-col>
+        <ion-card class="header-data-card">
+          <ion-label>NIC No : <span class="header-value">{{this.id_no}}</span>
+          </ion-label>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card class="header-data-card">
+          <ion-label>Previous BIT Registration No : <span class="header-value">{{this.prev_bit_regno}}</span>
+          </ion-label>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card class="header-data-card">
+          <ion-label>Eligible Year : <span class="header-value"> {{this.eligible_year}}</span>
+          </ion-label>
+
+        </ion-card>
       </ion-col>
     </ion-row>
-    <ion-row> 
-    <ion-col class="button-col">
-      <ion-button color="medium" class="selection-button" routerLink="lateral-entry">Continue Lateral Entry Application </ion-button>
-    </ion-col>
-    </ion-row>
-    <ion-row>
+    <ion-row *ngIf="show_start_application">
       <ion-col class="button-col">
-        <ion-button color="medium" class="selection-button"  >proceed To Enter Payment Information </ion-button>
+        <ion-button color="medium" class="selection-button"  click)="createApplicationNumber()">Start Lateral Entry Application
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="show_continue_application">
+      <ion-col class="button-col">
+        <ion-button color="medium" class="selection-button" routerLink="lateral-entry">Continue Lateral Entry
+          Application </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="show_payment_application">
+      <ion-col class="button-col">
+        <ion-button color="medium" class="selection-button">proceed To Enter Payment Information </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
