@@ -33,7 +33,7 @@
     </ion-row>
     <ion-row *ngIf="show_start_application">
       <ion-col class="button-col">
-        <ion-button color="medium" class="selection-button"  click)="createApplicationNumber()">Start Lateral Entry Application
+        <ion-button color="medium" class="selection-button"  (click)="createApplicationNumber(this.eligible_year)">Start Lateral Entry Application
         </ion-button>
       </ion-col>
     </ion-row>

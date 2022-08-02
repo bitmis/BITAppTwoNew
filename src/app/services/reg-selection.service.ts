@@ -20,15 +20,27 @@ export class RegSelectionService {
   };
 
   // HttpClient API get() method => Fetch application status
-  getApplicationStatus(prev_registration_no: any): Observable<any> {
-    return this.http.get<any>(this.apiURL + '/get_application_status/' + prev_registration_no)
+  getDITApplicationStatus(prev_registration_no: any): Observable<any> {
+    return this.http.get<any>(this.apiURL + '/get_dit_application_status/' + prev_registration_no)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  // HttpClient API get() method => Fetch application status
+  getHDITApplicationStatus(prev_registration_no: any): Observable<any> {
+    return this.http.get<any>(this.apiURL + '/get_hdit_application_status/' + prev_registration_no)
       .pipe(retry(1), catchError(this.handleError));
   }
 
 
   // HttpClient API get() method => Fetch application status
-  generateApplicationNo(prev_registration_no: string  , year: string): Observable<any> {
-    return this.http.get<any>(this.apiURL + '/save_lateral_application_number/' + prev_registration_no +"/"+ year)
+  generateDITApplicationNo(prev_registration_no: string  , year: string): Observable<any> {
+    return this.http.get<any>(this.apiURL + '/save_dit_lateral_application_number/' + prev_registration_no +"/"+ year)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  // HttpClient API get() method => Fetch application status
+  generateHDITApplicationNo(prev_registration_no: string  , year: string): Observable<any> {
+    return this.http.get<any>(this.apiURL + '/save_hdit_lateral_application_number/' + prev_registration_no +"/"+ year)
       .pipe(retry(1), catchError(this.handleError));
   }
 
