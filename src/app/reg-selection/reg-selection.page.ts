@@ -55,21 +55,21 @@ export class RegSelectionPage implements OnInit {
         this.status_response = res;
         console.log("- -- " + this.status_response);
         if (this.status_response == null) {
-  
+
           this.show_start_application = true;
         } else {
-  
+
           if (this.status_response['application_status'] == "pending") {
             this.show_continue_application = true;
           }
-  
+
           else if (this.status_response['application_status'] == "application_submit") {
             this.show_payment_application = true;
           }
         }
-  
+
       });
-  
+
 
 
 
@@ -79,39 +79,57 @@ export class RegSelectionPage implements OnInit {
         this.status_response = res;
         console.log("- -- " + this.status_response);
         if (this.status_response == null) {
-  
+
           this.show_start_application = true;
         } else {
-  
+
           if (this.status_response['application_status'] == "pending") {
             this.show_continue_application = true;
           }
-  
+
           else if (this.status_response['application_status'] == "application_submit") {
             this.show_payment_application = true;
           }
         }
-  
+
       });
 
     }
 
-    
+
   }
 
-  createApplicationNumber(eligible_year:string) {
+  createApplicationNumber(eligible_year: string) {
 
-    console.log("application no created");
-    this.regSelectionService.generateDITApplicationNo(this.prev_bit_regno, this.eligible_year).subscribe((res) => { });
+    if (eligible_year == "2") {
+
+      console.log("DIT application no created");
+      this.regSelectionService.generateDITApplicationNo(this.prev_bit_regno, this.eligible_year).subscribe((res) => { });
+
+      this.regSelectionService.getDITApplicationStatus(this.prev_bit_regno).subscribe((res) => {
+        this.application_no_response = res;
+        console.log("++DIT++   " + this.application_no_response['application_no']);
+        // go to lateral entry page
+
+      });
+
+    } if (eligible_year == "3") {
+
+      console.log("HDIT application no created");
+
+      this.regSelectionService.generateHDITApplicationNo(this.prev_bit_regno, this.eligible_year).subscribe((res) => {
+        
+        this.regSelectionService.getHDITApplicationStatus(this.prev_bit_regno).subscribe((res) => {
+          this.application_no_response = res;
+          console.log("++HDIT++   " + this.application_no_response);
+          // go to lateral entry page
+
+        });
+
+      });
 
 
-
-    this.regSelectionService.getDITApplicationStatus(this.prev_bit_regno).subscribe((res) => {
-      this.application_no_response = res;
-      console.log("++++   " + this.application_no_response['application_no']);
-
-    });
-
+    }
   }
 
 }
