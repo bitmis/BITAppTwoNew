@@ -26,9 +26,7 @@ export class RegSelectionPage implements OnInit {
   show_payment_application: boolean = false;
 
 
-  constructor(private route: ActivatedRoute,
-    private router: Router,
-    private regSelectionService: RegSelectionService) { }
+  constructor(private route: ActivatedRoute,private router: Router, private regSelectionService: RegSelectionService) { }
 
   ngOnInit() {
 
@@ -104,12 +102,13 @@ export class RegSelectionPage implements OnInit {
     if (eligible_year == "2") {
 
       console.log("DIT application no created");
-      this.regSelectionService.generateDITApplicationNo(this.prev_bit_regno, this.eligible_year).subscribe((res) => { });
+      this.regSelectionService.generateDITApplicationNo(this.prev_bit_regno, this.eligible_year).subscribe((res1) => {
 
-      this.regSelectionService.getDITApplicationStatus(this.prev_bit_regno).subscribe((res) => {
-        this.application_no_response = res;
-        console.log("++DIT++   " + this.application_no_response['application_no']);
-        // go to lateral entry page
+        this.router.navigate(['lateral-entry',
+          {
+            prev_registration_no: this.prev_bit_regno,
+            eligible_year: this.eligible_year
+          }]);
 
       });
 
@@ -117,19 +116,32 @@ export class RegSelectionPage implements OnInit {
 
       console.log("HDIT application no created");
 
-      this.regSelectionService.generateHDITApplicationNo(this.prev_bit_regno, this.eligible_year).subscribe((res) => {
-        
-        this.regSelectionService.getHDITApplicationStatus(this.prev_bit_regno).subscribe((res) => {
-          this.application_no_response = res;
-          console.log("++HDIT++   " + this.application_no_response);
-          // go to lateral entry page
+      this.regSelectionService.generateHDITApplicationNo(this.prev_bit_regno, this.eligible_year).subscribe((res1) => {
+        this.router.navigate(['lateral-entry',
+          {
+            prev_registration_no: this.prev_bit_regno,
+            eligible_year: this.eligible_year
+          }]);
 
-        });
 
       });
 
 
+
+
     }
+  }
+
+
+  continueApplication(){
+
+
+    console.log("continue application called");
+    this.router.navigate(['lateral-entry',
+    {
+      prev_registration_no: this.prev_bit_regno,
+      eligible_year: this.eligible_year
+    }]);
   }
 
 }

@@ -39,8 +39,7 @@
     </ion-row>
     <ion-row *ngIf="show_continue_application">
       <ion-col class="button-col">
-        <ion-button color="medium" class="selection-button" routerLink="lateral-entry">Continue Lateral Entry
-          Application </ion-button>
+        <ion-button color="medium" class="selection-button" (click)="continueApplication()">Continue Lateral Entry Application </ion-button>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="show_payment_application">

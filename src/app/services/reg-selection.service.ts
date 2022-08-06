@@ -33,16 +33,17 @@ export class RegSelectionService {
 
 
   // HttpClient API get() method => Fetch application status
-  generateDITApplicationNo(prev_registration_no: string  , year: string): Observable<any> {
-    return this.http.get<any>(this.apiURL + '/save_dit_lateral_application_number/' + prev_registration_no +"/"+ year)
+  generateDITApplicationNo(prev_registration_no: string, year: string): Observable<any> {
+    return this.http.get<any>(this.apiURL + '/save_dit_lateral_application_number/' + prev_registration_no + "/" + year)
       .pipe(retry(1), catchError(this.handleError));
   }
 
   // HttpClient API get() method => Fetch application status
-  generateHDITApplicationNo(prev_registration_no: string  , year: string): Observable<any> {
-    return this.http.get<any>(this.apiURL + '/save_hdit_lateral_application_number/' + prev_registration_no +"/"+ year)
+  generateHDITApplicationNo(prev_registration_no: string, year: string): Observable<any> {
+    return this.http.get<any>(this.apiURL + '/save_hdit_lateral_application_number/' + prev_registration_no + "/" + year)
       .pipe(retry(1), catchError(this.handleError));
   }
+
 
 
   // Error handling

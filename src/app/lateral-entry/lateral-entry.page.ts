@@ -2,10 +2,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, NgForm, ControlContainer } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ActionSheetController, IonContent, IonSlides, NavController } from '@ionic/angular';
 import { ApplicantInfoService } from 'src/app/services/application-info.service';
+import { RegSelectionService } from '../services/reg-selection.service';
 
 @Component({
   selector: 'app-lateral-entry',
@@ -59,12 +60,20 @@ export class LateralEntryPage implements OnInit {
   showFIT: boolean = false;
   selectedValue: String;
 
+  eligible_year: string;
+  prev_bit_regno: string;
+  application_no:string;
+  application_status:string;
+  status_response: any;
+
 
   constructor(public formBuilder: FormBuilder,
     private router: Router,
     private sanitizer: DomSanitizer,
     private actionSheetCtrl: ActionSheetController,
     private navCtrl: NavController,
+    private route: ActivatedRoute,
+    private regSelectionService: RegSelectionService
     //  public restAPI: ApplicantInfoService
   ) { }
 
@@ -79,6 +88,41 @@ export class LateralEntryPage implements OnInit {
 
     this.setupForm();
     this.buildSlides();
+
+
+    this.prev_bit_regno = this.route.snapshot.paramMap.get('prev_registration_no');
+    this.eligible_year = this.route.snapshot.paramMap.get('eligible_year');
+
+    console.log(this.prev_bit_regno +" -> "+ this.eligible_year );
+
+    if (this.eligible_year == "2") {
+
+      this.regSelectionService.getDITApplicationStatus(this.prev_bit_regno).subscribe((res2) => { 
+
+        console.log(res2);
+
+        this.status_response = res2;
+        this.application_status = res2['application_status'] ;
+        this.application_no = res2['application_no'] ;
+        console.log(this.application_status +" -> "+ this.application_no );
+
+      });
+    } else if (this.eligible_year == "3") {
+      this.regSelectionService.getHDITApplicationStatus(this.prev_bit_regno).subscribe((res3) => {
+        
+
+        console.log(res3);
+        this.status_response = res3;
+        this.application_status = res3['application_status'] ;
+        this.application_no = res3['application_no'] ;
+        console.log(this.application_status +" -> "+ this.application_no );
+
+      });
+
+    }
+
+    
+
   }
 
   ionViewDidEnter() {
