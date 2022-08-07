@@ -1,7 +1,7 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, NgForm, ControlContainer } from '@angular/forms';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { LateralApplicantInfo } from '../interface/lateral-applicant-info';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ActionSheetController, IonContent, IonSlides, NavController } from '@ionic/angular';
@@ -62,27 +62,21 @@ export class LateralEntryPage implements OnInit {
 
   eligible_year: string;
   prev_bit_regno: string;
-  application_no:string;
-  application_status:string;
+  application_no: string;
+  application_status: string;
   status_response: any;
+
+  application_INFO:any;
 
 
   constructor(public formBuilder: FormBuilder,
     private router: Router,
-    private sanitizer: DomSanitizer,
-    private actionSheetCtrl: ActionSheetController,
-    private navCtrl: NavController,
     private route: ActivatedRoute,
-    private regSelectionService: RegSelectionService
-    //  public restAPI: ApplicantInfoService
+    private regSelectionService: RegSelectionService,
+    private applicantInfoService: ApplicantInfoService
+
   ) { }
 
-
-  // saveStudent(applicantionInfo: any) {
-  //   this.restAPI.saveApplicantInfo(applicantionInfo).subscribe((data: {}) => {
-
-  //   });
-  // }
 
   ngOnInit() {
 
@@ -93,35 +87,124 @@ export class LateralEntryPage implements OnInit {
     this.prev_bit_regno = this.route.snapshot.paramMap.get('prev_registration_no');
     this.eligible_year = this.route.snapshot.paramMap.get('eligible_year');
 
-    console.log(this.prev_bit_regno +" -> "+ this.eligible_year );
+    console.log(this.prev_bit_regno + " -> " + this.eligible_year);
 
     if (this.eligible_year == "2") {
 
-      this.regSelectionService.getDITApplicationStatus(this.prev_bit_regno).subscribe((res2) => { 
+      this.regSelectionService.getDITApplicationStatus(this.prev_bit_regno).subscribe((res2) => {
 
         console.log(res2);
 
         this.status_response = res2;
-        this.application_status = res2['application_status'] ;
-        this.application_no = res2['application_no'] ;
-        console.log(this.application_status +" -> "+ this.application_no );
+        this.application_status = res2['application_status'];
+        this.application_no = res2['application_no'];
+        console.log(this.application_status + " -> " + this.application_no);
+        this.getApplicationData(this.application_no , this.eligible_year);
+
+
 
       });
     } else if (this.eligible_year == "3") {
       this.regSelectionService.getHDITApplicationStatus(this.prev_bit_regno).subscribe((res3) => {
-        
+
 
         console.log(res3);
         this.status_response = res3;
-        this.application_status = res3['application_status'] ;
-        this.application_no = res3['application_no'] ;
-        console.log(this.application_status +" -> "+ this.application_no );
+        this.application_status = res3['application_status'];
+        this.application_no = res3['application_no'];
+        console.log(this.application_status + " -> " + this.application_no);
+        this.getApplicationData(this.application_no , this.eligible_year);
 
       });
 
     }
 
-    
+  }
+
+  getApplicationData(application_no: string , eligible_year:string) {
+
+    this.applicantInfoService.getApplicantInfo(application_no).subscribe((res1) => {
+
+      console.log(res1);
+      if (res1 == null) {  // save application number so we can keep updating personal data
+
+        console.log("application info not saved");
+       
+
+         let obj1 : LateralApplicantInfo={
+           application_no: application_no,
+           full_name: '',
+           full_name_sinhala: '',
+           full_name_tamil: '',
+           address1: '',
+           address2: '',
+           address3: '',
+           ol_result1: '',
+           ol_result2: '',
+           ol_subject1: '',
+           ol_subject2: '',
+           ol_year1: '',
+           ol_year2: '',
+           al_index_no: '',
+           al_type: '',
+           al_year: '',
+           al_result1: '',
+           al_result2: '',
+           al_result3: '',
+           al_result4: '',
+           al_subject1: '',
+           al_subject2: '',
+           al_subject3: '',
+           al_subject4: '',
+           amount: '',
+           bank: '',
+           bank_branch: '',
+           bit_registration_no: this.prev_bit_regno,
+           citizenship: '',
+           country: '',
+           disabilities: '',
+           district: '',
+           dob: '',
+           email: '',
+           fit_registration_no: '',
+           gender: '',
+           id_no: '',
+           id_type: '',
+           initials: '',
+           invoice_no: '',
+           mobile: '',
+           name_marking: '',
+           nationality: '',
+           need_different_req: '',
+           over_payment: '',
+           paid_date: '',
+           payment_category: '',
+           payment_type: '',
+           phone: '',
+           qualification_pending: '',
+           qualification_type: '',
+           surcharge: '',
+           title: '',
+           type: '',
+           year: '2022',
+           application_status: this.application_status,
+           apply_bit_year: eligible_year
+         }
+
+         this.applicantInfoService.saveApplicantInfo(obj1).subscribe((res2) => {
+
+          console.log(res2);
+
+         });
+
+
+      }else{
+
+
+
+      }
+    });
+
 
   }
 
@@ -223,13 +306,14 @@ export class LateralEntryPage implements OnInit {
   onNextButtonTouched() {
 
 
-
     if (this.currentSlide === 'Personal') {
 
-      //this.FormPersonalInfoRef.onSubmit(undefined);
       console.log(this.FormPersonalInfo['value']);
 
       if (this.FormPersonalInfo.valid) {
+
+
+
         this.ionSlides.slideNext();
         this.ionContent.scrollToTop();
       }
@@ -281,9 +365,7 @@ export class LateralEntryPage implements OnInit {
   }
 
 
-
   changeEducationVisibility(e) {
-
 
     console.log(e.target.value);
 
@@ -331,54 +413,15 @@ export class LateralEntryPage implements OnInit {
   }
 
 
-
-
-  onNextButtonTouchedNew() {
-
-
-    if (this.currentSlide === 'Personal') {
-
-      console.log("Personal info Ok");
-      console.log(this.FormPersonalInfo['value']);
+  savePersonalInfo() {
 
 
 
-      if (this.FormPersonalInfo.valid) {
-        this.ionSlides.slideNext();
-        this.ionContent.scrollToTop();
-      }
 
-    }
-    else if (this.currentSlide === 'Contact') {
-
-      //this.FormEducationRef.onSubmit(undefined);
-      console.log(this.FormContactInfo);
-      console.log(this.FormContactInfo.valid);
-
-
-      if (this.FormContactInfo.valid) {
-        this.ionSlides.slideNext();
-        this.ionContent.scrollToTop();
-      }
-    } else if (this.currentSlide === 'Education') {
-
-      //this.FormEducationRef.onSubmit(undefined);
-      console.log(this.FormEducation);
-      console.log(this.FormEducation.valid);
-
-
-      if (this.FormEducation.valid) {
-        this.ionSlides.slideNext();
-        this.ionContent.scrollToTop();
-      }
-
-
-    } else {
-
-      this.ionSlides.slideNext();
-      this.ionContent.scrollToTop();
-    }
   }
+
+
+
 
 
 }

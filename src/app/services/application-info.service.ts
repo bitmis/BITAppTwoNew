@@ -11,7 +11,7 @@ import { retry, catchError } from 'rxjs/operators';
 export class ApplicantInfoService {
 
   // Define API
-  apiURL = 'http://localhost:8080';
+  apiURL = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient) { }
   // Http Options
@@ -36,6 +36,18 @@ export class ApplicantInfoService {
       .pipe(retry(1), catchError(this.handleError));
   }
 
+   //--------------------
+
+    // HttpClient API post() method => save application number
+  saveLateralApplicationNumber(data: any): Observable<LateralApplicantInfo> {
+    return this.http
+      .post<LateralApplicantInfo>(
+        this.apiURL + '/save_lateral_application_number',
+        JSON.stringify(data),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
 
   // HttpClient API post() method => save application info
   saveApplicantInfo(application: any): Observable<LateralApplicantInfo> {

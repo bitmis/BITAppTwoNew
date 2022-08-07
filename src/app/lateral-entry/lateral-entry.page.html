@@ -1,1275 +1,1287 @@
 <ion-header>
-  <ion-toolbar color="dark">
-      <ion-buttons slot="start">
-         
-        <ion-back-button defaultHref="/reg-selection"></ion-back-button>
-          
-      </ion-buttons>
-      <ion-title>Lateral Registration :      Application No :{{this.application_no}}   Eligible Year : {{this.eligible_year}}</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="dark">
+        <ion-buttons slot="start">
+
+            <ion-back-button defaultHref="/reg-selection"></ion-back-button>
+
+        </ion-buttons>
+        <ion-title>Lateral Registration : Application No :{{this.application_no}} Eligible Year : {{this.eligible_year}}
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
- 
+
 
 <ion-content class="ion-padding">
 
-  <div>
-      <div class="flex justify-content-space-between ion-margin-top relative">
-          <div class="absolute full-width line"></div>
-          <div class="flex flex-column justify-content-center full-width"
-              *ngFor="let slide of slides; let index = index; let first = first; let last = last;">
-              <span [ngClass]="{ 'align-self-end': last, 'align-self-center': (!first && !last) }"
-                  class="flex flex-column align-items-center justify-content-center bold text-medium radius"
-                  style="width: 30px; height: 30px;"
-                  [style.background]="slide === currentSlide ? 'var(--ion-color-primary)':'var(--ion-color-light-shade)'"
-                  [style.color]="slide === currentSlide ? 'var(--ion-color-light)':'var(--ion-color-dark)'"
-                  [ngClass]="{ 'align-self-end': last, 'align-self-center': (!first && !last) }">
-                  {{ index + 1 }}
-              </span>
-              <span [style.color]="slide === currentSlide ? 'var(--ion-color-primary)':'var(--ion-color-medium)'"
-                  [ngClass]="{ 'align-self-end': last, 'align-self-center': (!first && !last) }"
-                  class="flex text-medium bold ion-margin-vertical">
-                  {{ slide }}
-              </span>
-          </div>
-      </div>
-
-      <ion-slides [options]="slidesOpts" (ionSlideDidChange)="onSlidesDidChange()"
-          (ionSlideWillChange)="onSlidesChanged()">
-          <ng-container *ngFor="let slide of slides">
-              <ion-slide>
-
-                  <div class="full-width ion-text-start">
-
-
-                      <form [formGroup]="FormPersonalInfo" #FormPersonalInfoRef="ngForm" novalidate
-                          *ngIf="slide === 'Personal'">
-
-                          <ion-grid class="data-grid">
-                              <!-- full name -->
-                              <ion-row>
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">Full Name</ion-label>
-                                          <ion-input formControlName="name" type="text"></ion-input>
-
-                                      </ion-item>
-                                      <span class="error ion-padding"
-                                          *ngIf="isSubmitted && errorControl.name.errors?.required">
-                                          none Name is required.
-                                      </span>
-                                      <span class="error ion-padding"
-                                          *ngIf="isSubmitted && errorControl.name.errors?.minlength">
-                                          Name should be min 2 chars long.
-                                      </span>
-                                  </ion-col>
-                              </ion-row>
-
-                              <!-- Initials name -->
-                              <ion-row>
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">Initial</ion-label>
-                                          <ion-input formControlName="initial" type="text"></ion-input>
-
-                                      </ion-item>
-                                      <span class="error ion-padding"
-                                          *ngIf="isSubmitted && errorControl.initial.errors?.required">
-                                          none Name is required.
-                                      </span>
-                                      <span class="error ion-padding"
-                                          *ngIf="isSubmitted && errorControl.initial.errors?.minlength">
-                                          Name should be min 2 chars long.
-                                      </span>
-                                  </ion-col>
-                                  <!-- Last Name -->
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">Last Name</ion-label>
-                                          <ion-input formControlName="lastname" type="text"></ion-input>
-                                      </ion-item>
-                                      <span class="error ion-padding"
-                                          *ngIf="isSubmitted && errorControl.lastname.errors?.required">
-                                          Last Name is required.
-                                      </span>
-                                      <span class="error ion-padding"
-                                          *ngIf="isSubmitted && errorControl.lastname.errors?.minlength">
-                                          Name should be min 2 chars long.
-                                      </span>
-                                  </ion-col>
-                              </ion-row>
-
-                              <!-- title -->
-                              <ion-row>
-                                  <ion-col>
-
-
-                                      <ion-item class="item-select" lines="none">
-                                          <ion-label position="stacked">Title</ion-label>
-                                          <select class="text-small" formControlName="title">
-                                              <option [value]="null" selected disabled>
-                                                  Select Title
-                                              </option>
-                                              <option *ngFor="let title of titleList" [value]="title">
-                                                  {{ title }}
-                                              </option>
-                                          </select>
-                                      </ion-item>
-                                  </ion-col>
-                                  <!-- Gender -->
-                                  <ion-col>
-                                      <ion-item class="item-select" lines="none">
-                                          <ion-label position="stacked">Gender</ion-label>
-                                          <select class="text-small" formControlName="gender" interface="popover">
-
-                                              <option value="0" selected disables>Select Gender</option>
-                                              <option value="Male">Male</option>
-                                              <option value="Female">Female</option>
-                                          </select>
-                                      </ion-item>
-
-
-                                  </ion-col>
-                              </ion-row>
-                              <!-- id type -->
-                              <ion-row>
-
-                                  <ion-col>
-                                      <ion-item class="item-select" lines="none">
-                                          <ion-label position="stacked">ID Type</ion-label>
-                                          <select class="text-small" formControlName="idtype" interface="popover">
-                                              <option value="0" selected disabled> Select ID Type</option>
-                                              <option value="NIC">NIC</option>
-                                              <option value="Passport">Passport</option>
-                                          </select>
-                                      </ion-item>
-                                  </ion-col>
-
-                                  <!--id number -->
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">ID Number</ion-label>
-                                          <ion-input formControlName="idno" type="text"></ion-input>
-
-                                      </ion-item>
-                                  </ion-col>
-                              </ion-row>
-
-                              <ion-row>
-
-
-                                  <!--email -->
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">Email</ion-label>
-                                          <ion-input formControlName="email" type="email"></ion-input>
-                                      </ion-item>
-                                      <span class="error ion-padding"
-                                          *ngIf="isSubmitted && errorControl.email.errors?.required">
-                                          Email is required.
-                                      </span>
-                                      <span class="error ion-padding"
-                                          *ngIf="isSubmitted && errorControl.email.errors?.pattern">
-                                          Please provide valid email id.
-                                      </span>
-                                  </ion-col>
-
-                                  <ion-col>
-                                      <!--DOB -->
-                                      <ion-item class="item-select" lines="none">
-                                          <ion-label position="stacked" displayFormat="YYYY-MM-DD">Birth Date
-                                          </ion-label>
-                                          <input type="date" formControlName="dob">
-                                      </ion-item>
-                                  </ion-col>
-                              </ion-row>
-
-
-                              <!-- citizenship -->
-
-                              <ion-row>
-                                  <ion-col>
-
-                                      <ion-item class="item-select" lines="none">
-                                          <ion-label position="stacked">Citizenship</ion-label>
-                                          <select class="text-small" formControlName="citizenship">
-                                              <option [value]="null" selected disabled>
-                                                  Select Citizenship
-                                              </option>
-                                              <option *ngFor="let citizen of citizenshipList" [value]="citizen">
-                                                  {{ citizen }}
-                                              </option>
-                                          </select>
-                                      </ion-item>
-
-                                  </ion-col>
-                                  <ion-col>
-                                      <!-- nationality -->
-                                      <ion-item class="item-select" lines="none">
-                                          <ion-label position="stacked">Nationality</ion-label>
-                                          <select class="text-small" formControlName="nationality">
-                                              <option [value]="null" selected disabled>
-                                                  Select Nationality
-                                              </option>
-                                              <option *ngFor="let citizen of citizenshipList" [value]="citizen">
-                                                  {{ citizen }}
-                                              </option>
-                                          </select>
-                                      </ion-item>
-
-                                  </ion-col>
-                              </ion-row>
-
-
-                          </ion-grid>
-                      </form>
-                      <form [formGroup]="FormContactInfo" #FormContactInfoRef="ngForm" novalidate
-                          *ngIf="slide === 'Contact'">
-                          <ion-grid class="data-grid">
-                              <ion-row>
-                                  <ion-col>
-                                      <!--phone -->
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">Phone</ion-label>
-                                          <ion-input maxlength="10" formControlName="phone" type="text" required>
-                                          </ion-input>
-                                      </ion-item>
-                                      <span class="error ion-padding"
-                                          *ngIf="isSubmitted && errorControl.mobile.errors?.required">
-                                          Phone number is required.
-                                      </span>
-                                      <span class="error ion-padding"
-                                          *ngIf="isSubmitted && errorControl.mobile.errors?.pattern">
-                                          Only numerical values allowed.
-                                      </span>
-                                  </ion-col>
-
-                                  <ion-col>
-                                      <!--mobile -->
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">Mobile</ion-label>
-                                          <ion-input maxlength="10" formControlName="mobile" type="text" required>
-                                          </ion-input>
-                                      </ion-item>
-                                      <span class="error ion-padding"
-                                          *ngIf="isSubmitted && errorControl.mobile.errors?.required">
-                                          Mobile number is required.
-                                      </span>
-                                      <span class="error ion-padding"
-                                          *ngIf="isSubmitted && errorControl.mobile.errors?.pattern">
-                                          Only numerical values allowed.
-                                      </span>
-                                  </ion-col>
-
-                              </ion-row>
-
-                              <!--address1 -->
-                              <ion-row>
-                                  <ion-col>
-
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">Address 1</ion-label>
-                                          <ion-input formControlName="address1" type="text"></ion-input>
-
-                                      </ion-item>
-                                      <span class="error ion-padding"
-                                          *ngIf="isSubmitted && errorControl.address1.errors?.required">
-                                          Address 1 is required.
-                                      </span>
-                                  </ion-col>
-                              </ion-row>
-
-                              <!--address2 -->
-                              <ion-row>
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">Address 2</ion-label>
-                                          <ion-input formControlName="address2" type="text"></ion-input>
-
-                                      </ion-item>
-                                      <span class="error ion-padding"
-                                          *ngIf="isSubmitted && errorControl.address2.errors?.required">
-                                          Address 2 is required.
-                                      </span>
-                                  </ion-col>
-                              </ion-row>
-
-                              <!--address3 -->
-                              <ion-row>
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">Address 3</ion-label>
-                                          <ion-input formControlName="address3" type="text"></ion-input>
-
-                                      </ion-item>
-                                      <span class="error ion-padding"
-                                          *ngIf="isSubmitted && errorControl.address3.errors?.required">
-                                          Address 3 is required.
-                                      </span>
-                                  </ion-col>
-                              </ion-row>
-
-
-                              <!-- district -->
-                              <ion-row>
-                                  <ion-col>
-                                      <ion-item class="item-select" lines="none">
-                                          <ion-label position="stacked">District</ion-label>
-                                          <select class="text-small" formControlName="district">
-                                              <option [value]="null" selected disabled>
-                                                  Select District
-                                              </option>
-                                              <option *ngFor="let district of districtList" [value]="district">
-                                                  {{ district }}
-                                              </option>
-                                          </select>
-                                      </ion-item>
-
-                                  </ion-col>
-                                  <!-- country -->
-                                  <ion-col>
-                                      <ion-item class="item-select" lines="none">
-                                          <ion-label position="stacked">Country</ion-label>
-                                          <select class="text-small" formControlName="country">
-                                              <option [value]="null" selected disabled>
-                                                  Select Country
-                                              </option>
-                                              <option *ngFor="let country of countryList" [value]="country">
-                                                  {{ country }}
-                                              </option>
-                                          </select>
-                                      </ion-item>
-
-                                  </ion-col>
-                              </ion-row>
-
-                          </ion-grid>
-
-
-                      </form>
-
-                      <form [formGroup]="FormEducation" #FormEducationRef="ngForm" novalidate
-                          *ngIf="slide === 'Education'">
-
-                          <ion-grid class="data-grid">
-
-                              <ion-row>
-                                  <ion-col>
-                                      <ion-label class="subheaderlabel" position="stacked">GCE O/L Results</ion-label>
-                                  </ion-col>
-
-                              </ion-row>
-                              <ion-row>
-
-                                  <ion-col>
-                                      <ion-item class="item-select" lines="none">
-                                          <ion-label position="stacked">Mathematics</ion-label>
-                                      </ion-item>
-                                  </ion-col>
-                                  <ion-col>
-                                      <ion-item class="item-select" lines="none">
-                                          <ion-label position="stacked">Year</ion-label>
-                                          <select class="text-small" formControlName="ol_maths_year"
-                                              interface="popover">
-
-                                              <option [value]="null" selected disabled>
-                                                  Select Year
-                                              </option>
-                                              <option *ngFor="let year of yearList" [value]="year">
-                                                  {{ year }}
-                                              </option>
-                                          </select>
-                                      </ion-item>
-                                  </ion-col>
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked"> Index No</ion-label>
-                                          <ion-input formControlName="ol_maths_index" type="text"></ion-input>
-
-                                      </ion-item>
-                                  </ion-col>
-                                  <ion-col>
-
-                                      <ion-item class="item-select" lines="none">
-                                          <ion-label position="stacked">Result</ion-label>
-                                          <select class="text-small" formControlName="ol_maths_result"
-                                              interface="popover">
-
-                                              <option [value]="null" selected disabled>
-                                                  Select Result
-                                              </option>
-                                              <option *ngFor="let result of resultList" [value]="result">
-                                                  {{ result }}
-                                              </option>
-                                          </select>
-                                      </ion-item>
-                                  </ion-col>
-
-
-                              </ion-row>
-
-                              <!-- OL english Info-->
-
-
-                              <ion-row>
-
-                                  <ion-col>
-                                      <ion-item class="item-select" lines="none">
-                                          <ion-label position="stacked">English</ion-label>
-                                      </ion-item>
-                                  </ion-col>
-                                  <ion-col>
-                                      <ion-item class="item-select" lines="none">
-                                          <ion-label position="stacked">Year</ion-label>
-                                          <select class="text-small" formControlName="ol_english_year"
-                                              interface="popover">
-
-                                              <option [value]="null" selected disabled>
-                                                  Select Year
-                                              </option>
-                                              <option *ngFor="let year of yearList" [value]="year">
-                                                  {{ year }}
-                                              </option>
-                                          </select>
-                                      </ion-item>
-                                  </ion-col>
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked"> Index No</ion-label>
-                                          <ion-input formControlName="ol_eng_index" type="text"></ion-input>
-
-                                      </ion-item>
-                                  </ion-col>
-                                  <ion-col>
-
-                                      <ion-item class="item-select" lines="none">
-                                          <ion-label position="stacked">Result</ion-label>
-                                          <select class="text-small" formControlName="ol_english_result"
-                                              interface="popover">
-
-                                              <option [value]="null" selected disabled>
-                                                  Select Result
-                                              </option>
-                                              <option *ngFor="let result of resultList" [value]="result">
-                                                  {{ result }}
-                                              </option>
-                                          </select>
-                                      </ion-item>
-                                  </ion-col>
-
-
-                              </ion-row>
-
-
-
-                              <!-- type AL or FIT-->
-
-                              <ion-row>
-                                  <ion-col>
-                                      <ion-item class="item-select" lines="none">
-                                          <ion-label position="stacked">Please Select Your Academic qualification
-                                          </ion-label>
-                                          <select class="text-small" formControlName="academic_type"
-                                              interface="popover" (change)="changeEducationVisibility($event)">
-
-                                              <option value="0" selected disabled>Select Qualification</option>
-                                              <option value="1">Advanced Level (GCE- A/L) </option>
-                                              <option value="2">UCSC FIT</option>
-                                          </select>
-                                      </ion-item>
-
-                                  </ion-col>
-                              </ion-row>
-
-                              <div class="al-division" *ngIf="selectedValue == '1'">
-                                  <!-- AL year , Index-->
-                                  <ion-row>
-                                      <ion-col>
-                                          <ion-label class="subheaderlabel" position="stacked">GCE A/L Results
-                                          </ion-label>
-                                      </ion-col>
-
-                                  </ion-row>
-                                  <ion-row>
-                                      <ion-col>
-                                          <ion-item class="item-select" lines="none">
-                                              <ion-label position="stacked">CGE A/L Year</ion-label>
-                                              <select class="text-small" formControlName="al_year"
-                                                  interface="popover">
-
-                                                  <option [value]="null" selected disabled>
-                                                      Select A/L Year
-                                                  </option>
-                                                  <option *ngFor="let year of yearList" [value]="year">
-                                                      {{ year }}
-                                                  </option>
-                                              </select>
-                                          </ion-item>
-
-                                      </ion-col>
-                                      <ion-col>
-                                          <ion-item lines="none">
-                                              <ion-label position="stacked">GCE A/L Index No</ion-label>
-                                              <ion-input formControlName="al_index" type="text"></ion-input>
-
-                                          </ion-item>
-                                      </ion-col>
-
-                                  </ion-row>
-                                  <!-- AL result suject 1-->
-                                  <ion-row>
-                                      <ion-col>
-                                          <ion-item class="item-select" lines="none">
-                                              <ion-label position="stacked">Subject</ion-label>
-                                              <select class="text-small" formControlName="subject1_name"
-                                                  interface="popover">
-
-                                                  <option [value]="null" selected disabled>
-                                                      Select Subject
-                                                  </option>
-                                                  <option *ngFor="let subject of ALsubjectList" [value]="subject">
-                                                      {{ subject }}
-                                                  </option>
-                                              </select>
-                                          </ion-item>
-                                      </ion-col>
-                                      <ion-col>
-
-                                          <ion-item class="item-select" lines="none">
-                                              <ion-label position="stacked">Result</ion-label>
-                                              <select class="text-small" formControlName="subject1_result"
-                                                  interface="popover">
-
-                                                  <option [value]="null" selected disabled>
-                                                      Select Result
-                                                  </option>
-                                                  <option *ngFor="let result of resultList" [value]="result">
-                                                      {{ result }}
-                                                  </option>
-                                              </select>
-                                          </ion-item>
-                                      </ion-col>
-
-                                  </ion-row>
-
-                                  <!-- AL result suject 2-->
-                                  <ion-row>
-
-                                      <ion-col>
-                                          <ion-item class="item-select" lines="none">
-                                              <ion-label position="stacked">Subject</ion-label>
-                                              <select class="text-small" formControlName="subject2_name"
-                                                  interface="popover">
-
-                                                  <option [value]="null" selected disabled>
-                                                      Select Subject
-                                                  </option>
-                                                  <option *ngFor="let subject of ALsubjectList" [value]="subject">
-                                                      {{ subject }}
-                                                  </option>
-                                              </select>
-                                          </ion-item>
-                                      </ion-col>
-                                      <ion-col>
-
-                                          <ion-item class="item-select" lines="none">
-                                              <ion-label position="stacked">Result</ion-label>
-                                              <select class="text-small" formControlName="subject2_result"
-                                                  interface="popover">
-
-                                                  <option [value]="null" selected disabled>
-                                                      Select Result
-                                                  </option>
-                                                  <option *ngFor="let result of resultList" [value]="result">
-                                                      {{ result }}
-                                                  </option>
-                                              </select>
-                                          </ion-item>
-                                      </ion-col>
-                                  </ion-row>
-
-                                  <!-- AL result suject 3-->
-                                  <ion-row>
-                                      <ion-col>
-                                          <ion-item class="item-select" lines="none">
-                                              <ion-label position="stacked">Subject</ion-label>
-                                              <select class="text-small" formControlName="subject3_name"
-                                                  interface="popover">
-
-                                                  <option [value]="null" selected disabled>
-                                                      Select Subject
-                                                  </option>
-                                                  <option *ngFor="let subject of ALsubjectList" [value]="subject">
-                                                      {{ subject }}
-                                                  </option>
-                                              </select>
-                                          </ion-item>
-                                      </ion-col>
-                                      <ion-col>
-
-                                          <ion-item class="item-select" lines="none">
-                                              <ion-label position="stacked">Result</ion-label>
-                                              <select class="text-small" formControlName="subject3_result"
-                                                  interface="popover">
-
-                                                  <option [value]="null" selected disabled>
-                                                      Select Result
-                                                  </option>
-                                                  <option *ngFor="let result of resultList" [value]="result">
-                                                      {{ result }}
-                                                  </option>
-                                              </select>
-                                          </ion-item>
-                                      </ion-col>
-
-                                  </ion-row>
-
-                                  <!-- AL result suject 4-->
-                                  <ion-row>
-                                      <ion-col>
-                                          <ion-item class="item-select" lines="none">
-                                              <ion-label position="stacked">Subject</ion-label>
-                                              <select class="text-small" formControlName="subject4_name"
-                                                  interface="popover">
-
-                                                  <option [value]="null" selected disabled>
-                                                      Select Subject
-                                                  </option>
-                                                  <option *ngFor="let subject of ALsubjectList" [value]="subject">
-                                                      {{ subject }}
-                                                  </option>
-                                              </select>
-                                          </ion-item>
-                                      </ion-col>
-                                      <ion-col>
-
-                                          <ion-item class="item-select" lines="none">
-                                              <ion-label position="stacked">Result</ion-label>
-                                              <select class="text-small" formControlName="subject4_result"
-                                                  interface="popover">
-
-                                                  <option [value]="null" selected disabled>
-                                                      Select Result
-                                                  </option>
-                                                  <option *ngFor="let result of resultList" [value]="result">
-                                                      {{ result }}
-                                                  </option>
-                                              </select>
-                                          </ion-item>
-                                      </ion-col>
-
-                                  </ion-row>
-                              </div>
-                              <div class="fit-division" *ngIf="selectedValue == '2'">
-                                  <!-- FIT Info-->
-                                  <ion-row class="subheaderrow">
-                                      <ion-col>
-                                          <ion-label class="subheaderlabel" position="stacked">UCSC FIT Results
-                                          </ion-label>
-                                      </ion-col>
-
-                                  </ion-row>
-                                  <ion-row>
-
-                                      <ion-col>
-                                          <ion-item class="item-select" lines="none">
-                                              <ion-label position="stacked">UCSC FIT Year</ion-label>
-                                              <select class="text-small" formControlName="fit_year"
-                                                  interface="popover">
-
-                                                  <option [value]="null" selected disabled>
-                                                      Select UCSC FIT Year
-                                                  </option>
-                                                  <option *ngFor="let year of yearList" [value]="year">
-                                                      {{ year }}
-                                                  </option>
-                                              </select>
-                                          </ion-item>
-
-                                      </ion-col>
-                                      <ion-col>
-                                          <ion-item class="item-select" lines="none">
-                                              <ion-label position="stacked">UCSC FIT Index No</ion-label>
-                                              <ion-input formControlName="fit_index" type="text"></ion-input>
-
-                                          </ion-item>
-                                      </ion-col>
-                                  </ion-row>
-
-                              </div>
-                              <!-- OL maths Info-->
-                          </ion-grid>
-
-                      </form>
-
-                      <form [formGroup]="FormSummary" #FormSummaryRef="ngForm" novalidate *ngIf="slide === 'Summary'">
-                          <ion-grid class="summary-grid">
-                              <ion-row>
-                                  <ion-label class="summary-grid-header">Personal Information</ion-label>
-                              </ion-row>
-                              <ion-row>
-
-                                  <ion-col class="mycol">
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">
-                                              <span class="summary-data">Full Name :</span>
-
-
-                                          </ion-label>
-                                          <ion-label position="stacked">
-
-                                              <span class="summary-value">{{FormPersonalInfo['value']['name']}}</span>
-
-                                          </ion-label>
-
-                                      </ion-item>
-
-                                  </ion-col>
-                              </ion-row>
-                              <ion-row>
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">
-                                              <span class="summary-data">Initials :</span>
-
-
-                                          </ion-label>
-                                          <ion-label position="stacked">
-                                              <span class="summary-value">{{FormPersonalInfo['value']['initial']}}
-                                              </span>
-
-                                          </ion-label>
-
-                                      </ion-item>
-
-                                  </ion-col>
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">
-                                              <span class="summary-data">Last Name :</span>
-
-
-                                          </ion-label>
-                                          <ion-label position="stacked">
-
-                                              <span
-                                                  class="summary-value">{{FormPersonalInfo['value']['lastname']}}</span>
-
-                                          </ion-label>
-
-                                      </ion-item>
-
-                                  </ion-col>
-
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">
-                                              <span class="summary-data">Title :</span>
-
-                                          </ion-label>
-
-                                          <ion-label position="stacked">
-
-                                              <span
-                                                  class="summary-value">{{FormPersonalInfo['value']['title']}}</span>
-
-                                          </ion-label>
-
-                                      </ion-item>
-
-                                  </ion-col>
-                              </ion-row>
-
-                              <ion-row>
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">
-                                              <span class="summary-data">Gender :</span>
-
-
-                                          </ion-label>
-
-                                          <ion-label position="stacked">
-
-                                              <span
-                                                  class="summary-value">{{FormPersonalInfo['value']['gender']}}</span>
-
-                                          </ion-label>
-
-                                      </ion-item>
-
-                                  </ion-col>
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">
-                                              <span class="summary-data">Date of Birth :</span>
-
-
-                                          </ion-label>
-
-                                          <ion-label position="stacked">
-
-                                              <span class="summary-value">{{FormPersonalInfo['value']['dob']}}</span>
-
-                                          </ion-label>
-
-                                      </ion-item>
-
-                                  </ion-col>
-
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">
-                                              <span class="summary-data">IT Type :</span>
-
-                                          </ion-label>
-
-                                          <ion-label position="stacked">
-
-                                              <span
-                                                  class="summary-value">{{FormPersonalInfo['value']['idtype']}}</span>
-
-                                          </ion-label>
-
-                                      </ion-item>
-
-                                  </ion-col>
-                              </ion-row>
-                              <ion-row>
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">
-                                              <span class="summary-data">ID No :</span>
-
-
-                                          </ion-label>
-                                          <ion-label position="stacked">
-
-                                              <span class="summary-value">{{FormPersonalInfo['value']['idno']}}</span>
-
-                                          </ion-label>
-
-
-                                      </ion-item>
-
-                                  </ion-col>
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">
-                                              <span class="summary-data">Citizenship :</span>
-
-
-                                          </ion-label>
-                                          <ion-label position="stacked">
-
-                                              <span
-                                                  class="summary-value">{{FormPersonalInfo['value']['citizenship']}}</span>
-
-                                          </ion-label>
-
-                                      </ion-item>
-
-                                  </ion-col>
-
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">
-                                              <span class="summary-data">Nationality :</span>
-
-                                          </ion-label>
-                                          <ion-label position="stacked">
-
-                                              <span
-                                                  class="summary-value">{{FormPersonalInfo['value']['nationality']}}</span>
-
-                                          </ion-label>
-
-                                      </ion-item>
-
-                                  </ion-col>
-                              </ion-row>
-
-                          </ion-grid>
-                          <ion-grid class="summary-grid">
-                              <ion-row>
-                                  <ion-label class="summary-grid-header">Contact Information</ion-label>
-                              </ion-row>
-                              <ion-row>
-
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">
-                                              <span class="summary-data">Email Address :</span>
-
-
-                                          </ion-label>
-                                          <ion-label position="stacked">
-
-                                              <span
-                                                  class="summary-value">{{FormPersonalInfo['value']['email']}}</span>
-
-                                          </ion-label>
-
-                                      </ion-item>
-
-                                  </ion-col>
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">
-                                              <span class="summary-data">Mobile :</span>
-
-
-                                          </ion-label>
-                                          <ion-label position="stacked">
-                                              <span class="summary-value">{{FormContactInfo['value']['mobile']}}
-                                              </span>
-
-                                          </ion-label>
-
-                                      </ion-item>
-
-                                  </ion-col>
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">
-                                              <span class="summary-data">Land Phone :</span>
-
-
-                                          </ion-label>
-                                          <ion-label position="stacked">
-
-                                              <span class="summary-value">{{FormContactInfo['value']['phone']}}</span>
-
-                                          </ion-label>
-
-                                      </ion-item>
-
-                                  </ion-col>
-                              </ion-row>
-                              <ion-row>
-
-
-
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">
-                                              <span class="summary-data">Address :</span>
-
-                                          </ion-label>
-
-                                          <ion-label position="stacked">
-
-                                              <span class="summary-value">
-                                                  {{FormContactInfo['value']['address1']}} ,
-                                                  {{FormContactInfo['value']['address2']}} ,
-                                                  {{FormContactInfo['value']['address3']}} </span>
-
-                                          </ion-label>
-
-                                      </ion-item>
-
-                                  </ion-col>
-                              </ion-row>
-
-                              <ion-row>
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">
-                                              <span class="summary-data">District :</span>
-
-
-                                          </ion-label>
-
-                                          <ion-label position="stacked">
-
-                                              <span
-                                                  class="summary-value">{{FormContactInfo['value']['district']}}</span>
-
-                                          </ion-label>
-
-                                      </ion-item>
-
-                                  </ion-col>
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">
-                                              <span class="summary-data">Country :</span>
-
-
-                                          </ion-label>
-
-                                          <ion-label position="stacked">
-
-                                              <span
-                                                  class="summary-value">{{FormContactInfo['value']['country']}}</span>
-
-                                          </ion-label>
-
-                                      </ion-item>
-
-                                  </ion-col>
-                                  <ion-col></ion-col>
-                              </ion-row>
-
-                          </ion-grid>
-                          <ion-grid class="summary-grid">
-                              <ion-row>
-                                  <ion-label class="summary-grid-header">Educational Qualifications</ion-label>
-                              </ion-row>
-                              <ion-row>
-
-                                  <ion-col>
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">
-                                              <span class="summary-data">GCE (O/L) Results :</span>
-
-                                          </ion-label>
-                                      </ion-item>
-
-                                  </ion-col>
-                                  <ion-col>
-                                      <ion-grid>
-                                          <ion-row>
-                                              <ion-col>
-                                                  <ion-label class="ol-header">Subject</ion-label>
-                                              </ion-col>
-                                              <ion-col>
-                                                  <ion-label class="ol-header">Year</ion-label>
-                                              </ion-col>
-                                              <ion-col>
-                                                  <ion-label class="ol-header">Index No</ion-label>
-                                              </ion-col>
-                                              <ion-col>
-                                                  <ion-label class="ol-header">Result</ion-label>
-                                              </ion-col>
-                                          </ion-row>
-                                          <ion-row>
-                                              <ion-col>
-                                                  <ion-label class="ol-data">Mathematics</ion-label>
-                                              </ion-col>
-                                              <ion-col>
-                                                  <ion-label class="ol-data">
-                                                      {{FormEducation['value']['ol_maths_year']}}</ion-label>
-                                              </ion-col>
-                                              <ion-col>
-                                                  <ion-label class="ol-data">
-                                                      {{FormEducation['value']['ol_maths_index']}}</ion-label>
-                                              </ion-col>
-                                              <ion-col>
-                                                  <ion-label class="ol-data">
-                                                      {{FormEducation['value']['ol_maths_result']}}</ion-label>
-                                              </ion-col>
-                                          </ion-row>
-                                          <ion-row>
-                                              <ion-col>
-                                                  <ion-label class="ol-data">English </ion-label>
-                                              </ion-col>
-                                              <ion-col>
-                                                  <ion-label class="ol-data">
-                                                      {{FormEducation['value']['ol_english_year']}}</ion-label>
-                                              </ion-col>
-                                              <ion-col>
-                                                  <ion-label class="ol-data">
-                                                      {{FormEducation['value']['ol_eng_index']}}</ion-label>
-                                              </ion-col>
-                                              <ion-col>
-                                                  <ion-label class="ol-data">
-                                                      {{FormEducation['value']['ol_english_result']}}</ion-label>
-                                              </ion-col>
-                                          </ion-row>
-                                      </ion-grid>
-                                  </ion-col>
-
-                              </ion-row>
-                              <ion-row>
-                                  <ion-col class="mycol">
-                                      <ion-item lines="none">
-                                          <ion-label position="stacked">
-                                              <span class="summary-data">Entry Qualification</span>
-
-
-                                          </ion-label>
-
-                                          <ion-label position="stacked">
-
-                                              <span *ngFor="let entry of entry_qualification">
-                                                  <span class="summary-value"
-                                                      *ngIf="entry['key']== FormEducation['value']['academic_type']">
-
-                                                      {{entry['value']}}
-                                                  </span>
-                                              </span>
-                                          </ion-label>
-
-                                      </ion-item>
-                                  </ion-col>
-                                  <ion-col>
-                                      <div *ngIf="FormEducation['value']['academic_type'] ==1">
-
-                                          <ion-row>
-                                              <ion-col>
-                                                  <ion-item lines="none">
-                                                      <ion-label position="stacked">
-                                                          <span class="summary-data">CGE (A/L) Year :</span>
-
-                                                      </ion-label>
-                                                      <ion-label position="stacked">
-
-                                                          <span
-                                                              class="summary-value">{{FormEducation['value']['al_year']}}</span>
-
-                                                      </ion-label>
-
-                                                  </ion-item>
-                                              </ion-col>
-                                              <ion-col>
-                                                  <ion-item lines="none">
-                                                      <ion-label position="stacked">
-                                                          <span class="summary-data">GCE (A/L) Index :</span>
-
-                                                      </ion-label>
-                                                      <ion-label position="stacked">
-
-                                                          <span
-                                                              class="summary-value">{{FormEducation['value']['al_index']}}</span>
-
-                                                      </ion-label>
-
-                                                  </ion-item>
-                                              </ion-col>
-                                          </ion-row>
-
-
-                                          <ion-row style="padding-top: 20px">
-                                              <ion-col>
-                                                  <ion-label class="ol-header">Subject</ion-label>
-                                              </ion-col>
-
-                                              <ion-col>
-                                                  <ion-label class="ol-header">Result</ion-label>
-                                              </ion-col>
-                                          </ion-row>
-                                          <ion-row>
-
-                                              <ion-col>
-                                                  <ion-label class="ol-data">
-                                                      {{FormEducation['value']['subject1_name']}}</ion-label>
-                                              </ion-col>
-                                              <ion-col>
-                                                  <ion-label class="ol-data">
-                                                      {{FormEducation['value']['subject1_result']}}</ion-label>
-                                              </ion-col>
-
-                                          </ion-row>
-                                          <ion-row>
-
-                                              <ion-col>
-                                                  <ion-label class="ol-data">
-                                                      {{FormEducation['value']['subject2_name']}}</ion-label>
-                                              </ion-col>
-                                              <ion-col>
-                                                  <ion-label class="ol-data">
-                                                      {{FormEducation['value']['subject2_result']}}</ion-label>
-                                              </ion-col>
-
-                                          </ion-row>
-                                          <ion-row>
-
-                                              <ion-col>
-                                                  <ion-label class="ol-data">
-                                                      {{FormEducation['value']['subject3_name']}}</ion-label>
-                                              </ion-col>
-                                              <ion-col>
-                                                  <ion-label class="ol-data">
-                                                      {{FormEducation['value']['subject3_result']}}</ion-label>
-                                              </ion-col>
-
-                                          </ion-row>
-                                      </div>
-
-                                      <div *ngIf="FormEducation['value']['academic_type'] ==2">
-                                          <ion-row>
-                                              <ion-col>
-                                                  <ion-item lines="none">
-                                                      <ion-label position="stacked">
-                                                          <span class="summary-data">UCSC FIT Year :</span>
-
-                                                      </ion-label>
-                                                      <ion-label position="stacked">
-
-                                                          <span
-                                                              class="summary-value">{{FormEducation['value']['fit_year']}}</span>
-
-                                                      </ion-label>
-
-                                                  </ion-item>
-                                              </ion-col>
-                                              <ion-col>
-                                                  <ion-item lines="none">
-                                                      <ion-label position="stacked">
-                                                          <span class="summary-data">UCSC FIT Index No :</span>
-
-                                                      </ion-label>
-                                                      <ion-label position="stacked">
-
-                                                          <span
-                                                              class="summary-value">{{FormEducation['value']['fit_index']}}</span>
-
-                                                      </ion-label>
-
-                                                  </ion-item>
-                                              </ion-col>
-                                          </ion-row>
-                                      </div>
-                                  </ion-col>
-                              </ion-row>
-
-
-
-
-
-
-
-                          </ion-grid>
-                          <ion-grid class="summary-grid">
-                              <ion-row>
-                                  <ion-label class="summary-grid-header">Declaration</ion-label>
-                              </ion-row>
-                              <ion-row>
-                                  <ion-item>
-
-                                      <ion-checkbox checked="false"></ion-checkbox>
-                                      <ion-label> &nbsp; I have Read and Accept the above Terms</ion-label>
-                                  </ion-item>
-                              </ion-row>
-                              <ion-row>
-                                  <ion-button>Submit BIT 2022 Application</ion-button>
-                              </ion-row>
-                          </ion-grid>
-
-
-
-                      </form>
-
-                     
-                  </div>
-              </ion-slide>
-          </ng-container>
-      </ion-slides>
-  </div>
+    <div>
+        <div class="flex justify-content-space-between ion-margin-top relative">
+            <div class="absolute full-width line"></div>
+            <div class="flex flex-column justify-content-center full-width"
+                *ngFor="let slide of slides; let index = index; let first = first; let last = last;">
+                <span [ngClass]="{ 'align-self-end': last, 'align-self-center': (!first && !last) }"
+                    class="flex flex-column align-items-center justify-content-center bold text-medium radius"
+                    style="width: 30px; height: 30px;"
+                    [style.background]="slide === currentSlide ? 'var(--ion-color-primary)':'var(--ion-color-light-shade)'"
+                    [style.color]="slide === currentSlide ? 'var(--ion-color-light)':'var(--ion-color-dark)'"
+                    [ngClass]="{ 'align-self-end': last, 'align-self-center': (!first && !last) }">
+                    {{ index + 1 }}
+                </span>
+                <span [style.color]="slide === currentSlide ? 'var(--ion-color-primary)':'var(--ion-color-medium)'"
+                    [ngClass]="{ 'align-self-end': last, 'align-self-center': (!first && !last) }"
+                    class="flex text-medium bold ion-margin-vertical">
+                    {{ slide }}
+                </span>
+            </div>
+        </div>
+
+        <ion-slides [options]="slidesOpts" (ionSlideDidChange)="onSlidesDidChange()"
+            (ionSlideWillChange)="onSlidesChanged()">
+            <ng-container *ngFor="let slide of slides">
+                <ion-slide>
+
+                    <div class="full-width ion-text-start">
+
+
+                        <form [formGroup]="FormPersonalInfo" #FormPersonalInfoRef="ngForm" novalidate
+                            *ngIf="slide === 'Personal'">
+
+                            <ion-grid class="data-grid">
+                                <!-- full name -->
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">Full Name</ion-label>
+                                            <ion-input formControlName="name" type="text"></ion-input>
+
+                                        </ion-item>
+                                        <span class="error ion-padding"
+                                            *ngIf="isSubmitted && errorControl.name.errors?.required">
+                                            none Name is required.
+                                        </span>
+                                        <span class="error ion-padding"
+                                            *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+                                            Name should be min 2 chars long.
+                                        </span>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- Initials name -->
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">Initial</ion-label>
+                                            <ion-input formControlName="initial" type="text"></ion-input>
+
+                                        </ion-item>
+                                        <span class="error ion-padding"
+                                            *ngIf="isSubmitted && errorControl.initial.errors?.required">
+                                            none Name is required.
+                                        </span>
+                                        <span class="error ion-padding"
+                                            *ngIf="isSubmitted && errorControl.initial.errors?.minlength">
+                                            Name should be min 2 chars long.
+                                        </span>
+                                    </ion-col>
+                                    <!-- Last Name -->
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">Last Name</ion-label>
+                                            <ion-input formControlName="lastname" type="text"></ion-input>
+                                        </ion-item>
+                                        <span class="error ion-padding"
+                                            *ngIf="isSubmitted && errorControl.lastname.errors?.required">
+                                            Last Name is required.
+                                        </span>
+                                        <span class="error ion-padding"
+                                            *ngIf="isSubmitted && errorControl.lastname.errors?.minlength">
+                                            Name should be min 2 chars long.
+                                        </span>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!-- title -->
+                                <ion-row>
+                                    <ion-col>
+
+
+                                        <ion-item class="item-select" lines="none">
+                                            <ion-label position="stacked">Title</ion-label>
+                                            <select class="text-small" formControlName="title">
+                                                <option [value]="null" selected disabled>
+                                                    Select Title
+                                                </option>
+                                                <option *ngFor="let title of titleList" [value]="title">
+                                                    {{ title }}
+                                                </option>
+                                            </select>
+                                        </ion-item>
+                                    </ion-col>
+                                    <!-- Gender -->
+                                    <ion-col>
+                                        <ion-item class="item-select" lines="none">
+                                            <ion-label position="stacked">Gender</ion-label>
+                                            <select class="text-small" formControlName="gender" interface="popover">
+
+                                                <option value="0" selected disables>Select Gender</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                        </ion-item>
+
+
+                                    </ion-col>
+                                </ion-row>
+                                <!-- id type -->
+                                <ion-row>
+
+                                    <ion-col>
+                                        <ion-item class="item-select" lines="none">
+                                            <ion-label position="stacked">ID Type</ion-label>
+                                            <select class="text-small" formControlName="idtype" interface="popover">
+                                                <option value="0" selected disabled> Select ID Type</option>
+                                                <option value="NIC">NIC</option>
+                                                <option value="Passport">Passport</option>
+                                            </select>
+                                        </ion-item>
+                                    </ion-col>
+
+                                    <!--id number -->
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">ID Number</ion-label>
+                                            <ion-input formControlName="idno" type="text"></ion-input>
+
+                                        </ion-item>
+                                    </ion-col>
+                                </ion-row>
+
+                                <ion-row>
+
+
+                                    <!--email -->
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">Email</ion-label>
+                                            <ion-input formControlName="email" type="email"></ion-input>
+                                        </ion-item>
+                                        <span class="error ion-padding"
+                                            *ngIf="isSubmitted && errorControl.email.errors?.required">
+                                            Email is required.
+                                        </span>
+                                        <span class="error ion-padding"
+                                            *ngIf="isSubmitted && errorControl.email.errors?.pattern">
+                                            Please provide valid email id.
+                                        </span>
+                                    </ion-col>
+
+                                    <ion-col>
+                                        <!--DOB -->
+                                        <ion-item class="item-select" lines="none">
+                                            <ion-label position="stacked" displayFormat="YYYY-MM-DD">Birth Date
+                                            </ion-label>
+                                            <input type="date" formControlName="dob">
+                                        </ion-item>
+                                    </ion-col>
+                                </ion-row>
+
+
+                                <!-- citizenship -->
+
+                                <ion-row>
+                                    <ion-col>
+
+                                        <ion-item class="item-select" lines="none">
+                                            <ion-label position="stacked">Citizenship</ion-label>
+                                            <select class="text-small" formControlName="citizenship">
+                                                <option [value]="null" selected disabled>
+                                                    Select Citizenship
+                                                </option>
+                                                <option *ngFor="let citizen of citizenshipList" [value]="citizen">
+                                                    {{ citizen }}
+                                                </option>
+                                            </select>
+                                        </ion-item>
+
+                                    </ion-col>
+                                    <ion-col>
+                                        <!-- nationality -->
+                                        <ion-item class="item-select" lines="none">
+                                            <ion-label position="stacked">Nationality</ion-label>
+                                            <select class="text-small" formControlName="nationality">
+                                                <option [value]="null" selected disabled>
+                                                    Select Nationality
+                                                </option>
+                                                <option *ngFor="let citizen of citizenshipList" [value]="citizen">
+                                                    {{ citizen }}
+                                                </option>
+                                            </select>
+                                        </ion-item>
+
+                                    </ion-col>
+                                </ion-row>
+
+                                <ion-row>
+                                    <ion-col></ion-col>
+                                    <ion-col>
+
+                                        <ion-button style="width: 250px;"  shape="round" color="primary"
+                                            (click)="savePersonalInfo()">   Save Personal Info 
+                                        </ion-button>
+
+
+                                    </ion-col>
+                                </ion-row>
+
+                            </ion-grid>
+                        </form>
+                        <form [formGroup]="FormContactInfo" #FormContactInfoRef="ngForm" novalidate
+                            *ngIf="slide === 'Contact'">
+                            <ion-grid class="data-grid">
+                                <ion-row>
+                                    <ion-col>
+                                        <!--phone -->
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">Phone</ion-label>
+                                            <ion-input maxlength="10" formControlName="phone" type="text" required>
+                                            </ion-input>
+                                        </ion-item>
+                                        <span class="error ion-padding"
+                                            *ngIf="isSubmitted && errorControl.mobile.errors?.required">
+                                            Phone number is required.
+                                        </span>
+                                        <span class="error ion-padding"
+                                            *ngIf="isSubmitted && errorControl.mobile.errors?.pattern">
+                                            Only numerical values allowed.
+                                        </span>
+                                    </ion-col>
+
+                                    <ion-col>
+                                        <!--mobile -->
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">Mobile</ion-label>
+                                            <ion-input maxlength="10" formControlName="mobile" type="text" required>
+                                            </ion-input>
+                                        </ion-item>
+                                        <span class="error ion-padding"
+                                            *ngIf="isSubmitted && errorControl.mobile.errors?.required">
+                                            Mobile number is required.
+                                        </span>
+                                        <span class="error ion-padding"
+                                            *ngIf="isSubmitted && errorControl.mobile.errors?.pattern">
+                                            Only numerical values allowed.
+                                        </span>
+                                    </ion-col>
+
+                                </ion-row>
+
+                                <!--address1 -->
+                                <ion-row>
+                                    <ion-col>
+
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">Address 1</ion-label>
+                                            <ion-input formControlName="address1" type="text"></ion-input>
+
+                                        </ion-item>
+                                        <span class="error ion-padding"
+                                            *ngIf="isSubmitted && errorControl.address1.errors?.required">
+                                            Address 1 is required.
+                                        </span>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!--address2 -->
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">Address 2</ion-label>
+                                            <ion-input formControlName="address2" type="text"></ion-input>
+
+                                        </ion-item>
+                                        <span class="error ion-padding"
+                                            *ngIf="isSubmitted && errorControl.address2.errors?.required">
+                                            Address 2 is required.
+                                        </span>
+                                    </ion-col>
+                                </ion-row>
+
+                                <!--address3 -->
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">Address 3</ion-label>
+                                            <ion-input formControlName="address3" type="text"></ion-input>
+
+                                        </ion-item>
+                                        <span class="error ion-padding"
+                                            *ngIf="isSubmitted && errorControl.address3.errors?.required">
+                                            Address 3 is required.
+                                        </span>
+                                    </ion-col>
+                                </ion-row>
+
+
+                                <!-- district -->
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-item class="item-select" lines="none">
+                                            <ion-label position="stacked">District</ion-label>
+                                            <select class="text-small" formControlName="district">
+                                                <option [value]="null" selected disabled>
+                                                    Select District
+                                                </option>
+                                                <option *ngFor="let district of districtList" [value]="district">
+                                                    {{ district }}
+                                                </option>
+                                            </select>
+                                        </ion-item>
+
+                                    </ion-col>
+                                    <!-- country -->
+                                    <ion-col>
+                                        <ion-item class="item-select" lines="none">
+                                            <ion-label position="stacked">Country</ion-label>
+                                            <select class="text-small" formControlName="country">
+                                                <option [value]="null" selected disabled>
+                                                    Select Country
+                                                </option>
+                                                <option *ngFor="let country of countryList" [value]="country">
+                                                    {{ country }}
+                                                </option>
+                                            </select>
+                                        </ion-item>
+
+                                    </ion-col>
+                                </ion-row>
+
+                            </ion-grid>
+
+
+                        </form>
+
+                        <form [formGroup]="FormEducation" #FormEducationRef="ngForm" novalidate
+                            *ngIf="slide === 'Education'">
+
+                            <ion-grid class="data-grid">
+
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-label class="subheaderlabel" position="stacked">GCE O/L Results</ion-label>
+                                    </ion-col>
+
+                                </ion-row>
+                                <ion-row>
+
+                                    <ion-col>
+                                        <ion-item class="item-select" lines="none">
+                                            <ion-label position="stacked">Mathematics</ion-label>
+                                        </ion-item>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-item class="item-select" lines="none">
+                                            <ion-label position="stacked">Year</ion-label>
+                                            <select class="text-small" formControlName="ol_maths_year"
+                                                interface="popover">
+
+                                                <option [value]="null" selected disabled>
+                                                    Select Year
+                                                </option>
+                                                <option *ngFor="let year of yearList" [value]="year">
+                                                    {{ year }}
+                                                </option>
+                                            </select>
+                                        </ion-item>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked"> Index No</ion-label>
+                                            <ion-input formControlName="ol_maths_index" type="text"></ion-input>
+
+                                        </ion-item>
+                                    </ion-col>
+                                    <ion-col>
+
+                                        <ion-item class="item-select" lines="none">
+                                            <ion-label position="stacked">Result</ion-label>
+                                            <select class="text-small" formControlName="ol_maths_result"
+                                                interface="popover">
+
+                                                <option [value]="null" selected disabled>
+                                                    Select Result
+                                                </option>
+                                                <option *ngFor="let result of resultList" [value]="result">
+                                                    {{ result }}
+                                                </option>
+                                            </select>
+                                        </ion-item>
+                                    </ion-col>
+
+
+                                </ion-row>
+
+                                <!-- OL english Info-->
+
+
+                                <ion-row>
+
+                                    <ion-col>
+                                        <ion-item class="item-select" lines="none">
+                                            <ion-label position="stacked">English</ion-label>
+                                        </ion-item>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-item class="item-select" lines="none">
+                                            <ion-label position="stacked">Year</ion-label>
+                                            <select class="text-small" formControlName="ol_english_year"
+                                                interface="popover">
+
+                                                <option [value]="null" selected disabled>
+                                                    Select Year
+                                                </option>
+                                                <option *ngFor="let year of yearList" [value]="year">
+                                                    {{ year }}
+                                                </option>
+                                            </select>
+                                        </ion-item>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked"> Index No</ion-label>
+                                            <ion-input formControlName="ol_eng_index" type="text"></ion-input>
+
+                                        </ion-item>
+                                    </ion-col>
+                                    <ion-col>
+
+                                        <ion-item class="item-select" lines="none">
+                                            <ion-label position="stacked">Result</ion-label>
+                                            <select class="text-small" formControlName="ol_english_result"
+                                                interface="popover">
+
+                                                <option [value]="null" selected disabled>
+                                                    Select Result
+                                                </option>
+                                                <option *ngFor="let result of resultList" [value]="result">
+                                                    {{ result }}
+                                                </option>
+                                            </select>
+                                        </ion-item>
+                                    </ion-col>
+
+
+                                </ion-row>
+
+
+
+                                <!-- type AL or FIT-->
+
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-item class="item-select" lines="none">
+                                            <ion-label position="stacked">Please Select Your Academic qualification
+                                            </ion-label>
+                                            <select class="text-small" formControlName="academic_type"
+                                                interface="popover" (change)="changeEducationVisibility($event)">
+
+                                                <option value="0" selected disabled>Select Qualification</option>
+                                                <option value="1">Advanced Level (GCE- A/L) </option>
+                                                <option value="2">UCSC FIT</option>
+                                            </select>
+                                        </ion-item>
+
+                                    </ion-col>
+                                </ion-row>
+
+                                <div class="al-division" *ngIf="selectedValue == '1'">
+                                    <!-- AL year , Index-->
+                                    <ion-row>
+                                        <ion-col>
+                                            <ion-label class="subheaderlabel" position="stacked">GCE A/L Results
+                                            </ion-label>
+                                        </ion-col>
+
+                                    </ion-row>
+                                    <ion-row>
+                                        <ion-col>
+                                            <ion-item class="item-select" lines="none">
+                                                <ion-label position="stacked">CGE A/L Year</ion-label>
+                                                <select class="text-small" formControlName="al_year"
+                                                    interface="popover">
+
+                                                    <option [value]="null" selected disabled>
+                                                        Select A/L Year
+                                                    </option>
+                                                    <option *ngFor="let year of yearList" [value]="year">
+                                                        {{ year }}
+                                                    </option>
+                                                </select>
+                                            </ion-item>
+
+                                        </ion-col>
+                                        <ion-col>
+                                            <ion-item lines="none">
+                                                <ion-label position="stacked">GCE A/L Index No</ion-label>
+                                                <ion-input formControlName="al_index" type="text"></ion-input>
+
+                                            </ion-item>
+                                        </ion-col>
+
+                                    </ion-row>
+                                    <!-- AL result suject 1-->
+                                    <ion-row>
+                                        <ion-col>
+                                            <ion-item class="item-select" lines="none">
+                                                <ion-label position="stacked">Subject</ion-label>
+                                                <select class="text-small" formControlName="subject1_name"
+                                                    interface="popover">
+
+                                                    <option [value]="null" selected disabled>
+                                                        Select Subject
+                                                    </option>
+                                                    <option *ngFor="let subject of ALsubjectList" [value]="subject">
+                                                        {{ subject }}
+                                                    </option>
+                                                </select>
+                                            </ion-item>
+                                        </ion-col>
+                                        <ion-col>
+
+                                            <ion-item class="item-select" lines="none">
+                                                <ion-label position="stacked">Result</ion-label>
+                                                <select class="text-small" formControlName="subject1_result"
+                                                    interface="popover">
+
+                                                    <option [value]="null" selected disabled>
+                                                        Select Result
+                                                    </option>
+                                                    <option *ngFor="let result of resultList" [value]="result">
+                                                        {{ result }}
+                                                    </option>
+                                                </select>
+                                            </ion-item>
+                                        </ion-col>
+
+                                    </ion-row>
+
+                                    <!-- AL result suject 2-->
+                                    <ion-row>
+
+                                        <ion-col>
+                                            <ion-item class="item-select" lines="none">
+                                                <ion-label position="stacked">Subject</ion-label>
+                                                <select class="text-small" formControlName="subject2_name"
+                                                    interface="popover">
+
+                                                    <option [value]="null" selected disabled>
+                                                        Select Subject
+                                                    </option>
+                                                    <option *ngFor="let subject of ALsubjectList" [value]="subject">
+                                                        {{ subject }}
+                                                    </option>
+                                                </select>
+                                            </ion-item>
+                                        </ion-col>
+                                        <ion-col>
+
+                                            <ion-item class="item-select" lines="none">
+                                                <ion-label position="stacked">Result</ion-label>
+                                                <select class="text-small" formControlName="subject2_result"
+                                                    interface="popover">
+
+                                                    <option [value]="null" selected disabled>
+                                                        Select Result
+                                                    </option>
+                                                    <option *ngFor="let result of resultList" [value]="result">
+                                                        {{ result }}
+                                                    </option>
+                                                </select>
+                                            </ion-item>
+                                        </ion-col>
+                                    </ion-row>
+
+                                    <!-- AL result suject 3-->
+                                    <ion-row>
+                                        <ion-col>
+                                            <ion-item class="item-select" lines="none">
+                                                <ion-label position="stacked">Subject</ion-label>
+                                                <select class="text-small" formControlName="subject3_name"
+                                                    interface="popover">
+
+                                                    <option [value]="null" selected disabled>
+                                                        Select Subject
+                                                    </option>
+                                                    <option *ngFor="let subject of ALsubjectList" [value]="subject">
+                                                        {{ subject }}
+                                                    </option>
+                                                </select>
+                                            </ion-item>
+                                        </ion-col>
+                                        <ion-col>
+
+                                            <ion-item class="item-select" lines="none">
+                                                <ion-label position="stacked">Result</ion-label>
+                                                <select class="text-small" formControlName="subject3_result"
+                                                    interface="popover">
+
+                                                    <option [value]="null" selected disabled>
+                                                        Select Result
+                                                    </option>
+                                                    <option *ngFor="let result of resultList" [value]="result">
+                                                        {{ result }}
+                                                    </option>
+                                                </select>
+                                            </ion-item>
+                                        </ion-col>
+
+                                    </ion-row>
+
+                                    <!-- AL result suject 4-->
+                                    <ion-row>
+                                        <ion-col>
+                                            <ion-item class="item-select" lines="none">
+                                                <ion-label position="stacked">Subject</ion-label>
+                                                <select class="text-small" formControlName="subject4_name"
+                                                    interface="popover">
+
+                                                    <option [value]="null" selected disabled>
+                                                        Select Subject
+                                                    </option>
+                                                    <option *ngFor="let subject of ALsubjectList" [value]="subject">
+                                                        {{ subject }}
+                                                    </option>
+                                                </select>
+                                            </ion-item>
+                                        </ion-col>
+                                        <ion-col>
+
+                                            <ion-item class="item-select" lines="none">
+                                                <ion-label position="stacked">Result</ion-label>
+                                                <select class="text-small" formControlName="subject4_result"
+                                                    interface="popover">
+
+                                                    <option [value]="null" selected disabled>
+                                                        Select Result
+                                                    </option>
+                                                    <option *ngFor="let result of resultList" [value]="result">
+                                                        {{ result }}
+                                                    </option>
+                                                </select>
+                                            </ion-item>
+                                        </ion-col>
+
+                                    </ion-row>
+                                </div>
+                                <div class="fit-division" *ngIf="selectedValue == '2'">
+                                    <!-- FIT Info-->
+                                    <ion-row class="subheaderrow">
+                                        <ion-col>
+                                            <ion-label class="subheaderlabel" position="stacked">UCSC FIT Results
+                                            </ion-label>
+                                        </ion-col>
+
+                                    </ion-row>
+                                    <ion-row>
+
+                                        <ion-col>
+                                            <ion-item class="item-select" lines="none">
+                                                <ion-label position="stacked">UCSC FIT Year</ion-label>
+                                                <select class="text-small" formControlName="fit_year"
+                                                    interface="popover">
+
+                                                    <option [value]="null" selected disabled>
+                                                        Select UCSC FIT Year
+                                                    </option>
+                                                    <option *ngFor="let year of yearList" [value]="year">
+                                                        {{ year }}
+                                                    </option>
+                                                </select>
+                                            </ion-item>
+
+                                        </ion-col>
+                                        <ion-col>
+                                            <ion-item class="item-select" lines="none">
+                                                <ion-label position="stacked">UCSC FIT Index No</ion-label>
+                                                <ion-input formControlName="fit_index" type="text"></ion-input>
+
+                                            </ion-item>
+                                        </ion-col>
+                                    </ion-row>
+
+                                </div>
+                                <!-- OL maths Info-->
+                            </ion-grid>
+
+                        </form>
+
+                        <form [formGroup]="FormSummary" #FormSummaryRef="ngForm" novalidate *ngIf="slide === 'Summary'">
+                            <ion-grid class="summary-grid">
+                                <ion-row>
+                                    <ion-label class="summary-grid-header">Personal Information</ion-label>
+                                </ion-row>
+                                <ion-row>
+
+                                    <ion-col class="mycol">
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">
+                                                <span class="summary-data">Full Name :</span>
+
+
+                                            </ion-label>
+                                            <ion-label position="stacked">
+
+                                                <span class="summary-value">{{FormPersonalInfo['value']['name']}}</span>
+
+                                            </ion-label>
+
+                                        </ion-item>
+
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">
+                                                <span class="summary-data">Initials :</span>
+
+
+                                            </ion-label>
+                                            <ion-label position="stacked">
+                                                <span class="summary-value">{{FormPersonalInfo['value']['initial']}}
+                                                </span>
+
+                                            </ion-label>
+
+                                        </ion-item>
+
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">
+                                                <span class="summary-data">Last Name :</span>
+
+
+                                            </ion-label>
+                                            <ion-label position="stacked">
+
+                                                <span
+                                                    class="summary-value">{{FormPersonalInfo['value']['lastname']}}</span>
+
+                                            </ion-label>
+
+                                        </ion-item>
+
+                                    </ion-col>
+
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">
+                                                <span class="summary-data">Title :</span>
+
+                                            </ion-label>
+
+                                            <ion-label position="stacked">
+
+                                                <span
+                                                    class="summary-value">{{FormPersonalInfo['value']['title']}}</span>
+
+                                            </ion-label>
+
+                                        </ion-item>
+
+                                    </ion-col>
+                                </ion-row>
+
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">
+                                                <span class="summary-data">Gender :</span>
+
+
+                                            </ion-label>
+
+                                            <ion-label position="stacked">
+
+                                                <span
+                                                    class="summary-value">{{FormPersonalInfo['value']['gender']}}</span>
+
+                                            </ion-label>
+
+                                        </ion-item>
+
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">
+                                                <span class="summary-data">Date of Birth :</span>
+
+
+                                            </ion-label>
+
+                                            <ion-label position="stacked">
+
+                                                <span class="summary-value">{{FormPersonalInfo['value']['dob']}}</span>
+
+                                            </ion-label>
+
+                                        </ion-item>
+
+                                    </ion-col>
+
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">
+                                                <span class="summary-data">IT Type :</span>
+
+                                            </ion-label>
+
+                                            <ion-label position="stacked">
+
+                                                <span
+                                                    class="summary-value">{{FormPersonalInfo['value']['idtype']}}</span>
+
+                                            </ion-label>
+
+                                        </ion-item>
+
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">
+                                                <span class="summary-data">ID No :</span>
+
+
+                                            </ion-label>
+                                            <ion-label position="stacked">
+
+                                                <span class="summary-value">{{FormPersonalInfo['value']['idno']}}</span>
+
+                                            </ion-label>
+
+
+                                        </ion-item>
+
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">
+                                                <span class="summary-data">Citizenship :</span>
+
+
+                                            </ion-label>
+                                            <ion-label position="stacked">
+
+                                                <span
+                                                    class="summary-value">{{FormPersonalInfo['value']['citizenship']}}</span>
+
+                                            </ion-label>
+
+                                        </ion-item>
+
+                                    </ion-col>
+
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">
+                                                <span class="summary-data">Nationality :</span>
+
+                                            </ion-label>
+                                            <ion-label position="stacked">
+
+                                                <span
+                                                    class="summary-value">{{FormPersonalInfo['value']['nationality']}}</span>
+
+                                            </ion-label>
+
+                                        </ion-item>
+
+                                    </ion-col>
+                                </ion-row>
+
+                            </ion-grid>
+                            <ion-grid class="summary-grid">
+                                <ion-row>
+                                    <ion-label class="summary-grid-header">Contact Information</ion-label>
+                                </ion-row>
+                                <ion-row>
+
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">
+                                                <span class="summary-data">Email Address :</span>
+
+
+                                            </ion-label>
+                                            <ion-label position="stacked">
+
+                                                <span
+                                                    class="summary-value">{{FormPersonalInfo['value']['email']}}</span>
+
+                                            </ion-label>
+
+                                        </ion-item>
+
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">
+                                                <span class="summary-data">Mobile :</span>
+
+
+                                            </ion-label>
+                                            <ion-label position="stacked">
+                                                <span class="summary-value">{{FormContactInfo['value']['mobile']}}
+                                                </span>
+
+                                            </ion-label>
+
+                                        </ion-item>
+
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">
+                                                <span class="summary-data">Land Phone :</span>
+
+
+                                            </ion-label>
+                                            <ion-label position="stacked">
+
+                                                <span class="summary-value">{{FormContactInfo['value']['phone']}}</span>
+
+                                            </ion-label>
+
+                                        </ion-item>
+
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+
+
+
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">
+                                                <span class="summary-data">Address :</span>
+
+                                            </ion-label>
+
+                                            <ion-label position="stacked">
+
+                                                <span class="summary-value">
+                                                    {{FormContactInfo['value']['address1']}} ,
+                                                    {{FormContactInfo['value']['address2']}} ,
+                                                    {{FormContactInfo['value']['address3']}} </span>
+
+                                            </ion-label>
+
+                                        </ion-item>
+
+                                    </ion-col>
+                                </ion-row>
+
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">
+                                                <span class="summary-data">District :</span>
+
+
+                                            </ion-label>
+
+                                            <ion-label position="stacked">
+
+                                                <span
+                                                    class="summary-value">{{FormContactInfo['value']['district']}}</span>
+
+                                            </ion-label>
+
+                                        </ion-item>
+
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">
+                                                <span class="summary-data">Country :</span>
+
+
+                                            </ion-label>
+
+                                            <ion-label position="stacked">
+
+                                                <span
+                                                    class="summary-value">{{FormContactInfo['value']['country']}}</span>
+
+                                            </ion-label>
+
+                                        </ion-item>
+
+                                    </ion-col>
+                                    <ion-col></ion-col>
+                                </ion-row>
+
+                            </ion-grid>
+                            <ion-grid class="summary-grid">
+                                <ion-row>
+                                    <ion-label class="summary-grid-header">Educational Qualifications</ion-label>
+                                </ion-row>
+                                <ion-row>
+
+                                    <ion-col>
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">
+                                                <span class="summary-data">GCE (O/L) Results :</span>
+
+                                            </ion-label>
+                                        </ion-item>
+
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-grid>
+                                            <ion-row>
+                                                <ion-col>
+                                                    <ion-label class="ol-header">Subject</ion-label>
+                                                </ion-col>
+                                                <ion-col>
+                                                    <ion-label class="ol-header">Year</ion-label>
+                                                </ion-col>
+                                                <ion-col>
+                                                    <ion-label class="ol-header">Index No</ion-label>
+                                                </ion-col>
+                                                <ion-col>
+                                                    <ion-label class="ol-header">Result</ion-label>
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row>
+                                                <ion-col>
+                                                    <ion-label class="ol-data">Mathematics</ion-label>
+                                                </ion-col>
+                                                <ion-col>
+                                                    <ion-label class="ol-data">
+                                                        {{FormEducation['value']['ol_maths_year']}}</ion-label>
+                                                </ion-col>
+                                                <ion-col>
+                                                    <ion-label class="ol-data">
+                                                        {{FormEducation['value']['ol_maths_index']}}</ion-label>
+                                                </ion-col>
+                                                <ion-col>
+                                                    <ion-label class="ol-data">
+                                                        {{FormEducation['value']['ol_maths_result']}}</ion-label>
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row>
+                                                <ion-col>
+                                                    <ion-label class="ol-data">English </ion-label>
+                                                </ion-col>
+                                                <ion-col>
+                                                    <ion-label class="ol-data">
+                                                        {{FormEducation['value']['ol_english_year']}}</ion-label>
+                                                </ion-col>
+                                                <ion-col>
+                                                    <ion-label class="ol-data">
+                                                        {{FormEducation['value']['ol_eng_index']}}</ion-label>
+                                                </ion-col>
+                                                <ion-col>
+                                                    <ion-label class="ol-data">
+                                                        {{FormEducation['value']['ol_english_result']}}</ion-label>
+                                                </ion-col>
+                                            </ion-row>
+                                        </ion-grid>
+                                    </ion-col>
+
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col class="mycol">
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">
+                                                <span class="summary-data">Entry Qualification</span>
+
+
+                                            </ion-label>
+
+                                            <ion-label position="stacked">
+
+                                                <span *ngFor="let entry of entry_qualification">
+                                                    <span class="summary-value"
+                                                        *ngIf="entry['key']== FormEducation['value']['academic_type']">
+
+                                                        {{entry['value']}}
+                                                    </span>
+                                                </span>
+                                            </ion-label>
+
+                                        </ion-item>
+                                    </ion-col>
+                                    <ion-col>
+                                        <div *ngIf="FormEducation['value']['academic_type'] ==1">
+
+                                            <ion-row>
+                                                <ion-col>
+                                                    <ion-item lines="none">
+                                                        <ion-label position="stacked">
+                                                            <span class="summary-data">CGE (A/L) Year :</span>
+
+                                                        </ion-label>
+                                                        <ion-label position="stacked">
+
+                                                            <span
+                                                                class="summary-value">{{FormEducation['value']['al_year']}}</span>
+
+                                                        </ion-label>
+
+                                                    </ion-item>
+                                                </ion-col>
+                                                <ion-col>
+                                                    <ion-item lines="none">
+                                                        <ion-label position="stacked">
+                                                            <span class="summary-data">GCE (A/L) Index :</span>
+
+                                                        </ion-label>
+                                                        <ion-label position="stacked">
+
+                                                            <span
+                                                                class="summary-value">{{FormEducation['value']['al_index']}}</span>
+
+                                                        </ion-label>
+
+                                                    </ion-item>
+                                                </ion-col>
+                                            </ion-row>
+
+
+                                            <ion-row style="padding-top: 20px">
+                                                <ion-col>
+                                                    <ion-label class="ol-header">Subject</ion-label>
+                                                </ion-col>
+
+                                                <ion-col>
+                                                    <ion-label class="ol-header">Result</ion-label>
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row>
+
+                                                <ion-col>
+                                                    <ion-label class="ol-data">
+                                                        {{FormEducation['value']['subject1_name']}}</ion-label>
+                                                </ion-col>
+                                                <ion-col>
+                                                    <ion-label class="ol-data">
+                                                        {{FormEducation['value']['subject1_result']}}</ion-label>
+                                                </ion-col>
+
+                                            </ion-row>
+                                            <ion-row>
+
+                                                <ion-col>
+                                                    <ion-label class="ol-data">
+                                                        {{FormEducation['value']['subject2_name']}}</ion-label>
+                                                </ion-col>
+                                                <ion-col>
+                                                    <ion-label class="ol-data">
+                                                        {{FormEducation['value']['subject2_result']}}</ion-label>
+                                                </ion-col>
+
+                                            </ion-row>
+                                            <ion-row>
+
+                                                <ion-col>
+                                                    <ion-label class="ol-data">
+                                                        {{FormEducation['value']['subject3_name']}}</ion-label>
+                                                </ion-col>
+                                                <ion-col>
+                                                    <ion-label class="ol-data">
+                                                        {{FormEducation['value']['subject3_result']}}</ion-label>
+                                                </ion-col>
+
+                                            </ion-row>
+                                        </div>
+
+                                        <div *ngIf="FormEducation['value']['academic_type'] ==2">
+                                            <ion-row>
+                                                <ion-col>
+                                                    <ion-item lines="none">
+                                                        <ion-label position="stacked">
+                                                            <span class="summary-data">UCSC FIT Year :</span>
+
+                                                        </ion-label>
+                                                        <ion-label position="stacked">
+
+                                                            <span
+                                                                class="summary-value">{{FormEducation['value']['fit_year']}}</span>
+
+                                                        </ion-label>
+
+                                                    </ion-item>
+                                                </ion-col>
+                                                <ion-col>
+                                                    <ion-item lines="none">
+                                                        <ion-label position="stacked">
+                                                            <span class="summary-data">UCSC FIT Index No :</span>
+
+                                                        </ion-label>
+                                                        <ion-label position="stacked">
+
+                                                            <span
+                                                                class="summary-value">{{FormEducation['value']['fit_index']}}</span>
+
+                                                        </ion-label>
+
+                                                    </ion-item>
+                                                </ion-col>
+                                            </ion-row>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+
+
+
+
+
+
+
+                            </ion-grid>
+                            <ion-grid class="summary-grid">
+                                <ion-row>
+                                    <ion-label class="summary-grid-header">Declaration</ion-label>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-item>
+
+                                        <ion-checkbox checked="false"></ion-checkbox>
+                                        <ion-label> &nbsp; I have Read and Accept the above Terms</ion-label>
+                                    </ion-item>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-button>Submit BIT 2022 Application</ion-button>
+                                </ion-row>
+                            </ion-grid>
+
+
+
+                        </form>
+
+
+                    </div>
+                </ion-slide>
+            </ng-container>
+        </ion-slides>
+    </div>
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar>
-      <div class="full-width flex align-items-center justify-content-space-between">
-          <ion-button style="width: 120px;" strong shape="round" color="dark"
-              [style.visibility]="(isBeginning ) ? 'hidden' : ''" (click)="onBackButtonTouched()">
-              <span>Back</span>
-              <ion-icon slot="start" name="chevron-back"></ion-icon>
-          </ion-button>
-          <ion-button style="width: 120px;" strong shape="round" color="primary"
-              [style.visibility]="isEnd ? 'hidden' : ''" (click)="onNextButtonTouched()">
-              <span>Next</span>
-          </ion-button>
-      </div>
-  </ion-toolbar>
+    <ion-toolbar>
+        <div class="full-width flex align-items-center justify-content-space-between">
+            <ion-button style="width: 120px;" strong shape="round" color="dark"
+                [style.visibility]="(isBeginning ) ? 'hidden' : ''" (click)="onBackButtonTouched()">
+                <span>Back</span>
+                <ion-icon slot="start" name="chevron-back"></ion-icon>
+            </ion-button>
+            <ion-button style="width: 120px;" strong shape="round" color="primary"
+                [style.visibility]="isEnd ? 'hidden' : ''" (click)="onNextButtonTouched()">
+                <span> Next</span>
+            </ion-button>
+        </div>
+    </ion-toolbar>
 </ion-footer>
