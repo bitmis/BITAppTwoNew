@@ -1,10 +1,10 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, NgForm, ControlContainer } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { LateralApplicantInfo } from '../interface/lateral-applicant-info';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ActionSheetController, IonContent, IonSlides, NavController } from '@ionic/angular';
+import { IonContent, IonSlides } from '@ionic/angular';
 import { ApplicantInfoService } from 'src/app/services/application-info.service';
 import { RegSelectionService } from '../services/reg-selection.service';
 
@@ -66,8 +66,6 @@ export class LateralEntryPage implements OnInit {
   application_status: string;
   status_response: any;
 
-  application_INFO:any;
-
 
   constructor(public formBuilder: FormBuilder,
     private router: Router,
@@ -79,10 +77,6 @@ export class LateralEntryPage implements OnInit {
 
 
   ngOnInit() {
-
-    this.setupForm();
-    this.buildSlides();
-
 
     this.prev_bit_regno = this.route.snapshot.paramMap.get('prev_registration_no');
     this.eligible_year = this.route.snapshot.paramMap.get('eligible_year');
@@ -99,21 +93,22 @@ export class LateralEntryPage implements OnInit {
         this.application_status = res2['application_status'];
         this.application_no = res2['application_no'];
         console.log(this.application_status + " -> " + this.application_no);
-        this.getApplicationData(this.application_no , this.eligible_year);
-
-
+        this.getApplicationData(this.application_no, this.eligible_year);
+         
 
       });
-    } else if (this.eligible_year == "3") {
-      this.regSelectionService.getHDITApplicationStatus(this.prev_bit_regno).subscribe((res3) => {
 
+    } else if (this.eligible_year == "3") {
+
+      this.regSelectionService.getHDITApplicationStatus(this.prev_bit_regno).subscribe((res3) => {
 
         console.log(res3);
         this.status_response = res3;
         this.application_status = res3['application_status'];
         this.application_no = res3['application_no'];
         console.log(this.application_status + " -> " + this.application_no);
-        this.getApplicationData(this.application_no , this.eligible_year);
+        this.getApplicationData(this.application_no, this.eligible_year);
+        
 
       });
 
@@ -121,88 +116,94 @@ export class LateralEntryPage implements OnInit {
 
   }
 
-  getApplicationData(application_no: string , eligible_year:string) {
+  getApplicationData(application_no: string, eligible_year: string) {
 
     this.applicantInfoService.getApplicantInfo(application_no).subscribe((res1) => {
 
-      console.log(res1);
-      if (res1 == null) {  // save application number so we can keep updating personal data
+      
+      if (res1 != null) {// get already saved data to update or add
+
+        console.log("application info already saved");
+        this.applicantInfoService.aPPLICATION_INFO = res1;
+      }
+
+      else if (res1 == null) {  // save application number so we can keep updating personal data
 
         console.log("application info not saved");
-       
 
-         let obj1 : LateralApplicantInfo={
-           application_no: application_no,
-           full_name: '',
-           full_name_sinhala: '',
-           full_name_tamil: '',
-           address1: '',
-           address2: '',
-           address3: '',
-           ol_result1: '',
-           ol_result2: '',
-           ol_subject1: '',
-           ol_subject2: '',
-           ol_year1: '',
-           ol_year2: '',
-           al_index_no: '',
-           al_type: '',
-           al_year: '',
-           al_result1: '',
-           al_result2: '',
-           al_result3: '',
-           al_result4: '',
-           al_subject1: '',
-           al_subject2: '',
-           al_subject3: '',
-           al_subject4: '',
-           amount: '',
-           bank: '',
-           bank_branch: '',
-           bit_registration_no: this.prev_bit_regno,
-           citizenship: '',
-           country: '',
-           disabilities: '',
-           district: '',
-           dob: '',
-           email: '',
-           fit_registration_no: '',
-           gender: '',
-           id_no: '',
-           id_type: '',
-           initials: '',
-           invoice_no: '',
-           mobile: '',
-           name_marking: '',
-           nationality: '',
-           need_different_req: '',
-           over_payment: '',
-           paid_date: '',
-           payment_category: '',
-           payment_type: '',
-           phone: '',
-           qualification_pending: '',
-           qualification_type: '',
-           surcharge: '',
-           title: '',
-           type: '',
-           year: '2022',
-           application_status: this.application_status,
-           apply_bit_year: eligible_year
-         }
-
-         this.applicantInfoService.saveApplicantInfo(obj1).subscribe((res2) => {
-
-          console.log(res2);
-
-         });
+        let obj1: LateralApplicantInfo = {
+          application_no: application_no,
+          full_name: '',
+          full_name_sinhala: '',
+          full_name_tamil: '',
+          address1: '',
+          address2: '',
+          address3: '',
+          ol_result1: '',
+          ol_result2: '',
+          ol_subject1: '',
+          ol_subject2: '',
+          ol_year1: '',
+          ol_year2: '',
+          al_index_no: '',
+          al_type: '',
+          al_year: '',
+          al_result1: '',
+          al_result2: '',
+          al_result3: '',
+          al_result4: '',
+          al_subject1: '',
+          al_subject2: '',
+          al_subject3: '',
+          al_subject4: '',
+          amount: '',
+          bank: '',
+          bank_branch: '',
+          bit_registration_no: this.prev_bit_regno,
+          citizenship: '',
+          country: '',
+          disabilities: '',
+          district: '',
+          dob: '',
+          email: '',
+          fit_registration_no: '',
+          gender: '',
+          id_no: '',
+          id_type: '',
+          initials: '',
+          invoice_no: '',
+          mobile: '',
+          name_marking: '',
+          nationality: '',
+          need_different_req: '',
+          over_payment: '',
+          paid_date: '',
+          payment_category: '',
+          payment_type: '',
+          phone: '',
+          qualification_pending: '',
+          qualification_type: '',
+          surcharge: '',
+          title: '',
+          type: '',
+          year: '2022',
+          application_status: this.application_status,
+          apply_bit_year: eligible_year
+        }
 
 
-      }else{
+        this.applicantInfoService.saveApplicantInfo(obj1).subscribe((res2) => {
 
+         
+          this.applicantInfoService.aPPLICATION_INFO = res2
 
-
+        });
       }
+
+      console.log("APPLICATION INFO - >   "+this.applicantInfoService.aPPLICATION_INFO['full_name']);
+      this.setupForm();
+      this.buildSlides();
+      
     });
 
 
@@ -220,14 +221,14 @@ export class LateralEntryPage implements OnInit {
   setupForm() {
 
     this.FormPersonalInfo = this.formBuilder.group({
-      name: ['Walakuluuu Arachchige Dona Paramee Medhavi Gunethilake', [Validators.required, Validators.minLength(2)]],
-      initial: ['W.A.D.P.M', [Validators.required, Validators.minLength(2)]],
-      lastname: ['Gunethilake', [Validators.required, Validators.minLength(2)]],
-      title: ['Ms.', [Validators.required]],
-      gender: ['Female', [Validators.required]],
-      idtype: ['NIC', [Validators.required]],
-      idno: ['925839487V', [Validators.required]],
-      email: ['parameegunethilake@gmail.com', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      full_name: ['', [Validators.required, Validators.minLength(2)]],
+      initials: ['W.A.D.P.M', [Validators.required, Validators.minLength(2)]],
+      name_marking: ['', [Validators.required, Validators.minLength(2)]],
+      title: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
+      id_type: ['', [Validators.required]],
+      id_no: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       dob: [this.defaultDate],
       citizenship: ['Sri Lankan', [Validators.required]],
       nationality: ['Sri Lankan', [Validators.required]]
@@ -308,7 +309,10 @@ export class LateralEntryPage implements OnInit {
 
     if (this.currentSlide === 'Personal') {
 
+      this.updateApplicaionInfo();
+
       console.log(this.FormPersonalInfo['value']);
+      console.log(this.applicantInfoService.aPPLICATION_INFO);
 
       if (this.FormPersonalInfo.valid) {
 
@@ -413,13 +417,35 @@ export class LateralEntryPage implements OnInit {
   }
 
 
-  savePersonalInfo() {
+  updateApplicaionInfo(){
 
 
+    // this.applicantInfoService.aPPLICATION_INFO.full_name = this.FormPersonalInfo['value']['full_name'];
+    // this.applicantInfoService.aPPLICATION_INFO.full_name_sinhala = "";
+    // this.applicantInfoService.aPPLICATION_INFO.full_name_tamil = "";
+    // this.applicantInfoService.aPPLICATION_INFO.name_marking = this.FormPersonalInfo['value']['name_marking'];
+    // this.applicantInfoService.aPPLICATION_INFO.initials = this.FormPersonalInfo['value']['initials'];
+    // this.applicantInfoService.aPPLICATION_INFO.title = this.FormPersonalInfo['value']['title'];
 
 
+    // this.applicantInfoService.aPPLICATION_INFO.gender = this.FormPersonalInfo['value']['gender'];
+    // this.applicantInfoService.aPPLICATION_INFO.id_type = this.FormPersonalInfo['value']['id_type'];
+    // this.applicantInfoService.aPPLICATION_INFO.id_no = this.FormPersonalInfo['value']['id_no'];
+    // this.applicantInfoService.aPPLICATION_INFO.dob = this.FormPersonalInfo['value']['dob'];
+    // this.applicantInfoService.aPPLICATION_INFO.citizenship = this.FormPersonalInfo['value']['citizenship'];
+    // this.applicantInfoService.aPPLICATION_INFO.nationality = this.FormPersonalInfo['value']['nationality'];
+
+    let abc : LateralApplicantInfo = this.FormPersonalInfo.value;
+    abc.full_name_sinhala = "";
+    abc.full_name_tamil = "";
+    abc.application_no = this.application_no;
+     
+    console.log(abc);
+
+    this.applicantInfoService.updateApplication_PersonalInfo(abc).subscribe((_res2) => {});
+
+     
   }
-
 
 
 

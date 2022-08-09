@@ -21,6 +21,8 @@ export class ApplicantInfoService {
     }),
   };
 
+  aPPLICATION_INFO: LateralApplicantInfo;
+
   // HttpClient API get() method => Fetch application list
   getApplicants(): Observable<LateralApplicantInfo> {
     return this.http
@@ -70,6 +72,21 @@ export class ApplicantInfoService {
       )
       .pipe(retry(1), catchError(this.handleError));
   }
+
+  //-------update personal info------------
+
+  updateApplication_PersonalInfo( application: LateralApplicantInfo): Observable<LateralApplicantInfo> {
+    return this.http
+      .put<LateralApplicantInfo>(
+        this.apiURL + '/update_lateral_applicant_personal_info/',
+        JSON.stringify(application),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+
+
 
 
   // HttpClient API delete() method => Delete application
