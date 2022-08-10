@@ -380,7 +380,7 @@
                                     <ion-col>
                                         <ion-item class="item-select" lines="none">
                                             <ion-label position="stacked">Year</ion-label>
-                                            <select class="text-small" formControlName="ol_maths_year"
+                                            <select class="text-small" formControlName="ol_year1"
                                                 interface="popover">
 
                                                 <option [value]="null" selected disabled>
@@ -395,7 +395,7 @@
                                     <ion-col>
                                         <ion-item lines="none">
                                             <ion-label position="stacked"> Index No</ion-label>
-                                            <ion-input formControlName="ol_maths_index" type="text"></ion-input>
+                                            <ion-input formControlName="ol_index1" type="text"></ion-input>
 
                                         </ion-item>
                                     </ion-col>
@@ -403,7 +403,7 @@
 
                                         <ion-item class="item-select" lines="none">
                                             <ion-label position="stacked">Result</ion-label>
-                                            <select class="text-small" formControlName="ol_maths_result"
+                                            <select class="text-small" formControlName="ol_result1"
                                                 interface="popover">
 
                                                 <option [value]="null" selected disabled>
@@ -432,7 +432,7 @@
                                     <ion-col>
                                         <ion-item class="item-select" lines="none">
                                             <ion-label position="stacked">Year</ion-label>
-                                            <select class="text-small" formControlName="ol_english_year"
+                                            <select class="text-small" formControlName="ol_year2"
                                                 interface="popover">
 
                                                 <option [value]="null" selected disabled>
@@ -447,7 +447,7 @@
                                     <ion-col>
                                         <ion-item lines="none">
                                             <ion-label position="stacked"> Index No</ion-label>
-                                            <ion-input formControlName="ol_eng_index" type="text"></ion-input>
+                                            <ion-input formControlName="ol_index2" type="text"></ion-input>
 
                                         </ion-item>
                                     </ion-col>
@@ -455,7 +455,7 @@
 
                                         <ion-item class="item-select" lines="none">
                                             <ion-label position="stacked">Result</ion-label>
-                                            <select class="text-small" formControlName="ol_english_result"
+                                            <select class="text-small" formControlName="ol_result2"
                                                 interface="popover">
 
                                                 <option [value]="null" selected disabled>
@@ -480,7 +480,7 @@
                                         <ion-item class="item-select" lines="none">
                                             <ion-label position="stacked">Please Select Your Academic qualification
                                             </ion-label>
-                                            <select class="text-small" formControlName="academic_type"
+                                            <select class="text-small" formControlName="qualification_type"
                                                 interface="popover" (change)="changeEducationVisibility($event)">
 
                                                 <option value="0" selected disabled>Select Qualification</option>
@@ -521,7 +521,7 @@
                                         <ion-col>
                                             <ion-item lines="none">
                                                 <ion-label position="stacked">GCE A/L Index No</ion-label>
-                                                <ion-input formControlName="al_index" type="text"></ion-input>
+                                                <ion-input formControlName="al_index_no" type="text"></ion-input>
 
                                             </ion-item>
                                         </ion-col>
@@ -532,7 +532,7 @@
                                         <ion-col>
                                             <ion-item class="item-select" lines="none">
                                                 <ion-label position="stacked">Subject</ion-label>
-                                                <select class="text-small" formControlName="subject1_name"
+                                                <select class="text-small" formControlName="al_subject1"
                                                     interface="popover">
 
                                                     <option [value]="null" selected disabled>
@@ -548,7 +548,7 @@
 
                                             <ion-item class="item-select" lines="none">
                                                 <ion-label position="stacked">Result</ion-label>
-                                                <select class="text-small" formControlName="subject1_result"
+                                                <select class="text-small" formControlName="al_result1"
                                                     interface="popover">
 
                                                     <option [value]="null" selected disabled>
@@ -569,7 +569,7 @@
                                         <ion-col>
                                             <ion-item class="item-select" lines="none">
                                                 <ion-label position="stacked">Subject</ion-label>
-                                                <select class="text-small" formControlName="subject2_name"
+                                                <select class="text-small" formControlName="al_subject2"
                                                     interface="popover">
 
                                                     <option [value]="null" selected disabled>
@@ -585,7 +585,7 @@
 
                                             <ion-item class="item-select" lines="none">
                                                 <ion-label position="stacked">Result</ion-label>
-                                                <select class="text-small" formControlName="subject2_result"
+                                                <select class="text-small" formControlName="al_result2"
                                                     interface="popover">
 
                                                     <option [value]="null" selected disabled>
@@ -604,7 +604,7 @@
                                         <ion-col>
                                             <ion-item class="item-select" lines="none">
                                                 <ion-label position="stacked">Subject</ion-label>
-                                                <select class="text-small" formControlName="subject3_name"
+                                                <select class="text-small" formControlName="al_subject3"
                                                     interface="popover">
 
                                                     <option [value]="null" selected disabled>
@@ -620,7 +620,7 @@
 
                                             <ion-item class="item-select" lines="none">
                                                 <ion-label position="stacked">Result</ion-label>
-                                                <select class="text-small" formControlName="subject3_result"
+                                                <select class="text-small" formControlName="al_result3"
                                                     interface="popover">
 
                                                     <option [value]="null" selected disabled>
@@ -640,7 +640,7 @@
                                         <ion-col>
                                             <ion-item class="item-select" lines="none">
                                                 <ion-label position="stacked">Subject</ion-label>
-                                                <select class="text-small" formControlName="subject4_name"
+                                                <select class="text-small" formControlName="al_subject4"
                                                     interface="popover">
 
                                                     <option [value]="null" selected disabled>
@@ -656,7 +656,7 @@
 
                                             <ion-item class="item-select" lines="none">
                                                 <ion-label position="stacked">Result</ion-label>
-                                                <select class="text-small" formControlName="subject4_result"
+                                                <select class="text-small" formControlName="al_result4"
                                                     interface="popover">
 
                                                     <option [value]="null" selected disabled>
@@ -701,14 +701,14 @@
                                         <ion-col>
                                             <ion-item class="item-select" lines="none">
                                                 <ion-label position="stacked">UCSC FIT Index No</ion-label>
-                                                <ion-input formControlName="fit_index" type="text"></ion-input>
+                                                <ion-input formControlName="fit_registration_no" type="text"></ion-input>
 
                                             </ion-item>
                                         </ion-col>
                                     </ion-row>
 
                                 </div>
-                                <!-- OL maths Info-->
+                               
                             </ion-grid>
 
                         </form>
@@ -729,7 +729,7 @@
                                             </ion-label>
                                             <ion-label position="stacked">
 
-                                                <span class="summary-value">{{FormPersonalInfo['value']['name']}}</span>
+                                                <span class="summary-value">{{FormPersonalInfo['value']['full_name']}}</span>
 
                                             </ion-label>
 
@@ -746,7 +746,7 @@
 
                                             </ion-label>
                                             <ion-label position="stacked">
-                                                <span class="summary-value">{{FormPersonalInfo['value']['initial']}}
+                                                <span class="summary-value">{{FormPersonalInfo['value']['initials']}}
                                                 </span>
 
                                             </ion-label>
@@ -764,7 +764,7 @@
                                             <ion-label position="stacked">
 
                                                 <span
-                                                    class="summary-value">{{FormPersonalInfo['value']['lastname']}}</span>
+                                                    class="summary-value">{{FormPersonalInfo['value']['name_marking']}}</span>
 
                                             </ion-label>
 
@@ -838,7 +838,7 @@
                                             <ion-label position="stacked">
 
                                                 <span
-                                                    class="summary-value">{{FormPersonalInfo['value']['idtype']}}</span>
+                                                    class="summary-value">{{FormPersonalInfo['value']['id_type']}}</span>
 
                                             </ion-label>
 
@@ -856,7 +856,7 @@
                                             </ion-label>
                                             <ion-label position="stacked">
 
-                                                <span class="summary-value">{{FormPersonalInfo['value']['idno']}}</span>
+                                                <span class="summary-value">{{FormPersonalInfo['value']['id_no']}}</span>
 
                                             </ion-label>
 
@@ -1060,7 +1060,7 @@
                                                 </ion-col>
                                                 <ion-col>
                                                     <ion-label class="ol-data">
-                                                        {{FormEducation['value']['ol_maths_year']}}</ion-label>
+                                                        {{FormEducation['value']['ol_year1']}}</ion-label>
                                                 </ion-col>
                                                 <ion-col>
                                                     <ion-label class="ol-data">
@@ -1068,7 +1068,7 @@
                                                 </ion-col>
                                                 <ion-col>
                                                     <ion-label class="ol-data">
-                                                        {{FormEducation['value']['ol_maths_result']}}</ion-label>
+                                                        {{FormEducation['value']['ol_result1']}}</ion-label>
                                                 </ion-col>
                                             </ion-row>
                                             <ion-row>
@@ -1077,7 +1077,7 @@
                                                 </ion-col>
                                                 <ion-col>
                                                     <ion-label class="ol-data">
-                                                        {{FormEducation['value']['ol_english_year']}}</ion-label>
+                                                        {{FormEducation['value']['ol_year2']}}</ion-label>
                                                 </ion-col>
                                                 <ion-col>
                                                     <ion-label class="ol-data">
@@ -1085,7 +1085,7 @@
                                                 </ion-col>
                                                 <ion-col>
                                                     <ion-label class="ol-data">
-                                                        {{FormEducation['value']['ol_english_result']}}</ion-label>
+                                                        {{FormEducation['value']['ol_result2']}}</ion-label>
                                                 </ion-col>
                                             </ion-row>
                                         </ion-grid>
@@ -1105,7 +1105,7 @@
 
                                                 <span *ngFor="let entry of entry_qualification">
                                                     <span class="summary-value"
-                                                        *ngIf="entry['key']== FormEducation['value']['academic_type']">
+                                                        *ngIf="entry['key']== FormEducation['value']['qualification_type']">
 
                                                         {{entry['value']}}
                                                     </span>
@@ -1115,7 +1115,7 @@
                                         </ion-item>
                                     </ion-col>
                                     <ion-col>
-                                        <div *ngIf="FormEducation['value']['academic_type'] ==1">
+                                        <div *ngIf="FormEducation['value']['qualification_type'] ==1">
 
                                             <ion-row>
                                                 <ion-col>
@@ -1142,7 +1142,7 @@
                                                         <ion-label position="stacked">
 
                                                             <span
-                                                                class="summary-value">{{FormEducation['value']['al_index']}}</span>
+                                                                class="summary-value">{{FormEducation['value']['al_index_no']}}</span>
 
                                                         </ion-label>
 
@@ -1164,23 +1164,11 @@
 
                                                 <ion-col>
                                                     <ion-label class="ol-data">
-                                                        {{FormEducation['value']['subject1_name']}}</ion-label>
+                                                        {{FormEducation['value']['al_subject1']}}</ion-label>
                                                 </ion-col>
                                                 <ion-col>
                                                     <ion-label class="ol-data">
-                                                        {{FormEducation['value']['subject1_result']}}</ion-label>
-                                                </ion-col>
-
-                                            </ion-row>
-                                            <ion-row>
-
-                                                <ion-col>
-                                                    <ion-label class="ol-data">
-                                                        {{FormEducation['value']['subject2_name']}}</ion-label>
-                                                </ion-col>
-                                                <ion-col>
-                                                    <ion-label class="ol-data">
-                                                        {{FormEducation['value']['subject2_result']}}</ion-label>
+                                                        {{FormEducation['value']['al_result1']}}</ion-label>
                                                 </ion-col>
 
                                             </ion-row>
@@ -1188,17 +1176,29 @@
 
                                                 <ion-col>
                                                     <ion-label class="ol-data">
-                                                        {{FormEducation['value']['subject3_name']}}</ion-label>
+                                                        {{FormEducation['value']['al_subject2']}}</ion-label>
                                                 </ion-col>
                                                 <ion-col>
                                                     <ion-label class="ol-data">
-                                                        {{FormEducation['value']['subject3_result']}}</ion-label>
+                                                        {{FormEducation['value']['al_result2']}}</ion-label>
+                                                </ion-col>
+
+                                            </ion-row>
+                                            <ion-row>
+
+                                                <ion-col>
+                                                    <ion-label class="ol-data">
+                                                        {{FormEducation['value']['al_subject3']}}</ion-label>
+                                                </ion-col>
+                                                <ion-col>
+                                                    <ion-label class="ol-data">
+                                                        {{FormEducation['value']['al_result3']}}</ion-label>
                                                 </ion-col>
 
                                             </ion-row>
                                         </div>
 
-                                        <div *ngIf="FormEducation['value']['academic_type'] ==2">
+                                        <div *ngIf="FormEducation['value']['qualification_type'] ==2">
                                             <ion-row>
                                                 <ion-col>
                                                     <ion-item lines="none">
@@ -1224,7 +1224,7 @@
                                                         <ion-label position="stacked">
 
                                                             <span
-                                                                class="summary-value">{{FormEducation['value']['fit_index']}}</span>
+                                                                class="summary-value">{{FormEducation['value']['fit_registration_no']}}</span>
 
                                                         </ion-label>
 
@@ -1254,7 +1254,7 @@
                                     </ion-item>
                                 </ion-row>
                                 <ion-row>
-                                    <ion-button>Submit BIT 2022 Application</ion-button>
+                                    <ion-button (click)="submitApplication()">Submit BIT 2022 Application</ion-button>
                                 </ion-row>
                             </ion-grid>
 

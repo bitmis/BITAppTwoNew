@@ -1,4 +1,3 @@
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { LateralApplicantInfo } from '../interface/lateral-applicant-info';
@@ -94,7 +93,7 @@ export class LateralEntryPage implements OnInit {
         this.application_no = res2['application_no'];
         console.log(this.application_status + " -> " + this.application_no);
         this.getApplicationData(this.application_no, this.eligible_year);
-         
+
 
       });
 
@@ -108,7 +107,7 @@ export class LateralEntryPage implements OnInit {
         this.application_no = res3['application_no'];
         console.log(this.application_status + " -> " + this.application_no);
         this.getApplicationData(this.application_no, this.eligible_year);
-        
+
 
       });
 
@@ -120,7 +119,7 @@ export class LateralEntryPage implements OnInit {
 
     this.applicantInfoService.getApplicantInfo(application_no).subscribe((res1) => {
 
-      
+
       if (res1 != null) {// get already saved data to update or add
 
         console.log("application info already saved");
@@ -194,16 +193,16 @@ export class LateralEntryPage implements OnInit {
 
         this.applicantInfoService.saveApplicantInfo(obj1).subscribe((res2) => {
 
-         
+
           this.applicantInfoService.aPPLICATION_INFO = res2
 
         });
       }
 
-      console.log("APPLICATION INFO - >   "+this.applicantInfoService.aPPLICATION_INFO['full_name']);
+      console.log("APPLICATION INFO - >   " + this.applicantInfoService.aPPLICATION_INFO);
       this.setupForm();
       this.buildSlides();
-      
+
     });
 
 
@@ -222,7 +221,7 @@ export class LateralEntryPage implements OnInit {
 
     this.FormPersonalInfo = this.formBuilder.group({
       full_name: ['', [Validators.required, Validators.minLength(2)]],
-      initials: ['W.A.D.P.M', [Validators.required, Validators.minLength(2)]],
+      initials: ['', [Validators.required, Validators.minLength(2)]],
       name_marking: ['', [Validators.required, Validators.minLength(2)]],
       title: ['', [Validators.required]],
       gender: ['', [Validators.required]],
@@ -239,43 +238,61 @@ export class LateralEntryPage implements OnInit {
 
     this.FormContactInfo = this.formBuilder.group({
 
-      mobile: ['0774951044', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      phone: ['0332265589', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      address1: ['397', [Validators.required]],
-      address2: ['Kossinna', [Validators.required]],
-      address3: ['Ganemulla', [Validators.required]],
-      district: ['Gampaha', [Validators.required]],
+      mobile: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      address1: ['', [Validators.required]],
+      address2: ['', [Validators.required]],
+      address3: ['', [Validators.required]],
+      district: ['', [Validators.required]],
       country: ['Sri Lanka', [Validators.required]],
 
     })
 
     this.FormEducation = this.formBuilder.group({
 
-      academic_type: ['0', [Validators.required]],
-      al_year: ['2020', [Validators.required]],
-      al_index: ['123234', [Validators.required]],
-      subject1_name: ['Sinhala', [Validators.required]],
-      subject1_result: ['A', [Validators.required]],
-      subject2_name: ['IT', [Validators.required]],
-      subject2_result: ['B', [Validators.required]],
-      subject3_name: ['English', [Validators.required]],
-      subject3_result: ['A', [Validators.required]],
-      fit_year: ['2020', [Validators.required]],
-      fit_index: ['111', [Validators.required]],
+      qualification_type: ['0', [Validators.required]],
+      al_year: ['', [Validators.required]],
+      al_index_no: ['', [Validators.required]],
+
+      al_subject1: ['', [Validators.required]],
+      al_result1: ['', [Validators.required]],
+
+      al_subject2: ['', [Validators.required]],
+      al_result2: ['', [Validators.required]],
+
+      al_subject3: ['', [Validators.required]],
+      al_result3: ['', [Validators.required]],
+
+      al_subject4: ['', [Validators.required]],
+      al_result4: ['', [Validators.required]],
 
 
-      ol_maths_year: ['2020', [Validators.required]],
-      ol_maths_index: ['111222', [Validators.required]],
-      ol_maths_result: ['A', [Validators.required]],
-      ol_english_year: ['2020', [Validators.required]],
-      ol_eng_index: ['111555', [Validators.required]],
-      ol_english_result: ['S', [Validators.required]],
+      fit_year: ['', [Validators.required]],
+      fit_registration_no: ['', [Validators.required]],
+
+
+      ol_year1: ['', [Validators.required]],
+      ol_subject1: ['MATHEMATICS'],
+      ol_result1: ['', [Validators.required]],
+      ol_index1: ['', [Validators.required]], // ADD
+
+      ol_year2: ['', [Validators.required]],
+      ol_subject2: ['ENGLISH'],
+      ol_result2: ['', [Validators.required]],
+      ol_index2: ['', [Validators.required]], //ADD
 
 
     });
 
 
-    this.FormSummary = this.formBuilder.group({});
+    this.FormSummary = this.formBuilder.group({
+       
+ 
+
+
+
+
+    });
 
 
   }
@@ -309,15 +326,10 @@ export class LateralEntryPage implements OnInit {
 
     if (this.currentSlide === 'Personal') {
 
-      this.updateApplicaionInfo();
-
-      console.log(this.FormPersonalInfo['value']);
-      console.log(this.applicantInfoService.aPPLICATION_INFO);
 
       if (this.FormPersonalInfo.valid) {
 
-
-
+        this.updateApplicaionInfo();
         this.ionSlides.slideNext();
         this.ionContent.scrollToTop();
       }
@@ -325,43 +337,27 @@ export class LateralEntryPage implements OnInit {
     }
     else if (this.currentSlide === 'Contact') {
 
-      //this.FormEducationRef.onSubmit(undefined);
-      console.log(this.FormContactInfo);
-      console.log(this.FormContactInfo.valid);
-
-
       if (this.FormContactInfo.valid) {
+
+        this.updateContactInfo();
         this.ionSlides.slideNext();
         this.ionContent.scrollToTop();
       }
     } else if (this.currentSlide === 'Education') {
 
-      //this.FormEducationRef.onSubmit(undefined);
-      console.log(this.FormEducation);
-      console.log(this.FormEducation.valid);
 
-
+      console.log(this.FormEducation.value);
       if (this.FormEducation.valid) {
+      
+        this.updateEducationInfo();
         this.ionSlides.slideNext();
         this.ionContent.scrollToTop();
       }
 
 
 
-    } else if (this.currentSlide === 'Payment') {
-
-      //this.FormPaymentRef.onSubmit(undefined);
-
-      // if (this.FormPayment.valid) {
-
-
-      //   // this.navCtrl.navigateRoot('/thanks', {
-      //   //   animated: true,
-      //   //   animationDirection: 'forward',
-      //   // });
-      // }
-
-    } else {
+    }
+    else {
 
       this.ionSlides.slideNext();
       this.ionContent.scrollToTop();
@@ -379,16 +375,18 @@ export class LateralEntryPage implements OnInit {
 
       this.FormEducation.patchValue({
 
-        al_index: "temp",
-        al_year: "temp",
-        subject1_name: "temp",
-        subject1_result: "temp",
-        subject2_name: "temp",
-        subject2_result: "temp",
-        subject3_name: "temp",
-        subject3_result: "temp",
+        al_index_no: "",
+        al_year: "",
+        al_subject1: "",
+        al_result1: "",
+        al_subject2: "",
+        al_result2: "",
+        al_subject3: "",
+        al_result3: "",
+        al_subject4: "",
+        al_result4: "",
 
-        fit_index: "",
+        fit_registration_no: "",
         fit_year: "",
       })
     } else if (this.selectedValue == '1') {
@@ -396,17 +394,19 @@ export class LateralEntryPage implements OnInit {
 
       this.FormEducation.patchValue({
 
-        fit_index: "temp",
-        fit_year: "temp",
+        fit_index: "",
+        fit_year: "",
 
-        al_index: "",
+        al_index_no: "",
         al_year: "",
-        subject1_name: "",
-        subject1_result: "",
-        subject2_name: "",
-        subject2_result: "",
-        subject3_name: "",
-        subject3_result: "",
+        al_subject1: "",
+        al_result1: "",
+        al_subject2: "",
+        al_result2: "",
+        al_subject3: "",
+        al_result3: "",
+        al_subject4: "",
+        al_result4: "",
 
       })
 
@@ -417,38 +417,60 @@ export class LateralEntryPage implements OnInit {
   }
 
 
-  updateApplicaionInfo(){
+  updateApplicaionInfo() {
+
+    let personal_infor_obj: LateralApplicantInfo = this.FormPersonalInfo.value;
+    personal_infor_obj.full_name_sinhala = "";
+    personal_infor_obj.full_name_tamil = "";
+    personal_infor_obj.application_no = this.application_no;
+
+    console.log(personal_infor_obj);
+
+    this.applicantInfoService.updateApplication_PersonalInfo(personal_infor_obj).subscribe((_res2) => { });
 
 
-    // this.applicantInfoService.aPPLICATION_INFO.full_name = this.FormPersonalInfo['value']['full_name'];
-    // this.applicantInfoService.aPPLICATION_INFO.full_name_sinhala = "";
-    // this.applicantInfoService.aPPLICATION_INFO.full_name_tamil = "";
-    // this.applicantInfoService.aPPLICATION_INFO.name_marking = this.FormPersonalInfo['value']['name_marking'];
-    // this.applicantInfoService.aPPLICATION_INFO.initials = this.FormPersonalInfo['value']['initials'];
-    // this.applicantInfoService.aPPLICATION_INFO.title = this.FormPersonalInfo['value']['title'];
+  }
+
+  updateContactInfo() {
+
+    let contact_infor_obj: LateralApplicantInfo = this.FormContactInfo.value;
+
+    contact_infor_obj.application_no = this.application_no;
+
+    this.applicantInfoService.updateApplication_ContactInfo(contact_infor_obj).subscribe((_res2) => { });
 
 
-    // this.applicantInfoService.aPPLICATION_INFO.gender = this.FormPersonalInfo['value']['gender'];
-    // this.applicantInfoService.aPPLICATION_INFO.id_type = this.FormPersonalInfo['value']['id_type'];
-    // this.applicantInfoService.aPPLICATION_INFO.id_no = this.FormPersonalInfo['value']['id_no'];
-    // this.applicantInfoService.aPPLICATION_INFO.dob = this.FormPersonalInfo['value']['dob'];
-    // this.applicantInfoService.aPPLICATION_INFO.citizenship = this.FormPersonalInfo['value']['citizenship'];
-    // this.applicantInfoService.aPPLICATION_INFO.nationality = this.FormPersonalInfo['value']['nationality'];
 
-    let abc : LateralApplicantInfo = this.FormPersonalInfo.value;
-    abc.full_name_sinhala = "";
-    abc.full_name_tamil = "";
-    abc.application_no = this.application_no;
-     
-    console.log(abc);
 
-    this.applicantInfoService.updateApplication_PersonalInfo(abc).subscribe((_res2) => {});
+  }
+  updateEducationInfo() {
 
-     
+    let edu_infor_obj: LateralApplicantInfo = this.FormEducation.value;
+
+    edu_infor_obj.application_no = this.application_no;
+
+    this.applicantInfoService.updateApplication_EducationInfo(edu_infor_obj).subscribe((_res2) => { });
+
+
+
+
   }
 
 
+  submitApplication() {
 
+    let final_obj: LateralApplicantInfo;
+    final_obj = this.FormSummary.value
+ 
+ 
+    
+
+
+
+
+
+
+  }
 
 }
 

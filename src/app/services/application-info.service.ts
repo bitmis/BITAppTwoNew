@@ -85,7 +85,29 @@ export class ApplicantInfoService {
       .pipe(retry(1), catchError(this.handleError));
   }
 
+  //-------update contact info------------
 
+  updateApplication_ContactInfo( application: LateralApplicantInfo): Observable<LateralApplicantInfo> {
+    return this.http
+      .put<LateralApplicantInfo>(
+        this.apiURL + '/update_lateral_applicant_contact_info/',
+        JSON.stringify(application),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  //-------update educational info------------
+
+  updateApplication_EducationInfo( application: LateralApplicantInfo): Observable<LateralApplicantInfo> {
+    return this.http
+      .put<LateralApplicantInfo>(
+        this.apiURL + '/update_lateral_applicant_education_info/',
+        JSON.stringify(application),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
 
 
 

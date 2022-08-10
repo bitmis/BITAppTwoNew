@@ -26,8 +26,8 @@ export interface LateralApplicantInfo {
 
 
     qualification_type: string
-    qualification_pending: string
-    need_different_req: string
+    qualification_pending: string //0
+    need_different_req: string //0
     al_year: string
     al_index_no: string
     al_type: string
@@ -41,10 +41,10 @@ export interface LateralApplicantInfo {
     al_result4: string
 
     ol_year1: string
-    ol_subject1: string
+    ol_subject1: string // MATHEMATICS
     ol_result1: string
     ol_year2: string
-    ol_subject2: string
+    ol_subject2: string //ENGLISH
     ol_result2: string
 
     type: string
