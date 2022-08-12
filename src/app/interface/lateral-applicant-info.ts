@@ -43,9 +43,12 @@ export interface LateralApplicantInfo {
     ol_year1: string
     ol_subject1: string // MATHEMATICS
     ol_result1: string
+    ol_index1:string
+
     ol_year2: string
     ol_subject2: string //ENGLISH
     ol_result2: string
+    ol_index2:string
 
     type: string
     payment_category: string

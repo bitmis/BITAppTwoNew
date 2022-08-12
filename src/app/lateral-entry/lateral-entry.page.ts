@@ -130,7 +130,7 @@ export class LateralEntryPage implements OnInit {
 
         console.log("application info not saved");
 
-        let obj1: LateralApplicantInfo = {
+        let initial_object: LateralApplicantInfo = {
           application_no: application_no,
           full_name: '',
           full_name_sinhala: '',
@@ -181,17 +181,19 @@ export class LateralEntryPage implements OnInit {
           payment_type: '',
           phone: '',
           qualification_pending: '',
-          qualification_type: '',
+          qualification_type: "0",
           surcharge: '',
           title: '',
           type: '',
           year: '2022',
           application_status: this.application_status,
-          apply_bit_year: eligible_year
+          apply_bit_year: eligible_year,
+          ol_index1: '',
+          ol_index2: ''
         }
 
 
-        this.applicantInfoService.saveApplicantInfo(obj1).subscribe((res2) => {
+        this.applicantInfoService.saveApplicantInfo(initial_object).subscribe((res2) => {
 
 
           this.applicantInfoService.aPPLICATION_INFO = res2
@@ -220,17 +222,17 @@ export class LateralEntryPage implements OnInit {
   setupForm() {
 
     this.FormPersonalInfo = this.formBuilder.group({
-      full_name: ['', [Validators.required, Validators.minLength(2)]],
-      initials: ['', [Validators.required, Validators.minLength(2)]],
-      name_marking: ['', [Validators.required, Validators.minLength(2)]],
-      title: ['', [Validators.required]],
-      gender: ['', [Validators.required]],
-      id_type: ['', [Validators.required]],
-      id_no: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      dob: [this.defaultDate],
-      citizenship: ['Sri Lankan', [Validators.required]],
-      nationality: ['Sri Lankan', [Validators.required]]
+      full_name: [this.applicantInfoService.aPPLICATION_INFO.full_name, [Validators.required, Validators.minLength(2)]],
+      initials: [this.applicantInfoService.aPPLICATION_INFO.initials, [Validators.required, Validators.minLength(2)]],
+      name_marking: [this.applicantInfoService.aPPLICATION_INFO.name_marking, [Validators.required, Validators.minLength(2)]],
+      title: [this.applicantInfoService.aPPLICATION_INFO.title, [Validators.required]],
+      gender: [this.applicantInfoService.aPPLICATION_INFO.gender, [Validators.required]],
+      id_type: [this.applicantInfoService.aPPLICATION_INFO.id_type, [Validators.required]],
+      id_no: [this.applicantInfoService.aPPLICATION_INFO.id_no, [Validators.required]],
+      email: [this.applicantInfoService.aPPLICATION_INFO.email, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      dob: [this.applicantInfoService.aPPLICATION_INFO.dob],
+      citizenship: [this.applicantInfoService.aPPLICATION_INFO.citizenship, [Validators.required]],
+      nationality: [this.applicantInfoService.aPPLICATION_INFO.nationality, [Validators.required]]
 
 
     });
@@ -238,56 +240,57 @@ export class LateralEntryPage implements OnInit {
 
     this.FormContactInfo = this.formBuilder.group({
 
-      mobile: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      phone: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      address1: ['', [Validators.required]],
-      address2: ['', [Validators.required]],
-      address3: ['', [Validators.required]],
-      district: ['', [Validators.required]],
-      country: ['Sri Lanka', [Validators.required]],
+      mobile: [this.applicantInfoService.aPPLICATION_INFO.mobile, [Validators.required, Validators.pattern('^[0-9]+$')]],
+      phone: [this.applicantInfoService.aPPLICATION_INFO.phone, [Validators.required, Validators.pattern('^[0-9]+$')]],
+      address1: [this.applicantInfoService.aPPLICATION_INFO.address1, [Validators.required]],
+      address2: [this.applicantInfoService.aPPLICATION_INFO.address2, [Validators.required]],
+      address3: [this.applicantInfoService.aPPLICATION_INFO.address3, [Validators.required]],
+      district: [this.applicantInfoService.aPPLICATION_INFO.district, [Validators.required]],
+      country: [this.applicantInfoService.aPPLICATION_INFO.country, [Validators.required]],
 
     })
 
+    this.selectedValue = this.applicantInfoService.aPPLICATION_INFO.qualification_type;
     this.FormEducation = this.formBuilder.group({
 
-      qualification_type: ['0', [Validators.required]],
-      al_year: ['', [Validators.required]],
-      al_index_no: ['', [Validators.required]],
+      qualification_type: [this.applicantInfoService.aPPLICATION_INFO.qualification_type, [Validators.required]],
+      al_year: [this.applicantInfoService.aPPLICATION_INFO.al_year, [Validators.required]],
+      al_index_no: [this.applicantInfoService.aPPLICATION_INFO.al_index_no, [Validators.required]],
 
-      al_subject1: ['', [Validators.required]],
-      al_result1: ['', [Validators.required]],
+      al_subject1: [this.applicantInfoService.aPPLICATION_INFO.al_subject1, [Validators.required]],
+      al_result1: [this.applicantInfoService.aPPLICATION_INFO.al_result1, [Validators.required]],
 
-      al_subject2: ['', [Validators.required]],
-      al_result2: ['', [Validators.required]],
+      al_subject2: [this.applicantInfoService.aPPLICATION_INFO.al_subject2, [Validators.required]],
+      al_result2: [this.applicantInfoService.aPPLICATION_INFO.al_result2, [Validators.required]],
 
-      al_subject3: ['', [Validators.required]],
-      al_result3: ['', [Validators.required]],
+      al_subject3: [this.applicantInfoService.aPPLICATION_INFO.al_subject3, [Validators.required]],
+      al_result3: [this.applicantInfoService.aPPLICATION_INFO.al_result3, [Validators.required]],
 
-      al_subject4: ['', [Validators.required]],
-      al_result4: ['', [Validators.required]],
+      al_subject4: [this.applicantInfoService.aPPLICATION_INFO.al_subject4, [Validators.required]],
+      al_result4: [this.applicantInfoService.aPPLICATION_INFO.al_result4, [Validators.required]],
 
 
       fit_year: ['', [Validators.required]],
-      fit_registration_no: ['', [Validators.required]],
+      fit_registration_no: [this.applicantInfoService.aPPLICATION_INFO.fit_registration_no, [Validators.required]],
 
 
-      ol_year1: ['', [Validators.required]],
+      ol_year1: [this.applicantInfoService.aPPLICATION_INFO.ol_year1, [Validators.required]],
       ol_subject1: ['MATHEMATICS'],
-      ol_result1: ['', [Validators.required]],
-      ol_index1: ['', [Validators.required]], // ADD
+      ol_result1: [this.applicantInfoService.aPPLICATION_INFO.ol_result1, [Validators.required]],
+      ol_index1: [this.applicantInfoService.aPPLICATION_INFO.ol_index1, [Validators.required]], // ADD
 
-      ol_year2: ['', [Validators.required]],
+      ol_year2: [this.applicantInfoService.aPPLICATION_INFO.ol_year2, [Validators.required]],
       ol_subject2: ['ENGLISH'],
-      ol_result2: ['', [Validators.required]],
-      ol_index2: ['', [Validators.required]], //ADD
+      ol_result2: [this.applicantInfoService.aPPLICATION_INFO.ol_result2, [Validators.required]],
+      ol_index2: [this.applicantInfoService.aPPLICATION_INFO.ol_index2, [Validators.required]], //ADD
 
 
     });
 
 
     this.FormSummary = this.formBuilder.group({
-       
- 
+
+
 
 
 
@@ -329,7 +332,6 @@ export class LateralEntryPage implements OnInit {
 
       if (this.FormPersonalInfo.valid) {
 
-        this.updateApplicaionInfo();
         this.ionSlides.slideNext();
         this.ionContent.scrollToTop();
       }
@@ -339,17 +341,15 @@ export class LateralEntryPage implements OnInit {
 
       if (this.FormContactInfo.valid) {
 
-        this.updateContactInfo();
         this.ionSlides.slideNext();
         this.ionContent.scrollToTop();
       }
     } else if (this.currentSlide === 'Education') {
 
 
-      console.log(this.FormEducation.value);
+      console.log(this.FormEducation);
       if (this.FormEducation.valid) {
-      
-        this.updateEducationInfo();
+
         this.ionSlides.slideNext();
         this.ionContent.scrollToTop();
       }
@@ -417,12 +417,14 @@ export class LateralEntryPage implements OnInit {
   }
 
 
-  updateApplicaionInfo() {
+  savePersonalInfo() {
 
     let personal_infor_obj: LateralApplicantInfo = this.FormPersonalInfo.value;
     personal_infor_obj.full_name_sinhala = "";
     personal_infor_obj.full_name_tamil = "";
     personal_infor_obj.application_no = this.application_no;
+    personal_infor_obj.apply_bit_year = this.eligible_year;
+    personal_infor_obj.application_status = this.application_status;
 
     console.log(personal_infor_obj);
 
@@ -431,23 +433,30 @@ export class LateralEntryPage implements OnInit {
 
   }
 
-  updateContactInfo() {
+  saveContactInfo() {
 
     let contact_infor_obj: LateralApplicantInfo = this.FormContactInfo.value;
 
     contact_infor_obj.application_no = this.application_no;
+    contact_infor_obj.apply_bit_year = this.eligible_year;
+    contact_infor_obj.application_status = this.application_status;
 
-    this.applicantInfoService.updateApplication_ContactInfo(contact_infor_obj).subscribe((_res2) => { });
+    this.applicantInfoService.updateApplication_ContactInfo(contact_infor_obj).subscribe((result) => {
+      this.applicantInfoService.aPPLICATION_INFO = result;
+
+    });
 
 
 
 
   }
-  updateEducationInfo() {
+  saveEducationInfo() {
 
     let edu_infor_obj: LateralApplicantInfo = this.FormEducation.value;
 
     edu_infor_obj.application_no = this.application_no;
+    edu_infor_obj.apply_bit_year = this.eligible_year;
+    edu_infor_obj.application_status = this.application_status;
 
     this.applicantInfoService.updateApplication_EducationInfo(edu_infor_obj).subscribe((_res2) => { });
 
@@ -461,9 +470,9 @@ export class LateralEntryPage implements OnInit {
 
     let final_obj: LateralApplicantInfo;
     final_obj = this.FormSummary.value
- 
- 
-    
+
+
+
 
 
 
