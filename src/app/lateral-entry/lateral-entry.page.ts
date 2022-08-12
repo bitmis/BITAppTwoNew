@@ -189,7 +189,8 @@ export class LateralEntryPage implements OnInit {
           application_status: this.application_status,
           apply_bit_year: eligible_year,
           ol_index1: '',
-          ol_index2: ''
+          ol_index2: '',
+          fit_year: undefined
         }
 
 
@@ -232,7 +233,8 @@ export class LateralEntryPage implements OnInit {
       email: [this.applicantInfoService.aPPLICATION_INFO.email, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       dob: [this.applicantInfoService.aPPLICATION_INFO.dob],
       citizenship: [this.applicantInfoService.aPPLICATION_INFO.citizenship, [Validators.required]],
-      nationality: [this.applicantInfoService.aPPLICATION_INFO.nationality, [Validators.required]]
+      nationality: [this.applicantInfoService.aPPLICATION_INFO.nationality, [Validators.required]],
+      disabilities: [this.applicantInfoService.aPPLICATION_INFO.disabilities, [Validators.required]],
 
 
     });
@@ -270,7 +272,7 @@ export class LateralEntryPage implements OnInit {
       al_result4: [this.applicantInfoService.aPPLICATION_INFO.al_result4, [Validators.required]],
 
 
-      fit_year: ['', [Validators.required]],
+      fit_year: [this.applicantInfoService.aPPLICATION_INFO.fit_year, [Validators.required]],
       fit_registration_no: [this.applicantInfoService.aPPLICATION_INFO.fit_registration_no, [Validators.required]],
 
 

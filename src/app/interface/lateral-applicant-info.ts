@@ -40,6 +40,9 @@ export interface LateralApplicantInfo {
     al_subject4: string
     al_result4: string
 
+    fit_registration_no: string
+    fit_year
+
     ol_year1: string
     ol_subject1: string // MATHEMATICS
     ol_result1: string
@@ -61,7 +64,7 @@ export interface LateralApplicantInfo {
     paid_date: string
     invoice_no: string
 
-    fit_registration_no: string
+    
     bit_registration_no: string
     disabilities: string
 
