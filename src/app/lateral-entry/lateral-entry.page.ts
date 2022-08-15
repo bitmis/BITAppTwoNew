@@ -181,7 +181,7 @@ export class LateralEntryPage implements OnInit {
           payment_type: '',
           phone: '',
           qualification_pending: '',
-          qualification_type: "0",
+          qualification_type: '0',
           surcharge: '',
           title: '',
           type: '',
@@ -334,6 +334,7 @@ export class LateralEntryPage implements OnInit {
 
       if (this.FormPersonalInfo.valid) {
 
+        this.savePersonalInfo();
         this.ionSlides.slideNext();
         this.ionContent.scrollToTop();
       }
@@ -343,6 +344,8 @@ export class LateralEntryPage implements OnInit {
 
       if (this.FormContactInfo.valid) {
 
+
+        this.saveContactInfo();
         this.ionSlides.slideNext();
         this.ionContent.scrollToTop();
       }
@@ -350,11 +353,15 @@ export class LateralEntryPage implements OnInit {
 
 
       console.log(this.FormEducation);
-      if (this.FormEducation.valid) {
+      this.saveEducationInfo();
+      this.ionSlides.slideNext();
+      this.ionContent.scrollToTop();
 
-        this.ionSlides.slideNext();
-        this.ionContent.scrollToTop();
-      }
+      // if (this.FormEducation.valid) {
+
+      //   this.ionSlides.slideNext();
+      //   this.ionContent.scrollToTop();
+      // }
 
 
 
@@ -431,6 +438,7 @@ export class LateralEntryPage implements OnInit {
     console.log(personal_infor_obj);
 
     this.applicantInfoService.updateApplication_PersonalInfo(personal_infor_obj).subscribe((_res2) => { });
+    console.log("PERSONAL INFO SAVED");
 
 
   }
@@ -444,7 +452,7 @@ export class LateralEntryPage implements OnInit {
     contact_infor_obj.application_status = this.application_status;
 
     this.applicantInfoService.updateApplication_ContactInfo(contact_infor_obj).subscribe((result) => {
-      this.applicantInfoService.aPPLICATION_INFO = result;
+      console.log("CONTACT INFO SAVED" + result);
 
     });
 
@@ -460,7 +468,9 @@ export class LateralEntryPage implements OnInit {
     edu_infor_obj.apply_bit_year = this.eligible_year;
     edu_infor_obj.application_status = this.application_status;
 
-    this.applicantInfoService.updateApplication_EducationInfo(edu_infor_obj).subscribe((_res2) => { });
+    this.applicantInfoService.updateApplication_EducationInfo(edu_infor_obj).subscribe((_res2) => {
+      console.log("EDU INFO SAVED");
+    });
 
 
 
@@ -470,13 +480,47 @@ export class LateralEntryPage implements OnInit {
 
   submitApplication() {
 
-    let final_obj: LateralApplicantInfo;
-    final_obj = this.FormSummary.value
+    //application no , status - submit
+    this.applicantInfoService.updateApplicationstatusOne(this.application_no).subscribe((result) => {
+      console.log("Status One SAVED " + result);
+
+      if (result == "1") {
 
 
 
+        if (this.eligible_year == "2") {
+
+          this.regSelectionService.update_DIT_Application_status(this.application_no, "payment_pending").subscribe((result2) => {
+            this.router.navigate(['/reg-selection',
+              {
+                application_no: this.application_no,
+                application_status: "payment_pending",
+                id_no: this.applicantInfoService.aPPLICATION_INFO.id_no,
+                registration_no: this.prev_bit_regno,
+                year: this.eligible_year
+              }]);
+          });
+
+        }
+        else if (this.eligible_year == "3") {
+
+          this.regSelectionService.update_HDIT_Application_status(this.application_no, "payment_pending").subscribe((result2) => {
+
+            this.router.navigate(['/reg-selection',
+              {
+                application_no: this.application_no,
+                application_status: "payment_pending",
+                id_no: this.applicantInfoService.aPPLICATION_INFO.id_no,
+                registration_no: this.prev_bit_regno,
+                year: this.eligible_year
+              }]);
+          });
+
+        }
 
 
+      }
+    });
 
 
 

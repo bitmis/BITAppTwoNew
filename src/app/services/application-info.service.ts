@@ -12,6 +12,7 @@ export class ApplicantInfoService {
 
   // Define API
   apiURL = 'http://localhost:8080/api';
+  aPPLICATION_INFO: LateralApplicantInfo;
 
   constructor(private http: HttpClient) { }
   // Http Options
@@ -21,7 +22,7 @@ export class ApplicantInfoService {
     }),
   };
 
-  aPPLICATION_INFO: LateralApplicantInfo;
+
 
   // HttpClient API get() method => Fetch application list
   getApplicants(): Observable<LateralApplicantInfo> {
@@ -109,6 +110,16 @@ export class ApplicantInfoService {
       .pipe(retry(1), catchError(this.handleError));
   }
 
+  //-------update personal info status update------------
+
+  updateApplicationstatusOne( application_no:string): Observable<String> {
+    return this.http
+      .put<String>(
+        this.apiURL + '/update_lateral_applicant_complete_status_one/'+ application_no,
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
 
 
   // HttpClient API delete() method => Delete application

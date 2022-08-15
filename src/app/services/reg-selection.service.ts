@@ -44,6 +44,25 @@ export class RegSelectionService {
       .pipe(retry(1), catchError(this.handleError));
   }
 
+  // update DIT application status
+  update_DIT_Application_status( application_no:string , application_status:string): Observable<String> {
+    return this.http
+      .put<String>(
+        this.apiURL + '/update_dit_application_status/'+ application_no +"/"+application_status,
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  // update HDIT application status
+  update_HDIT_Application_status( application_no:string , application_status:string): Observable<String> {
+    return this.http
+      .put<String>(
+        this.apiURL + '/update_hdit_application_status/'+ application_no +"/"+application_status,
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
 
 
   // Error handling

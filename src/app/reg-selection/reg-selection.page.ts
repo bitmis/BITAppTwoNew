@@ -87,7 +87,7 @@ export class RegSelectionPage implements OnInit {
             this.show_continue_application = true;
           }
 
-          else if (this.status_response['application_status'] == "application_submit") {
+          else if (this.status_response['application_status'] == "payment_pending") {
             this.show_payment_application = true;
           }
         }
