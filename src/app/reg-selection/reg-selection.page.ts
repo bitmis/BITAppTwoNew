@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 import { ApplicantInfoService } from '../services/application-info.service';
 import { RegSelectionService } from '../services/reg-selection.service';
 
@@ -140,6 +139,16 @@ export class RegSelectionPage implements OnInit {
 
     console.log("continue application called");
     this.router.navigate(['lateral-entry',
+      {
+        prev_registration_no: this.prev_bit_regno,
+        eligible_year: this.eligible_year
+      }]);
+  }
+
+  continuePayments() {
+
+
+    this.router.navigate(['payment',
       {
         prev_registration_no: this.prev_bit_regno,
         eligible_year: this.eligible_year

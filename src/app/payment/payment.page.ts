@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-//import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { ActionSheetController } from '@ionic/angular';
 
 @Component({
@@ -17,8 +17,15 @@ export class PaymentPage implements OnInit {
   public imagePath: SafeResourceUrl;
   FormPayment: any;
 
+  eligible_year: string;
+  prev_bit_regno: string;
+  application_no: string;
+  application_status: string;
+  status_response: any;
+
   constructor(public formBuilder: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private actionSheetCtrl: ActionSheetController) { }
 
@@ -26,6 +33,8 @@ export class PaymentPage implements OnInit {
 
   ngOnInit() {
 
+    this.prev_bit_regno = this.route.snapshot.paramMap.get('prev_registration_no');
+    this.eligible_year = this.route.snapshot.paramMap.get('eligible_year');
     this.setUpForm();
   }
 
@@ -48,59 +57,59 @@ export class PaymentPage implements OnInit {
     });
   }
 
-  // async presentActionSheet() {
+  async presentActionSheet() {
 
-  //   const actionSheet = await this.actionSheetCtrl.create({
-  //     header: 'Choose an option',
-  //     buttons: [{
-  //       text: 'Photo Library',
-  //       handler: () => {
-  //         this.chooseImage(CameraSource.Photos);
-  //       }
-  //     }, {
-  //       text: 'Camera',
-  //       handler: () => {
-  //         this.chooseImage(CameraSource.Camera);
-  //       }
-  //     }, {
-  //       text: 'Cancel',
-  //       role: 'cancel'
-  //     }]
-  //   });
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Choose an option',
+      buttons: [{
+        text: 'Photo Library',
+        handler: () => {
+          this.chooseImage(CameraSource.Photos);
+        }
+      }, {
+        text: 'Camera',
+        handler: () => {
+          this.chooseImage(CameraSource.Camera);
+        }
+      }, {
+        text: 'Cancel',
+        role: 'cancel'
+      }]
+    });
 
-  //   return await actionSheet.present();
-  // }
+    return await actionSheet.present();
+  }
 
-  // async chooseImage(source: CameraSource) {
+  async chooseImage(source: CameraSource) {
 
-  //   try {
+    try {
 
-  //     const image = await Camera.getPhoto({
-  //       quality: 70,
-  //       width: 600,
-  //       height: 600,
+      const image = await Camera.getPhoto({
+        quality: 70,
+        width: 600,
+        height: 600,
         
-  //       allowEditing: true,
-  //       correctOrientation: true,
-  //       source: source,
-  //       resultType: CameraResultType.Uri,
-  //     });
+        allowEditing: true,
+        correctOrientation: true,
+        source: source,
+        resultType: CameraResultType.Uri,
+      });
 
-  //     const safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(image.webPath);
-  //     this.imagePath = safeUrl;
+      const safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(image.webPath);
+      this.imagePath = safeUrl;
 
-  //     const response = await fetch(image.webPath);
-  //     const blob = await response.blob();
+      const response = await fetch(image.webPath);
+      const blob = await response.blob();
 
-  //     const base64 = await this.convertBlobToBase64(blob) as string;
+      const base64 = await this.convertBlobToBase64(blob) as string;
 
-  //     // Send encoded string to server...
+      // Send encoded string to server...
 
-  //   } catch (error) {
-  //     console.warn(error);
-  //   }
+    } catch (error) {
+      console.warn(error);
+    }
 
-  // }
+  }
 
   convertBlobToBase64 = (blob: Blob) => new Promise((resolve, reject) => {
     const reader = new FileReader;
