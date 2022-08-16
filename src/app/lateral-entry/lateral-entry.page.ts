@@ -1,3 +1,5 @@
+import { ALSubject } from './../interface/alsubject';
+import { MasterDataService } from './../services/master-data.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { LateralApplicantInfo } from '../interface/lateral-applicant-info';
@@ -43,14 +45,19 @@ export class LateralEntryPage implements OnInit {
   defaultDate = "2000-01-01";
   isSubmitted = false;
 
-  districtList = ['Gampaha', 'Colombo', 'Kalutara', 'Galle', 'Matara'];
+  districtList = ['Ampara','Anuradhapura','Badulla','Batticaloa','Colombo','Galle','Gampaha','Hambantota',
+                  'Jaffna','Kalutara','Kandy','Kegalle','Kilinochchi','Kurunegala','Mannar','Matale',
+                  'Matara','Moneragala','Mullaitivu','Nuwara Eliya','Polonnaruwa','Puttalam','Ratnapura',
+                  'Trincomalee','Vavuniya'];
+                  
   countryList = ['Sri Lanka', 'India', 'Maldives', 'Nepal', 'Pakistan'];
   citizenshipList = ['Sri Lankan', 'Other'];
+  nationalityList = ['Sri Lankan', 'Other'];
   titleList = ['Mr.', 'Ms.', 'Dr', 'Rev.'];
 
 
-  yearList = ['2021', '2020', '2019'];
-  ALsubjectList = ['Chemistry', 'Maths'];
+  yearList = ['2021', '2020', '2019','2018','2017', '2016', '2015','2014'];
+  ALsubjectList: Array<string> = [];
   resultList = ['A', 'B', 'C', 'S', 'F'];
   entry_qualification = [{ "key": "1", "value": "GCE A/L Qualified" }, { "key": "2", "value": "UCSC FIT Qualified" }
   ]
@@ -70,7 +77,8 @@ export class LateralEntryPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private regSelectionService: RegSelectionService,
-    private applicantInfoService: ApplicantInfoService
+    private applicantInfoService: ApplicantInfoService,
+    private masterDataService: MasterDataService
 
   ) { }
 
@@ -113,6 +121,23 @@ export class LateralEntryPage implements OnInit {
 
     }
 
+    this.masterDataService.getAlSubjects().subscribe((al_subject_list) => {
+
+      var al_list: Array<string> = [];
+      al_subject_list.forEach(function (al_value: { [x: string]: string; }) {
+      //  console.log(al_value['al_subject']);
+        al_list.push(al_value['al_subject']);
+      
+
+      });
+      this.masterDataService.ALsubjectList = al_list;
+      this.ALsubjectList = this.masterDataService.ALsubjectList;
+
+
+
+    });
+
+
   }
 
   getApplicationData(application_no: string, eligible_year: string) {
@@ -138,42 +163,42 @@ export class LateralEntryPage implements OnInit {
           address1: '',
           address2: '',
           address3: '',
-          ol_result1: '',
-          ol_result2: '',
+          ol_result1: "0",
+          ol_result2: "0",
           ol_subject1: '',
           ol_subject2: '',
-          ol_year1: '',
-          ol_year2: '',
+          ol_year1: '0',
+          ol_year2: "0",
           al_index_no: '',
           al_type: '',
-          al_year: '',
+          al_year: '0',
           al_result1: '',
           al_result2: '',
           al_result3: '',
-          al_result4: '',
+          al_result4: '0',
           al_subject1: '',
           al_subject2: '',
           al_subject3: '',
-          al_subject4: '',
+          al_subject4: 'Select Subject',
           amount: '',
           bank: '',
           bank_branch: '',
           bit_registration_no: this.prev_bit_regno,
-          citizenship: '',
-          country: '',
-          disabilities: '',
-          district: '',
+          citizenship: "0",
+          country: "0",
+          disabilities: 'No',
+          district: "0",
           dob: '',
           email: '',
           fit_registration_no: '',
-          gender: '',
+          gender: "0",
           id_no: '',
-          id_type: '',
+          id_type: "0",
           initials: '',
           invoice_no: '',
           mobile: '',
           name_marking: '',
-          nationality: '',
+          nationality: "0",
           need_different_req: '',
           over_payment: '',
           paid_date: '',
@@ -183,14 +208,14 @@ export class LateralEntryPage implements OnInit {
           qualification_pending: '',
           qualification_type: '0',
           surcharge: '',
-          title: '',
+          title: "0",
           type: '',
           year: '2022',
           application_status: this.application_status,
           apply_bit_year: eligible_year,
           ol_index1: '',
           ol_index2: '',
-          fit_year: undefined
+          fit_year: ''
         }
 
 
@@ -221,6 +246,8 @@ export class LateralEntryPage implements OnInit {
     this.slides = slides;
   }
   setupForm() {
+
+    console.log(this.applicantInfoService.aPPLICATION_INFO);
 
     this.FormPersonalInfo = this.formBuilder.group({
       full_name: [this.applicantInfoService.aPPLICATION_INFO.full_name, [Validators.required, Validators.minLength(2)]],

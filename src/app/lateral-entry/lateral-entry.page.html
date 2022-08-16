@@ -107,7 +107,7 @@
                                         <ion-item class="item-select" lines="none">
                                             <ion-label position="stacked">Title</ion-label>
                                             <select class="text-small" formControlName="title">
-                                                <option [value]="null" selected disabled>
+                                                <option [value]="0" selected disabled>
                                                     Select Title
                                                 </option>
                                                 <option *ngFor="let title of titleList" [value]="title">
@@ -122,7 +122,7 @@
                                             <ion-label position="stacked">Gender</ion-label>
                                             <select class="text-small" formControlName="gender" interface="popover">
 
-                                                <option value="0" selected disables>Select Gender</option>
+                                                <option [value]="0" selected disabled>Select Gender</option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
                                             </select>
@@ -138,7 +138,7 @@
                                         <ion-item class="item-select" lines="none">
                                             <ion-label position="stacked">ID Type</ion-label>
                                             <select class="text-small" formControlName="id_type" interface="popover">
-                                                <option value="0" selected disabled> Select ID Type</option>
+                                                <option value="0" disabled> Select ID Type</option>
                                                 <option value="NIC">NIC</option>
                                                 <option value="Passport">Passport</option>
                                             </select>
@@ -193,7 +193,7 @@
                                         <ion-item class="item-select" lines="none">
                                             <ion-label position="stacked">Citizenship</ion-label>
                                             <select class="text-small" formControlName="citizenship">
-                                                <option [value]="null" selected disabled>
+                                                <option [value]="0" selected disabled>
                                                     Select Citizenship
                                                 </option>
                                                 <option *ngFor="let citizenship of citizenshipList"
@@ -209,11 +209,11 @@
                                         <ion-item class="item-select" lines="none">
                                             <ion-label position="stacked">Nationality</ion-label>
                                             <select class="text-small" formControlName="nationality">
-                                                <option [value]="null" selected disabled>
+                                                <option [value]="0" selected disabled>
                                                     Select Nationality
                                                 </option>
-                                                <option *ngFor="let citizen of citizenshipList" [value]="citizen">
-                                                    {{ citizen }}
+                                                <option *ngFor="let nationality of nationalityList" [value]="nationality">
+                                                    {{ nationality }}
                                                 </option>
                                             </select>
                                         </ion-item>
@@ -341,7 +341,7 @@
                                         <ion-item class="item-select" lines="none">
                                             <ion-label position="stacked">District</ion-label>
                                             <select class="text-small" formControlName="district">
-                                                <option [value]="null" selected disabled>
+                                                <option [value]="0" selected disabled>
                                                     Select District
                                                 </option>
                                                 <option *ngFor="let district of districtList" [value]="district">
@@ -356,7 +356,7 @@
                                         <ion-item class="item-select" lines="none">
                                             <ion-label position="stacked">Country</ion-label>
                                             <select class="text-small" formControlName="country">
-                                                <option [value]="null" selected disabled>
+                                                <option [value]="0" selected disabled>
                                                     Select Country
                                                 </option>
                                                 <option *ngFor="let country of countryList" [value]="country">
@@ -407,7 +407,7 @@
                                             <ion-label position="stacked">Year</ion-label>
                                             <select class="text-small" formControlName="ol_year1" interface="popover">
 
-                                                <option [value]="null" selected disabled>
+                                                <option [value]="0" selected disabled>
                                                     Select Year
                                                 </option>
                                                 <option *ngFor="let year of yearList" [value]="year">
@@ -429,7 +429,7 @@
                                             <ion-label position="stacked">Result</ion-label>
                                             <select class="text-small" formControlName="ol_result1" interface="popover">
 
-                                                <option [value]="null" selected disabled>
+                                                <option value="0" selected disabled>
                                                     Select Result
                                                 </option>
                                                 <option *ngFor="let result of resultList" [value]="result">
@@ -457,7 +457,7 @@
                                             <ion-label position="stacked">Year</ion-label>
                                             <select class="text-small" formControlName="ol_year2" interface="popover">
 
-                                                <option [value]="null" selected disabled>
+                                                <option value="0" selected disabled>
                                                     Select Year
                                                 </option>
                                                 <option *ngFor="let year of yearList" [value]="year">
@@ -479,7 +479,7 @@
                                             <ion-label position="stacked">Result</ion-label>
                                             <select class="text-small" formControlName="ol_result2" interface="popover">
 
-                                                <option [value]="null" selected disabled>
+                                                <option value="0" selected disabled>
                                                     Select Result
                                                 </option>
                                                 <option *ngFor="let result of resultList" [value]="result">
@@ -529,7 +529,7 @@
                                                 <select class="text-small" formControlName="al_year"
                                                     interface="popover">
 
-                                                    <option [value]="null" selected disabled>
+                                                    <option [value]="0" selected disabled>
                                                         Select A/L Year
                                                     </option>
                                                     <option *ngFor="let year of yearList" [value]="year">
@@ -664,7 +664,7 @@
                                                 <select class="text-small" formControlName="al_subject4"
                                                     interface="popover">
 
-                                                    <option [value]="null" selected disabled>
+                                                    <option [value]="0" selected disabled>
                                                         Select Subject
                                                     </option>
                                                     <option *ngFor="let subject of ALsubjectList" [value]="subject">
@@ -680,7 +680,7 @@
                                                 <select class="text-small" formControlName="al_result4"
                                                     interface="popover">
 
-                                                    <option [value]="null" selected disabled>
+                                                    <option [value]="0" selected disabled>
                                                         Select Result
                                                     </option>
                                                     <option *ngFor="let result of resultList" [value]="result">

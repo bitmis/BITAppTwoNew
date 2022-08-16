@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ALSubject } from '../interface/alsubject';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { IonList } from '@ionic/angular';
 
 
 @Injectable({
@@ -11,8 +12,9 @@ import { retry, catchError } from 'rxjs/operators';
 export class MasterDataService {
 
   // Define API
-  apiURL = 'http://localhost:8080';
-
+  apiURL = 'http://localhost:8080/api';
+  ALsubjectList: Array<string> =[];
+   
   constructor(private http: HttpClient) { }
 
   // Http Options
@@ -22,8 +24,9 @@ export class MasterDataService {
     }),
   };
   
+
   // HttpClient API get() method => Fetch AL Subject list
-  getEmployees(): Observable<ALSubject> {
+  getAlSubjects(): Observable <any> {
     return this.http
       .get<ALSubject>(this.apiURL + '/get_al_subjects')
       .pipe(retry(1), catchError(this.handleError));
