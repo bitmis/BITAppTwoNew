@@ -4,6 +4,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { ActionSheetController } from '@ionic/angular';
+import { RegSelectionService } from '../services/reg-selection.service';
 
 @Component({
   selector: 'app-payment',
@@ -27,7 +28,8 @@ export class PaymentPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private actionSheetCtrl: ActionSheetController) { }
+    private actionSheetCtrl: ActionSheetController,
+    private regSelectionService: RegSelectionService) { }
 
 
 
@@ -35,6 +37,39 @@ export class PaymentPage implements OnInit {
 
     this.prev_bit_regno = this.route.snapshot.paramMap.get('prev_registration_no');
     this.eligible_year = this.route.snapshot.paramMap.get('eligible_year');
+
+    console.log(this.prev_bit_regno + " -> " + this.eligible_year);
+
+    if (this.eligible_year == "2") {
+
+      this.regSelectionService.getDITApplicationStatus(this.prev_bit_regno).subscribe((res2) => {
+
+        console.log(res2);
+
+        this.status_response = res2;
+        this.application_status = res2['application_status'];
+        this.application_no = res2['application_no'];
+        console.log(this.application_status + " -> " + this.application_no);
+         
+
+      });
+
+    } else if (this.eligible_year == "3") {
+
+      this.regSelectionService.getHDITApplicationStatus(this.prev_bit_regno).subscribe((res3) => {
+
+        console.log(res3);
+        this.status_response = res3;
+        this.application_status = res3['application_status'];
+        this.application_no = res3['application_no'];
+        console.log(this.application_status + " -> " + this.application_no);
+         
+
+
+      });
+
+    }
+
     this.setUpForm();
   }
 
