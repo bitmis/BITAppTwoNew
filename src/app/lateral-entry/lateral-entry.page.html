@@ -212,7 +212,8 @@
                                                 <option [value]="0" selected disabled>
                                                     Select Nationality
                                                 </option>
-                                                <option *ngFor="let nationality of nationalityList" [value]="nationality">
+                                                <option *ngFor="let nationality of nationalityList"
+                                                    [value]="nationality">
                                                     {{ nationality }}
                                                 </option>
                                             </select>
@@ -1278,19 +1279,35 @@
 
                             </ion-grid>
                             <ion-grid class="summary-grid">
-                                <!-- <ion-row>
-                                    <ion-label class="summary-grid-header">Declaration</ion-label>
-                                </ion-row> -->
                                 <ion-row>
-                                    <!-- <ion-item>
+                                    <ion-label class="summary-grid-header">Declaration</ion-label>
+                                </ion-row>
+                                <ion-row>
+
+                                    <ion-item>
+                                        <ion-text color="dark">
+                                            <h6 class="dec-text">I do hereby certify that the above particulars furnished by
+                                                me are true and correct. In the event of my application for registration
+                                                being accepted, I shall abide by all the regulations governing external
+                                                candidates of the University of Colombo School of Computing. I agree
+                                                that the University has the right to cancel my registration at any time,
+                                                either if I am found to have furnished false information or if I do not abide
+                                                by the regulations governing external candidates of the University of
+                                                Colombo School of Computing.</h6>
+                                        </ion-text>
+
+                                    </ion-item>
+
+                                    <ion-item>
 
                                         <ion-checkbox checked="false"></ion-checkbox>
-                                        <ion-label> &nbsp; I have Read and Accept the above Terms</ion-label>
-                                    </ion-item> -->
+                                        <ion-label position="inline"> I Agree</ion-label>
+                                    </ion-item>
                                 </ion-row>
                                 <ion-row class="ion-align-items-center">
                                     <ion-col size="12" class="ion-text-center">
-                                    <ion-button color="danger" (click)="submitApplication()">Submit BIT 2022 Application PART I </ion-button>
+                                        <ion-button color="danger" (click)="submitApplication()">Submit BIT 2022
+                                            Application PART I </ion-button>
                                     </ion-col>
                                 </ion-row>
                             </ion-grid>
