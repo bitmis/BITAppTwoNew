@@ -43,14 +43,14 @@
 
 
                         <form [formGroup]="FormPersonalInfo" #FormPersonalInfoRef="ngForm" novalidate
-                            *ngIf="slide === 'Personal'">
+                            *ngIf="slide === 'Personal-Information'">
 
                             <ion-grid class="data-grid">
                                 <!-- full name -->
                                 <ion-row>
                                     <ion-col>
                                         <ion-item lines="none">
-                                            <ion-label position="stacked">Full Name</ion-label>
+                                            <ion-label position="stacked">Full Name (Ex:)</ion-label>
                                             <ion-input formControlName="full_name" type="text"></ion-input>
 
                                         </ion-item>
@@ -250,7 +250,7 @@
                             </ion-grid>
                         </form>
                         <form [formGroup]="FormContactInfo" #FormContactInfoRef="ngForm" novalidate
-                            *ngIf="slide === 'Contact'">
+                            *ngIf="slide === 'Contact-Information'">
                             <ion-grid class="data-grid">
                                 <ion-row>
                                     <ion-col>
@@ -516,7 +516,7 @@
 
                                 <div class="al-division" *ngIf="selectedValue == '1'">
                                     <!-- AL year , Index-->
-                                    <ion-row>
+                                    <ion-row class="subheaderrow">
                                         <ion-col>
                                             <ion-label class="subheaderlabel" position="stacked">GCE A/L Results
                                             </ion-label>

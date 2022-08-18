@@ -15,7 +15,10 @@ export class PaymentPage implements OnInit {
 
   @ViewChild('FormPayment', { static: false }) FormPaymentRef: NgForm;
 
-  public imagePath: SafeResourceUrl;
+  public imagePath1: SafeResourceUrl;
+  public imagePath2: SafeResourceUrl;
+
+
   FormPayment: any;
 
   eligible_year: string;
@@ -92,19 +95,19 @@ export class PaymentPage implements OnInit {
     });
   }
 
-  async presentActionSheet() {
+  async presentActionSheet1() {
 
     const actionSheet = await this.actionSheetCtrl.create({
       header: 'Choose an option',
       buttons: [{
         text: 'Photo Library',
         handler: () => {
-          this.chooseImage(CameraSource.Photos);
+          this.chooseImage1(CameraSource.Photos);
         }
       }, {
         text: 'Camera',
         handler: () => {
-          this.chooseImage(CameraSource.Camera);
+          this.chooseImage1(CameraSource.Camera);
         }
       }, {
         text: 'Cancel',
@@ -115,7 +118,7 @@ export class PaymentPage implements OnInit {
     return await actionSheet.present();
   }
 
-  async chooseImage(source: CameraSource) {
+  async chooseImage1(source: CameraSource) {
 
     try {
 
@@ -131,12 +134,68 @@ export class PaymentPage implements OnInit {
       });
 
       const safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(image.webPath);
-      this.imagePath = safeUrl;
+      this.imagePath1 = safeUrl;
 
       const response = await fetch(image.webPath);
       const blob = await response.blob();
 
       const base64 = await this.convertBlobToBase64(blob) as string;
+
+      // Send encoded string to server...
+
+    } catch (error) {
+      console.warn(error);
+    }
+
+  }
+
+  async presentActionSheet2() {
+
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Choose an option',
+      buttons: [{
+        text: 'Photo Library',
+        handler: () => {
+          this.chooseImage2(CameraSource.Photos);
+        }
+      }, {
+        text: 'Camera',
+        handler: () => {
+          this.chooseImage2(CameraSource.Camera);
+        }
+      }, {
+        text: 'Cancel',
+        role: 'cancel'
+      }]
+    });
+
+    return await actionSheet.present();
+  }
+
+  async chooseImage2(source: CameraSource) {
+
+    try {
+
+      const image = await Camera.getPhoto({
+        quality: 70,
+        width: 600,
+        height: 600,
+        
+        allowEditing: true,
+        correctOrientation: true,
+        source: source,
+        resultType: CameraResultType.Uri,
+      });
+
+      const safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(image.webPath);
+      this.imagePath2 = safeUrl;
+
+      const response = await fetch(image.webPath);
+      const blob = await response.blob();
+
+      const base64 = await this.convertBlobToBase64(blob) as string;
+
+      console.log(blob);
 
       // Send encoded string to server...
 

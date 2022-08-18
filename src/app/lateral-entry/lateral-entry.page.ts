@@ -241,7 +241,7 @@ export class LateralEntryPage implements OnInit {
   }
 
   buildSlides() {
-    const slides = ['Personal', 'Contact', 'Education', 'Summary'];
+    const slides = ['Personal-Information', 'Contact-Information', 'Education', 'Summary'];
     this.currentSlide = slides[0];
     this.slides = slides;
   }
