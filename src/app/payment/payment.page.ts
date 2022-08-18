@@ -212,4 +212,8 @@ export class PaymentPage implements OnInit {
     reader.readAsDataURL(blob);
   });
 
+  //https://medium.com/@rameez.s.shaikh/upload-and-retrieve-images-using-spring-boot-angular-8-mysql-18c166f7bc98
+
+  //https://www.techiediaries.com/ionic-formdata-multiple-file-upload-tutorial/
+
 }
