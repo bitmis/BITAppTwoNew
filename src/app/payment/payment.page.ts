@@ -27,6 +27,9 @@ export class PaymentPage implements OnInit {
   application_status: string;
   status_response: any;
 
+  payment_method: string = '0';
+
+
   constructor(public formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
@@ -53,7 +56,7 @@ export class PaymentPage implements OnInit {
         this.application_status = res2['application_status'];
         this.application_no = res2['application_no'];
         console.log(this.application_status + " -> " + this.application_no);
-         
+
 
       });
 
@@ -66,7 +69,7 @@ export class PaymentPage implements OnInit {
         this.application_status = res3['application_status'];
         this.application_no = res3['application_no'];
         console.log(this.application_status + " -> " + this.application_no);
-         
+
 
 
       });
@@ -80,19 +83,32 @@ export class PaymentPage implements OnInit {
 
     this.FormPayment = this.formBuilder.group({
 
-      paymentmethod: ['null', [Validators.required]],
+      type: ['0', [Validators.required]],
+      payment_type: ['2', [Validators.required]],
+      payment_category: ['1', [Validators.required]],
       paid_date: ['', [Validators.required]],
       paid_amount: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
 
       over_payment: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       surcharge: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+
       bank_name: ['', [Validators.required]],
       bank_branch: ['', [Validators.required]],
+
+
+      invoice_no: ['', [Validators.required]],
 
 
 
 
     });
+
+    console.log(this.FormPayment['value']['type']);
+
+    this.payment_method = this.FormPayment['value']['type'];
+
+    console.log("this.payment_method  " + this.payment_method);
+
   }
 
   async presentActionSheet1() {
@@ -126,7 +142,7 @@ export class PaymentPage implements OnInit {
         quality: 70,
         width: 600,
         height: 600,
-        
+
         allowEditing: true,
         correctOrientation: true,
         source: source,
@@ -178,9 +194,9 @@ export class PaymentPage implements OnInit {
 
       const image = await Camera.getPhoto({
         quality: 70,
-        width: 600,
-        height: 600,
-        
+        width: 400,
+        height: 500,
+
         allowEditing: true,
         correctOrientation: true,
         source: source,
@@ -195,7 +211,7 @@ export class PaymentPage implements OnInit {
 
       const base64 = await this.convertBlobToBase64(blob) as string;
 
-      console.log(blob);
+      console.log(base64);
 
       // Send encoded string to server...
 
@@ -212,8 +228,95 @@ export class PaymentPage implements OnInit {
     reader.readAsDataURL(blob);
   });
 
+
+
+  savePaymentInfo() {
+
+
+    console.log(this.FormPayment['value']);
+    console.log(this.FormPayment['value']['type']);
+
+
+  }
+
+  changeEducationVisibility(e) {
+    console.log(e.target.value);
+    this.payment_method = e.target.value;
+
+    if (this.payment_method == '1') {
+
+      this.FormPayment.patchValue({
+
+        bank_name :"Peoples Bank"
+      });
+
+
+    }
+    else if (this.payment_method == '2') {
+
+      this.FormPayment.patchValue({
+
+        bank_name :""
+      });
+
+    }
+
+
+
+
+  }
+
   //https://medium.com/@rameez.s.shaikh/upload-and-retrieve-images-using-spring-boot-angular-8-mysql-18c166f7bc98
 
   //https://www.techiediaries.com/ionic-formdata-multiple-file-upload-tutorial/
 
+
+
+
+  selectedFile: File;
+  retrievedImage: any;
+  base64Data: any;
+  retrieveResonse: any;
+  message: string;
+  imageName: any;
+
+
+  //Gets called when the user selects an image
+  public onFileChanged(event) {
+    //Select File
+    this.selectedFile = event.target.files[0];
+  }
+  //Gets called when the user clicks on submit to upload the image
+  onUpload() {
+    console.log(this.selectedFile);
+
+    //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
+    const uploadImageData = new FormData();
+    uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+
+    //Make a call to the Spring Boot Application to save the image
+    // this.httpClient.post('http://localhost:8080/image/upload', uploadImageData, { observe: 'response' })
+    //   .subscribe((response) => {
+    //     if (response.status === 200) {
+    //       this.message = 'Image uploaded successfully';
+    //     } else {
+    //       this.message = 'Image not uploaded successfully';
+    //     }
+    //   }
+    //   );
+  }
+  //Gets called when the user clicks on retieve image button to get the image from back end
+  getImage() {
+    //Make a call to Sprinf Boot to get the Image Bytes.
+    // this.httpClient.get('http://localhost:8080/image/get/' + this.imageName)
+    //   .subscribe(
+    //     res => {
+    //       this.retrieveResonse = res;
+    //       this.base64Data = this.retrieveResonse.picByte;
+    //       this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
+    //     }
+    //   );
+  }
 }
+
+

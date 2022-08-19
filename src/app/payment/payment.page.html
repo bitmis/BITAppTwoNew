@@ -14,16 +14,16 @@
 <ion-content>
     <form [formGroup]="FormPayment" #FormPaymentmRef="ngForm" novalidate>
         <!-- select payment method-->
-        <ion-grid class="payment-grid" style="
-        padding: 2%;
-        margin: 2%;
-        border: 1px solid #c9c7c7;">
+
+        <ion-grid class="payment-grid" style=" padding: 2%;  margin: 2%;   border: 1px solid #c9c7c7;">
+
             <ion-row>
                 <ion-col>
                     <ion-item class="item-select" lines="none">
-                        <ion-label position="stacked">Payment Method</ion-label>
-                        <select class="text-small" formControlName="paymentmethod" interface="popover">
-                            <option value="null" selected disabled> Select Payment Method</option>
+                        <ion-label position="stacked">Payment Method (Please Select One Option)</ion-label>
+                        <select class="text-small" formControlName="type" interface="popover"
+                            (change)="changeEducationVisibility($event)">
+                            <option value="0" selected disabled> Select Payment Method </option>
                             <option value="1">Bank Payment</option>
                             <option value="2">Online Payment</option>
                         </select>
@@ -33,118 +33,136 @@
 
             </ion-row>
 
+        </ion-grid>
+        <ion-grid class="payment-grid" style=" padding: 2%;  margin: 2%;   border: 1px solid #c9c7c7;">
+            
+
             <!-- payment method - by bank-->
 
-            <div>
-                <ion-row>
+            <ion-row>
+                <ion-label class="summary-grid-header">Enter Payment Information</ion-label>
+            </ion-row>
 
-                    <ion-col>
+            <ion-row>
 
-                        <ion-item class="item-select" lines="none">
-                            <ion-label position="stacked">Paid Date</ion-label>
-                            <input type="date" formControlName="paid_date">
-                        </ion-item>
-                    </ion-col>
-                    <ion-col>
-                        <ion-item class="item-select" lines="none">
-                            <ion-label position="stacked">Paid Amount</ion-label>
-                            <ion-input formControlName="paid_amount" type="text"></ion-input>
+                <ion-col>
 
-                        </ion-item>
-                    </ion-col>
+                    <ion-item class="item-select" lines="none">
+                        <ion-label position="stacked">Paid Date</ion-label>
+                        <input type="date" formControlName="paid_date">
+                    </ion-item>
+                </ion-col>
+                <ion-col>
+                    <ion-item class="item-select" lines="none">
+                        <ion-label position="stacked">Paid Amount</ion-label>
+                        <ion-input formControlName="paid_amount" type="text"></ion-input>
 
-                </ion-row>
+                    </ion-item>
+                </ion-col>
 
-                <ion-row>
-                    <ion-col>
-                        <ion-item class="item-select" lines="none">
-                            <ion-label position="stacked">Over Payment</ion-label>
-                            <ion-input formControlName="over_payment" type="text"></ion-input>
+            </ion-row>
 
-                        </ion-item>
+            <ion-row>
+                <ion-col>
+                    <ion-item class="item-select" lines="none">
+                        <ion-label position="stacked">Over Payment</ion-label>
+                        <ion-input formControlName="over_payment" type="text"></ion-input>
+
+                    </ion-item>
 
 
-                    </ion-col>
-                    <ion-col>
+                </ion-col>
+                <ion-col>
 
-                        <ion-item class="item-select" lines="none">
-                            <ion-label position="stacked">Surcharge</ion-label>
-                            <ion-input formControlName="surcharge" type="text"></ion-input>
+                    <ion-item class="item-select" lines="none">
+                        <ion-label position="stacked">Surcharge</ion-label>
+                        <ion-input formControlName="surcharge" type="text"></ion-input>
 
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
 
-                <ion-row>
-                    <ion-col>
-                        <ion-item class="item-select" lines="none">
-                            <ion-label position="stacked">Bank</ion-label>
-                            <ion-input formControlName="bank_name" type="text"></ion-input>
+            <ion-row>
+                <ion-col>
+                    <ion-item class="item-select" lines="none">
 
-                        </ion-item>
-                    </ion-col>
-                    <ion-col>
-                        <ion-item class="item-select" lines="none">
-                            <ion-label position="stacked">Bank Branch</ion-label>
-                            <ion-input formControlName="bank_branch" type="text"></ion-input>
 
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col>
-                        <div class="flex align-items-center full-width ion-margin-top">
-                            <div class="ion-margin-end">
-                                <h5 class="text-medium bold">Upload image</h5>
-                                <ion-button strong shape="round" color="primary" size="small"
-                                    (click)="presentActionSheet1()">
-                                    Select
-                                </ion-button>
-                            </div>
-                            <div>
-                                <img class="img-thumb" [src]="imagePath1" *ngIf="imagePath1">
-                            </div>
+                        <ion-label position="stacked">Bank</ion-label>
+                        <ion-input formControlName="bank_name" type="text"> </ion-input>
+
+                    </ion-item>
+                </ion-col>
+                <ion-col>
+                    <ion-item class="item-select" lines="none">
+                        <ion-label position="stacked">Bank Branch</ion-label>
+                        <ion-input formControlName="bank_branch" type="text"> </ion-input>
+
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col>
+                    <ion-item class="item-select" lines="none">
+
+                        <ion-label position="stacked">Invoice No</ion-label>
+                        <ion-input formControlName="invoice_no" type="text"> </ion-input>
+
+                    </ion-item>
+                </ion-col>
+                <ion-col>
+
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="payment_method == '1'">
+                <ion-col>
+                    <div class="flex align-items-center full-width ion-margin-top">
+                        <div class="ion-margin-end">
+                            <h5 class="text-medium bold">Upload image</h5>
+                            <ion-button strong shape="round" color="primary" size="small"
+                                (click)="presentActionSheet1()">
+                                Select
+                            </ion-button>
                         </div>
-                    </ion-col>
-                    <ion-col>
-                        <div class="flex align-items-center full-width ion-margin-top">
-                            <div class="ion-margin-end">
-                                <h5 class="text-medium bold">Upload image</h5>
-                                <ion-button strong shape="round" color="primary" size="small"
-                                    (click)="presentActionSheet2()">
-                                    Select
-                                </ion-button>
-                            </div>
-                            <div>
-                                <img class="img-thumb" [src]="imagePath2" *ngIf="imagePath2">
-                            </div>
+                        <div>
+                            <img class="img-thumb" [src]="imagePath1" *ngIf="imagePath1">
                         </div>
-                    </ion-col>
-                </ion-row>
-               <ion-row>
+                    </div>
+                </ion-col>
+                <ion-col>
+                    <div class="flex align-items-center full-width ion-margin-top">
+                        <div class="ion-margin-end">
+                            <h5 class="text-medium bold">Upload image</h5>
+                            <ion-button strong shape="round" color="primary" size="small"
+                                (click)="presentActionSheet2()">
+                                Select
+                            </ion-button>
+                        </div>
+                        <div>
+                            <img class="img-thumb" [src]="imagePath2" *ngIf="imagePath2">
+                        </div>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+
+                <!-- <ion-col>
+
+                    <input type="file" (change)="onFileChanged($event)">
+                </ion-col>
+                <ion-col>
+                    <input type="button" (click)="onUpload()" value="upload">
+
+                </ion-col> -->
                 <!-- <div class="container row">
-                    <div class="col-md-12">
-                        <h1>Upload Image</h1>
-                    </div>
-                </div>
-                <div class="container row">
-                    <div class="col-md-6">
-                        <input type="file" (change)="onFileChanged($event)">
-                    </div>
-                    <div class="col-md-6">
-                        <input type="button" (click)="onUpload()" value="upload">
-                    </div>
-                </div>
-                <hr />
-                <div class="container row">
                     <div class="col-md-12">
                         <div *ngIf=message>{{message}}</div>
                     </div>
                 </div>
                 <div class="container row">
                     <div class="col-md-6">
-                        <input type="text" class="form-control" id="name" placeholder="image name" [(ngModel)]="imageName"
-                            name="name" />
+                        <input type="text" class="form-control" id="name" placeholder="image name"
+                            [(ngModel)]="imageName" name="name" />
                     </div>
                     <div class="col-md-6">
                         <input type="button" (click)="getImage()" value="Get Image">
@@ -157,10 +175,14 @@
                         </div>
                     </div>
                 </div> -->
-               </ion-row>
+            </ion-row>
 
+            <ion-row class="ion-align-items-center">
+                <ion-col size="12" class="ion-text-center">
+                    <ion-button color="danger" (click)="savePaymentInfo()">Submit Payment Info</ion-button>
+                </ion-col>
+            </ion-row>
 
-            </div>
         </ion-grid>
     </form>
 </ion-content>
