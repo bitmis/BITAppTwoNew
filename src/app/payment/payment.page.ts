@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { ActionSheetController } from '@ionic/angular';
 import { RegSelectionService } from '../services/reg-selection.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-payment',
@@ -28,6 +29,7 @@ export class PaymentPage implements OnInit {
   status_response: any;
 
   payment_method: string = '0';
+  
 
 
   constructor(public formBuilder: FormBuilder,
@@ -35,7 +37,8 @@ export class PaymentPage implements OnInit {
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private actionSheetCtrl: ActionSheetController,
-    private regSelectionService: RegSelectionService) { }
+    private regSelectionService: RegSelectionService,
+    private httpClient: HttpClient) { }
 
 
 
@@ -89,10 +92,10 @@ export class PaymentPage implements OnInit {
       paid_date: ['', [Validators.required]],
       paid_amount: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
 
-      over_payment: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      surcharge: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      over_payment: ['0', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      surcharge: ['0', [Validators.required, Validators.pattern('^[0-9]+$')]],
 
-      bank_name: ['', [Validators.required]],
+      bank_name: ['Peoples Bank', [Validators.required]],
       bank_branch: ['', [Validators.required]],
 
 
@@ -233,8 +236,13 @@ export class PaymentPage implements OnInit {
   savePaymentInfo() {
 
 
-    console.log(this.FormPayment['value']);
+    
     console.log(this.FormPayment['value']['type']);
+
+    if(this.FormPayment.valid){
+      console.log("Validd");
+      console.log(this.FormPayment['value']);
+    }
 
 
   }
@@ -247,7 +255,8 @@ export class PaymentPage implements OnInit {
 
       this.FormPayment.patchValue({
 
-        bank_name :"Peoples Bank"
+        bank_name :"Peoples Bank",
+        invoice_no :"0"
       });
 
 
@@ -256,7 +265,7 @@ export class PaymentPage implements OnInit {
 
       this.FormPayment.patchValue({
 
-        bank_name :""
+        bank_name :"Peoples Bank"
       });
 
     }
@@ -295,27 +304,27 @@ export class PaymentPage implements OnInit {
     uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
 
     //Make a call to the Spring Boot Application to save the image
-    // this.httpClient.post('http://localhost:8080/image/upload', uploadImageData, { observe: 'response' })
-    //   .subscribe((response) => {
-    //     if (response.status === 200) {
-    //       this.message = 'Image uploaded successfully';
-    //     } else {
-    //       this.message = 'Image not uploaded successfully';
-    //     }
-    //   }
-    //   );
+    this.httpClient.post('http://localhost:8080/api/upload', uploadImageData, { observe: 'response' })
+      .subscribe((response) => {
+        if (response.status === 200) {
+          this.message = 'Image uploaded successfully';
+        } else {
+          this.message = 'Image not uploaded successfully';
+        }
+      }
+      );
   }
   //Gets called when the user clicks on retieve image button to get the image from back end
   getImage() {
     //Make a call to Sprinf Boot to get the Image Bytes.
-    // this.httpClient.get('http://localhost:8080/image/get/' + this.imageName)
-    //   .subscribe(
-    //     res => {
-    //       this.retrieveResonse = res;
-    //       this.base64Data = this.retrieveResonse.picByte;
-    //       this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
-    //     }
-    //   );
+    this.httpClient.get('http://localhost:8080/api/get/' + this.imageName)
+      .subscribe(
+        res => {
+          this.retrieveResonse = res;
+          this.base64Data = this.retrieveResonse.picByte;
+          this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
+        }
+      );
   }
 }
 

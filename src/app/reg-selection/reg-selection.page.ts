@@ -24,6 +24,7 @@ export class RegSelectionPage implements OnInit {
   show_start_application: boolean = false;
   show_continue_application: boolean = false;
   show_payment_application: boolean = false;
+  show_sublitted_application: boolean = false;
 
 
   constructor(private route: ActivatedRoute, private router: Router, private regSelectionService: RegSelectionService,
@@ -64,6 +65,9 @@ export class RegSelectionPage implements OnInit {
 
           else if (this.status_response['application_status'] == "payment_pending") {
             this.show_payment_application = true;
+
+          } else if (this.status_response['application_status'] == "submitted") {
+            this.show_payment_application = true;
           }
         }
 
@@ -87,6 +91,9 @@ export class RegSelectionPage implements OnInit {
           }
 
           else if (this.status_response['application_status'] == "payment_pending") {
+            this.show_payment_application = true;
+          }
+          else if (this.status_response['application_status'] == "submitted") {
             this.show_payment_application = true;
           }
         }
