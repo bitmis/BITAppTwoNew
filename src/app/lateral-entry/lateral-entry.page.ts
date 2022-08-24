@@ -45,18 +45,18 @@ export class LateralEntryPage implements OnInit {
   defaultDate = "2000-01-01";
   isSubmitted = false;
 
-  districtList = ['Ampara','Anuradhapura','Badulla','Batticaloa','Colombo','Galle','Gampaha','Hambantota',
-                  'Jaffna','Kalutara','Kandy','Kegalle','Kilinochchi','Kurunegala','Mannar','Matale',
-                  'Matara','Moneragala','Mullaitivu','Nuwara Eliya','Polonnaruwa','Puttalam','Ratnapura',
-                  'Trincomalee','Vavuniya'];
-                  
+  districtList = ['Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo', 'Galle', 'Gampaha', 'Hambantota',
+    'Jaffna', 'Kalutara', 'Kandy', 'Kegalle', 'Kilinochchi', 'Kurunegala', 'Mannar', 'Matale',
+    'Matara', 'Moneragala', 'Mullaitivu', 'Nuwara Eliya', 'Polonnaruwa', 'Puttalam', 'Ratnapura',
+    'Trincomalee', 'Vavuniya'];
+
   countryList = ['Sri Lanka', 'India', 'Maldives', 'Nepal', 'Pakistan'];
   citizenshipList = ['Sri Lankan', 'Other'];
   nationalityList = ['Sri Lankan', 'Other'];
   titleList = ['Mr.', 'Ms.', 'Dr', 'Rev.'];
 
 
-  yearList = ['2021', '2020', '2019','2018','2017', '2016', '2015','2014'];
+  yearList = ['2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014'];
   ALsubjectList: Array<string> = [];
   resultList = ['A', 'B', 'C', 'S', 'F'];
   entry_qualification = [{ "key": "1", "value": "GCE A/L Qualified" }, { "key": "2", "value": "UCSC FIT Qualified" }
@@ -125,9 +125,9 @@ export class LateralEntryPage implements OnInit {
 
       var al_list: Array<string> = [];
       al_subject_list.forEach(function (al_value: { [x: string]: string; }) {
-      //  console.log(al_value['al_subject']);
+        //  console.log(al_value['al_subject']);
         al_list.push(al_value['al_subject']);
-      
+
 
       });
       this.masterDataService.ALsubjectList = al_list;
@@ -149,6 +149,8 @@ export class LateralEntryPage implements OnInit {
 
         console.log("application info already saved");
         this.applicantInfoService.aPPLICATION_INFO = res1;
+        this.setupForm();
+        this.buildSlides();
       }
 
       else if (res1 == null) {  // save application number so we can keep updating personal data
@@ -199,13 +201,13 @@ export class LateralEntryPage implements OnInit {
           mobile: '',
           name_marking: '',
           nationality: "0",
-          need_different_req: '',
+          need_different_req: '0',
           over_payment: '',
           paid_date: '',
           payment_category: '',
           payment_type: '',
           phone: '',
-          qualification_pending: '',
+          qualification_pending: '0',
           qualification_type: '0',
           surcharge: '',
           title: "0",
@@ -222,14 +224,16 @@ export class LateralEntryPage implements OnInit {
         this.applicantInfoService.saveApplicantInfo(initial_object).subscribe((res2) => {
 
 
-          this.applicantInfoService.aPPLICATION_INFO = res2
+          this.applicantInfoService.aPPLICATION_INFO = res2;
+          console.log("APPLICATION INFO - >   " + this.applicantInfoService.aPPLICATION_INFO);
+          this.setupForm();
+          this.buildSlides();
 
         });
       }
 
-      console.log("APPLICATION INFO - >   " + this.applicantInfoService.aPPLICATION_INFO);
-      this.setupForm();
-      this.buildSlides();
+
+
 
     });
 
@@ -356,7 +360,7 @@ export class LateralEntryPage implements OnInit {
   onNextButtonTouched() {
 
 
-    if (this.currentSlide === 'Personal') {
+    if (this.currentSlide === 'Personal-Information') {
 
 
       if (this.FormPersonalInfo.valid) {
@@ -367,7 +371,7 @@ export class LateralEntryPage implements OnInit {
       }
 
     }
-    else if (this.currentSlide === 'Contact') {
+    else if (this.currentSlide === 'Contact-Information') {
 
       if (this.FormContactInfo.valid) {
 
@@ -393,11 +397,7 @@ export class LateralEntryPage implements OnInit {
 
 
     }
-    else {
 
-      this.ionSlides.slideNext();
-      this.ionContent.scrollToTop();
-    }
   }
 
 

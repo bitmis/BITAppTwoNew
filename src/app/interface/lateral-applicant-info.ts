@@ -41,7 +41,7 @@ export interface LateralApplicantInfo {
     al_result4: string
 
     fit_registration_no: string
-    fit_year
+    fit_year:string
 
     ol_year1: string
     ol_subject1: string // MATHEMATICS

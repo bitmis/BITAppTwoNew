@@ -65,7 +65,7 @@
                 <ion-col>
                     <ion-item class="item-select" lines="none">
                         <ion-label position="stacked">Paid Amount (Rs.)</ion-label>
-                        <ion-input formControlName="paid_amount" type="text"></ion-input>
+                        <ion-input formControlName="amount" type="text"></ion-input>
 
                     </ion-item>
                 </ion-col>
@@ -98,7 +98,7 @@
 
 
                         <ion-label position="stacked">Bank</ion-label>
-                        <ion-input formControlName="bank_name" type="text"> </ion-input>
+                        <ion-input formControlName="bank" type="text"> </ion-input>
 
                     </ion-item>
                 </ion-col>
@@ -124,38 +124,25 @@
 
                 </ion-col>
             </ion-row>
-            <!-- <ion-row *ngIf="payment_method == '1'">
+            <ion-row *ngIf="payment_method == '1'">
                 <ion-col>
-                    <div class="flex align-items-center full-width ion-margin-top">
-                        <div class="ion-margin-end">
-                            <h5 class="text-medium bold">Upload image</h5>
-                            <ion-button strong shape="round" color="primary" size="small"
-                                (click)="presentActionSheet1()">
-                                Select
-                            </ion-button>
-                        </div>
-                        <div>
-                            <img class="img-thumb" [src]="imagePath1" *ngIf="imagePath1">
-                        </div>
-                    </div>
+<!-- 
+                    <input type="file" (change)="onFileChanged($event)">
+                
+                    <input type="button" (click)="onUpload()" value="upload"> -->
+        
                 </ion-col>
-                <ion-col>
-                    <div class="flex align-items-center full-width ion-margin-top">
-                        <div class="ion-margin-end">
-                            <h5 class="text-medium bold">Upload image</h5>
-                            <ion-button strong shape="round" color="primary" size="small"
-                                (click)="presentActionSheet2()">
-                                Select
-                            </ion-button>
-                        </div>
-                        <div>
-                            <img class="img-thumb" [src]="imagePath2" *ngIf="imagePath2">
-                        </div>
-                    </div>
-                </ion-col>
-            </ion-row> -->
+    
+                <!-- <ion-col>
+    
+                    <input type="file" (change)="onFileChanged($event)">
+                
+                    <input type="button" (click)="onUpload()" value="upload">
+        
+                </ion-col> -->
+            </ion-row>
  
-
+           
 
             <ion-row class="ion-align-items-center">
                 <ion-col size="12" class="ion-text-center">
@@ -168,16 +155,9 @@
 
     <ion-row>
 
-        <ion-col>
-
-            <input type="file" (change)="onFileChanged($event)">
-        </ion-col>
-        <ion-col>
-            <input type="button" (click)="onUpload()" value="upload">
-
-        </ion-col>
+        
     
-    <ion-col>
+    <!-- <ion-col>
         <div class="container row">
             <div class="col-md-12">
                 <div *ngIf=message>{{message}}</div>
@@ -199,7 +179,38 @@
                 </div>
             </div>
         </div>
-    </ion-col>
+    </ion-col> -->
 
 </ion-row>
 </ion-content>
+
+
+
+<!-- <ion-col>
+    <div class="flex align-items-center full-width ion-margin-top">
+        <div class="ion-margin-end">
+            <h5 class="text-medium bold">Upload image</h5>
+            <ion-button strong shape="round" color="primary" size="small"
+                (click)="presentActionSheet1()">
+                Select
+            </ion-button>
+        </div>
+        <div>
+            <img class="img-thumb" [src]="imagePath1" *ngIf="imagePath1">
+        </div>
+    </div>
+</ion-col>
+<ion-col>
+    <div class="flex align-items-center full-width ion-margin-top">
+        <div class="ion-margin-end">
+            <h5 class="text-medium bold">Upload image</h5>
+            <ion-button strong shape="round" color="primary" size="small"
+                (click)="presentActionSheet2()">
+                Select
+            </ion-button>
+        </div>
+        <div>
+            <img class="img-thumb" [src]="imagePath2" *ngIf="imagePath2">
+        </div>
+    </div>
+</ion-col> -->

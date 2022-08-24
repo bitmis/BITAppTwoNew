@@ -1,3 +1,5 @@
+import { PaymentService } from './../services/payment.service';
+import { LateralApplicantInfo } from './../interface/lateral-applicant-info';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -29,7 +31,7 @@ export class PaymentPage implements OnInit {
   status_response: any;
 
   payment_method: string = '0';
-  
+
 
 
   constructor(public formBuilder: FormBuilder,
@@ -38,7 +40,8 @@ export class PaymentPage implements OnInit {
     private sanitizer: DomSanitizer,
     private actionSheetCtrl: ActionSheetController,
     private regSelectionService: RegSelectionService,
-    private httpClient: HttpClient) { }
+    private httpClient: HttpClient,
+    private paymentService: PaymentService) { }
 
 
 
@@ -90,12 +93,12 @@ export class PaymentPage implements OnInit {
       payment_type: ['2', [Validators.required]],
       payment_category: ['1', [Validators.required]],
       paid_date: ['', [Validators.required]],
-      paid_amount: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      amount: ['1800', [Validators.required, Validators.pattern('^[0-9]+$')]],
 
       over_payment: ['0', [Validators.required, Validators.pattern('^[0-9]+$')]],
       surcharge: ['0', [Validators.required, Validators.pattern('^[0-9]+$')]],
 
-      bank_name: ['Peoples Bank', [Validators.required]],
+      bank: ['Peoples Bank', [Validators.required]],
       bank_branch: ['', [Validators.required]],
 
 
@@ -114,6 +117,70 @@ export class PaymentPage implements OnInit {
 
   }
 
+
+
+
+  savePaymentInfo() {
+
+
+
+    console.log(this.FormPayment['value']['type']);
+    console.log(this.FormPayment['value']);
+    if (this.FormPayment.valid) {
+      console.log("Validd");
+      console.log(this.FormPayment['value']);
+
+      let payment_infor_obj: LateralApplicantInfo = this.FormPayment.value;
+
+      payment_infor_obj.application_no = this.application_no;
+      payment_infor_obj.apply_bit_year = this.eligible_year;
+      payment_infor_obj.application_status = "completed";
+
+      this.paymentService.updateApplication_PaymentInfo(payment_infor_obj).subscribe((result) => {
+
+        if (result == "1") {
+          console.log("PAYMENT INFO SAVED ");
+          this.completeSubmission();
+        }
+
+      });
+
+
+    }
+
+
+  }
+  completeSubmission() {
+    throw new Error('Method not implemented.');
+  }
+
+  changeEducationVisibility(e) {
+    console.log(e.target.value);
+    this.payment_method = e.target.value;
+
+    if (this.payment_method == '1') {
+
+      this.FormPayment.patchValue({
+
+        bank_name: "Peoples Bank",
+        invoice_no: "0"
+      });
+
+
+    }
+    else if (this.payment_method == '2') {
+
+      this.FormPayment.patchValue({
+
+        bank_name: "Peoples Bank"
+      });
+
+    }
+
+
+
+
+  }
   async presentActionSheet1() {
 
     const actionSheet = await this.actionSheetCtrl.create({
@@ -233,52 +300,6 @@ export class PaymentPage implements OnInit {
 
 
 
-  savePaymentInfo() {
-
-
-    
-    console.log(this.FormPayment['value']['type']);
-
-    if(this.FormPayment.valid){
-      console.log("Validd");
-      console.log(this.FormPayment['value']);
-    }
-
-
-  }
-
-  changeEducationVisibility(e) {
-    console.log(e.target.value);
-    this.payment_method = e.target.value;
-
-    if (this.payment_method == '1') {
-
-      this.FormPayment.patchValue({
-
-        bank_name :"Peoples Bank",
-        invoice_no :"0"
-      });
-
-
-    }
-    else if (this.payment_method == '2') {
-
-      this.FormPayment.patchValue({
-
-        bank_name :"Peoples Bank"
-      });
-
-    }
-
-
-
-
-  }
-
-  //https://medium.com/@rameez.s.shaikh/upload-and-retrieve-images-using-spring-boot-angular-8-mysql-18c166f7bc98
-
-  //https://www.techiediaries.com/ionic-formdata-multiple-file-upload-tutorial/
-
 
 
 
@@ -329,3 +350,6 @@ export class PaymentPage implements OnInit {
 }
 
 
+ //https://medium.com/@rameez.s.shaikh/upload-and-retrieve-images-using-spring-boot-angular-8-mysql-18c166f7bc98
+
+  //https://www.techiediaries.com/ionic-formdata-multiple-file-upload-tutorial/
