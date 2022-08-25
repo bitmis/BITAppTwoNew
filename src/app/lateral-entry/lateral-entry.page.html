@@ -1,12 +1,14 @@
 <ion-header>
     <ion-toolbar color="dark">
-        <ion-buttons slot="start">
-
+        <!-- <ion-buttons slot="start">
             <ion-back-button defaultHref="/reg-selection"></ion-back-button>
-
-        </ion-buttons>
-        <ion-title>Lateral Registration : Application No :{{this.application_no}} Eligible Year : {{this.eligible_year}}
+        </ion-buttons> -->
+        <ion-title>Lateral Registration 2022 - &nbsp; &nbsp; Application No :{{this.application_no}} &nbsp; &nbsp;
+            Eligible Year : {{this.eligible_year}}
         </ion-title>
+        <ion-button color="medium" slot="end" style="padding-right:1%" routerLink="/login">
+            <ion-icon name="log-out-outline"></ion-icon>Log Out
+        </ion-button>
     </ion-toolbar>
 </ion-header>
 
@@ -1286,12 +1288,14 @@
 
                                     <ion-item>
                                         <ion-text color="dark">
-                                            <h6 class="dec-text">I do hereby certify that the above particulars furnished by
+                                            <h6 class="dec-text">I do hereby certify that the above particulars
+                                                furnished by
                                                 me are true and correct. In the event of my application for registration
                                                 being accepted, I shall abide by all the regulations governing external
                                                 candidates of the University of Colombo School of Computing. I agree
                                                 that the University has the right to cancel my registration at any time,
-                                                either if I am found to have furnished false information or if I do not abide
+                                                either if I am found to have furnished false information or if I do not
+                                                abide
                                                 by the regulations governing external candidates of the University of
                                                 Colombo School of Computing.</h6>
                                         </ion-text>

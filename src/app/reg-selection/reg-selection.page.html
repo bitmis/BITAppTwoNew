@@ -1,8 +1,7 @@
 <ion-header>
   <ion-toolbar color="dark">
-    <ion-title style="color: white;">Lateral Entry Registration</ion-title>
-    <ion-button color="medium" slot="end" style="padding-right:1%" routerLink="/login">
-      <ion-icon name="log-out-outline"></ion-icon>
+    <ion-title style="color: white;">Lateral Entry Registration  &nbsp; &nbsp;{{this.new_application_no}}</ion-title>
+    <ion-button color="medium" slot="end" style="padding-right:1%" routerLink="/login"><ion-icon name="log-out-outline"></ion-icon>Log Out
     </ion-button>
   </ion-toolbar>
 </ion-header>
@@ -48,9 +47,9 @@
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="show_sublitted_application">
+    <ion-row *ngIf="show_complete_application">
       <ion-col class="button-col">
-        <ion-button color="dark" class="selection-button" (click)="continuePayments()">Yor Application is Already Submitted </ion-button>
+        <ion-button color="dark" class="selection-button"> Your Application is Already Submitted. <br> Please Click to Download the Application </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

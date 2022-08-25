@@ -38,7 +38,7 @@ export class PaymentService {
 
    //-------update payment info status update------------
 
-   updateApplicationstatusTne( application_no:string): Observable<String> {
+   updateApplicationstatusTwo( application_no:string): Observable<String> {
     return this.http
       .put<String>(
         this.apiURL + '/update_lateral_applicant_complete_status_two/'+ application_no,

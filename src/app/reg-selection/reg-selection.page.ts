@@ -18,17 +18,17 @@ export class RegSelectionPage implements OnInit {
   id_no: string;
   eligible_year: string;
   prev_bit_regno: string;
+  new_application_no:string;
 
 
 
   show_start_application: boolean = false;
   show_continue_application: boolean = false;
   show_payment_application: boolean = false;
-  show_sublitted_application: boolean = false;
+  show_complete_application: boolean = false;
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private regSelectionService: RegSelectionService,
-    private applicantInfoService: ApplicantInfoService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private regSelectionService: RegSelectionService) { }
 
   ngOnInit() {
 
@@ -53,11 +53,13 @@ export class RegSelectionPage implements OnInit {
       this.regSelectionService.getDITApplicationStatus(this.prev_bit_regno).subscribe((res) => {
 
         this.status_response = res;
-        console.log("- -- " + this.status_response);
+        //console.log("-application no -- " + this.status_response['application_no']);
+       
         if (this.status_response == null) {
 
           this.show_start_application = true;
         } else {
+          this.new_application_no = this.status_response['application_no'];
 
           if (this.status_response['application_status'] == "pending") {
             this.show_continue_application = true;
@@ -66,8 +68,8 @@ export class RegSelectionPage implements OnInit {
           else if (this.status_response['application_status'] == "payment_pending") {
             this.show_payment_application = true;
 
-          } else if (this.status_response['application_status'] == "submitted") {
-            this.show_payment_application = true;
+          } else if (this.status_response['application_status'] == "completed") {
+            this.show_complete_application = true;
           }
         }
 
@@ -81,10 +83,12 @@ export class RegSelectionPage implements OnInit {
 
         this.status_response = res;
         console.log("- -- " + this.status_response);
+        
         if (this.status_response == null) {
 
           this.show_start_application = true;
         } else {
+          this.new_application_no = this.status_response['application_no'];
 
           if (this.status_response['application_status'] == "pending") {
             this.show_continue_application = true;
@@ -93,8 +97,8 @@ export class RegSelectionPage implements OnInit {
           else if (this.status_response['application_status'] == "payment_pending") {
             this.show_payment_application = true;
           }
-          else if (this.status_response['application_status'] == "submitted") {
-            this.show_payment_application = true;
+          else if (this.status_response['application_status'] == "completed") {
+            this.show_complete_application = true;
           }
         }
 
@@ -118,6 +122,8 @@ export class RegSelectionPage implements OnInit {
             eligible_year: this.eligible_year
           }]);
 
+          
+
       });
 
     } if (eligible_year == "3") {
@@ -130,6 +136,8 @@ export class RegSelectionPage implements OnInit {
             prev_registration_no: this.prev_bit_regno,
             eligible_year: this.eligible_year
           }]);
+
+          
 
 
       });

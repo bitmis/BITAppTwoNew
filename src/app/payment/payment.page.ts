@@ -5,9 +5,10 @@ import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, AlertController } from '@ionic/angular';
 import { RegSelectionService } from '../services/reg-selection.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ApplicantInfoService } from '../services/application-info.service';
 
 @Component({
   selector: 'app-payment',
@@ -41,7 +42,9 @@ export class PaymentPage implements OnInit {
     private actionSheetCtrl: ActionSheetController,
     private regSelectionService: RegSelectionService,
     private httpClient: HttpClient,
-    private paymentService: PaymentService) { }
+    private paymentService: PaymentService,
+    private applicantInfoService: ApplicantInfoService,
+    private alertController: AlertController) { }
 
 
 
@@ -118,7 +121,16 @@ export class PaymentPage implements OnInit {
   }
 
 
+  async presentAlert(message:string) {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      subHeader: '',
+      message: message,
+      buttons: ['OK'],
+    });
 
+    await alert.present();
+  }
 
   savePaymentInfo() {
 
@@ -141,7 +153,10 @@ export class PaymentPage implements OnInit {
         if (result == "1") {
           console.log("PAYMENT INFO SAVED ");
           this.completeSubmission();
-        }
+        } else {
+
+          this.presentAlert("Error occured While Saving Payments")
+         }
 
       });
 
@@ -151,8 +166,55 @@ export class PaymentPage implements OnInit {
 
   }
   completeSubmission() {
-    throw new Error('Method not implemented.');
+
+
+    this.paymentService.updateApplicationstatusTwo(this.application_no).subscribe((result) => {
+      console.log("Status two SAVED " + result);
+
+      if (result == "1") {
+
+        if (this.eligible_year == "2") {
+
+          this.regSelectionService.update_DIT_Application_status(this.application_no, "completed").subscribe((result2) => {
+            this.router.navigate(['/reg-selection',
+              {
+                application_no: this.application_no,
+                application_status: "completed",
+                id_no: this.applicantInfoService.aPPLICATION_INFO.id_no,
+                registration_no: this.prev_bit_regno,
+                year: this.eligible_year
+              }]);
+          });
+
+        }
+        else if (this.eligible_year == "3") {
+
+          this.regSelectionService.update_HDIT_Application_status(this.application_no, "completed").subscribe((result2) => {
+
+            this.router.navigate(['/reg-selection',
+              {
+                application_no: this.application_no,
+                application_status: "completed",
+                id_no: this.applicantInfoService.aPPLICATION_INFO.id_no,
+                registration_no: this.prev_bit_regno,
+                year: this.eligible_year
+              }]);
+          });
+
+        }
+
+
+      }
+    });
+
+
+
+
   }
+
+
+
+
 
   changeEducationVisibility(e) {
     console.log(e.target.value);
