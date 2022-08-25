@@ -54,6 +54,7 @@ export class LateralEntryPage implements OnInit {
   citizenshipList = ['Sri Lankan', 'Other'];
   nationalityList = ['Sri Lankan', 'Other'];
   titleList = ['Mr.', 'Ms.', 'Dr', 'Rev.'];
+  titleListNew = [{ "key": "3", "value": "Mr." }, { "key": "6", "value": "Ms." }, { "key": "1", "value": "Rev." }, { "key": "2", "value": "Dr." }]
 
 
   yearList = ['2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014'];
@@ -169,19 +170,19 @@ export class LateralEntryPage implements OnInit {
           ol_result2: "0",
           ol_subject1: '',
           ol_subject2: '',
-          ol_year1: '0',
+          ol_year1: "0",
           ol_year2: "0",
           al_index_no: '',
           al_type: '',
           al_year: '0',
-          al_result1: '',
-          al_result2: '',
-          al_result3: '',
-          al_result4: '0',
-          al_subject1: '',
-          al_subject2: '',
-          al_subject3: '',
-          al_subject4: 'Select Subject',
+          al_result1: "0",
+          al_result2: "0",
+          al_result3: "0",
+          al_result4: "0",
+          al_subject1: "0",
+          al_subject2: "0",
+          al_subject3: "0",
+          al_subject4: "0",
           amount: '',
           bank: '',
           bank_branch: '',
@@ -321,14 +322,7 @@ export class LateralEntryPage implements OnInit {
     });
 
 
-    this.FormSummary = this.formBuilder.group({
-
-
-
-
-
-
-    });
+    this.FormSummary = this.formBuilder.group({ });
 
 
   }
@@ -363,6 +357,7 @@ export class LateralEntryPage implements OnInit {
     if (this.currentSlide === 'Personal-Information') {
 
 
+      
       if (this.FormPersonalInfo.valid) {
 
         this.savePersonalInfo();

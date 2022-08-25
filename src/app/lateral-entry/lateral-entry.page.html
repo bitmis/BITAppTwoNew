@@ -3,8 +3,12 @@
         <!-- <ion-buttons slot="start">
             <ion-back-button defaultHref="/reg-selection"></ion-back-button>
         </ion-buttons> -->
-        <ion-title>Lateral Registration 2022 - &nbsp; &nbsp; Application No :{{this.application_no}} &nbsp; &nbsp;
-            Eligible Year : {{this.eligible_year}}
+        <ion-title>
+            <ion-row>
+                <ion-col>UCSC BIT - Lateral Registration - 2022</ion-col>
+                <ion-col>Application No : {{this.application_no}}</ion-col>
+                <ion-col>Eligible Year : {{this.eligible_year}}</ion-col>
+            </ion-row>
         </ion-title>
         <ion-button color="medium" slot="end" style="padding-right:1%" routerLink="/login">
             <ion-icon name="log-out-outline"></ion-icon>Log Out
@@ -52,7 +56,12 @@
                                 <ion-row>
                                     <ion-col>
                                         <ion-item lines="none">
-                                            <ion-label position="stacked">Full Name (Ex:)</ion-label>
+                                            <ion-label position="stacked">
+                                                Full Name
+                                                <span style="color: red;">*</span> &nbsp; &nbsp;
+                                                <span style="color: rgb(138, 138, 138);"> (Ex: Dissanayake Mudiyanselage
+                                                    Amila Bandara)</span>
+                                            </ion-label>
                                             <ion-input formControlName="full_name" type="text"></ion-input>
 
                                         </ion-item>
@@ -71,7 +80,11 @@
                                 <ion-row>
                                     <ion-col>
                                         <ion-item lines="none">
-                                            <ion-label position="stacked">Initial</ion-label>
+                                            <ion-label position="stacked">Initial
+
+                                                <span style="color: red;">*</span> &nbsp; &nbsp;
+                                                <span style="color: rgb(138, 138, 138);"> (Ex: D M A)</span>
+                                            </ion-label>
                                             <ion-input formControlName="initials" type="text"></ion-input>
 
                                         </ion-item>
@@ -87,7 +100,11 @@
                                     <!-- Last Name -->
                                     <ion-col>
                                         <ion-item lines="none">
-                                            <ion-label position="stacked">Last Name</ion-label>
+                                            <ion-label position="stacked">Last Name
+
+                                                <span style="color: red;">*</span> &nbsp; &nbsp;
+                                                <span style="color: rgb(138, 138, 138);"> (Ex: Bandara)</span>
+                                            </ion-label>
                                             <ion-input formControlName="name_marking" type="text"></ion-input>
                                         </ion-item>
                                         <span class="error ion-padding"
@@ -101,44 +118,52 @@
                                     </ion-col>
                                 </ion-row>
 
-                                <!-- title -->
+
                                 <ion-row>
+
+                                    <!-- Gender -->
+                                    <ion-col>
+                                        <ion-item class="item-select" lines="none">
+                                            <ion-label position="stacked">Gender <span style="color: red;">*</span>
+                                                &nbsp; &nbsp;</ion-label>
+                                            <select class="text-small" formControlName="gender" interface="popover">
+
+                                                <option [value]="0" selected disabled>Select Gender</option>
+                                                <option value="1">Male</option>
+                                                <option value="2">Female</option>
+                                            </select>
+                                        </ion-item>
+
+
+                                    </ion-col>
+
+                                    <!-- title -->
                                     <ion-col>
 
 
                                         <ion-item class="item-select" lines="none">
-                                            <ion-label position="stacked">Title</ion-label>
+                                            <ion-label position="stacked">Title
+                                                <span style="color: red;">*</span> &nbsp; &nbsp;
+                                            </ion-label>
                                             <select class="text-small" formControlName="title">
                                                 <option [value]="0" selected disabled>
                                                     Select Title
                                                 </option>
-                                                <option *ngFor="let title of titleList" [value]="title">
-                                                    {{ title }}
+                                                <option *ngFor="let title of titleListNew" [value]="title.key">
+                                                    {{ title.value }}
                                                 </option>
                                             </select>
                                         </ion-item>
                                     </ion-col>
-                                    <!-- Gender -->
-                                    <ion-col>
-                                        <ion-item class="item-select" lines="none">
-                                            <ion-label position="stacked">Gender</ion-label>
-                                            <select class="text-small" formControlName="gender" interface="popover">
 
-                                                <option [value]="0" selected disabled>Select Gender</option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                            </select>
-                                        </ion-item>
-
-
-                                    </ion-col>
                                 </ion-row>
                                 <!-- id type -->
                                 <ion-row>
 
                                     <ion-col>
                                         <ion-item class="item-select" lines="none">
-                                            <ion-label position="stacked">ID Type</ion-label>
+                                            <ion-label position="stacked">ID Type <span style="color: red;">*</span>
+                                                &nbsp; &nbsp; </ion-label>
                                             <select class="text-small" formControlName="id_type" interface="popover">
                                                 <option value="0" disabled> Select ID Type</option>
                                                 <option value="NIC">NIC</option>
@@ -150,7 +175,9 @@
                                     <!--id number -->
                                     <ion-col>
                                         <ion-item lines="none">
-                                            <ion-label position="stacked">ID Number</ion-label>
+                                            <ion-label position="stacked">ID Number <span style="color: red;">*</span>
+                                                &nbsp; &nbsp;</ion-label>
+
                                             <ion-input formControlName="id_no" type="text"></ion-input>
 
                                         </ion-item>
@@ -163,7 +190,10 @@
                                     <!--email -->
                                     <ion-col>
                                         <ion-item lines="none">
-                                            <ion-label position="stacked">Email</ion-label>
+                                            <ion-label position="stacked">Email <span style="color: red;">*</span>
+                                                &nbsp; &nbsp;
+                                                <span style="color: rgb(138, 138, 138);"> (Ex: dmamila@gmail.com)</span>
+                                            </ion-label>
                                             <ion-input formControlName="email" type="email"></ion-input>
                                         </ion-item>
                                         <span class="error ion-padding"
@@ -179,7 +209,8 @@
                                     <ion-col>
                                         <!--DOB -->
                                         <ion-item class="item-select" lines="none">
-                                            <ion-label position="stacked" displayFormat="YYYY-MM-DD">Birth Date
+                                            <ion-label position="stacked" displayFormat="YYYY-MM-DD">Birth Date <span
+                                                    style="color: red;">*</span> &nbsp; &nbsp;
                                             </ion-label>
                                             <input type="date" formControlName="dob">
                                         </ion-item>
@@ -193,7 +224,8 @@
                                     <ion-col>
 
                                         <ion-item class="item-select" lines="none">
-                                            <ion-label position="stacked">Citizenship</ion-label>
+                                            <ion-label position="stacked">Citizenship <span style="color: red;">*</span>
+                                                &nbsp; &nbsp;</ion-label>
                                             <select class="text-small" formControlName="citizenship">
                                                 <option [value]="0" selected disabled>
                                                     Select Citizenship
@@ -209,7 +241,8 @@
                                     <ion-col>
                                         <!-- nationality -->
                                         <ion-item class="item-select" lines="none">
-                                            <ion-label position="stacked">Nationality</ion-label>
+                                            <ion-label position="stacked">Nationality <span style="color: red;">*</span>
+                                                &nbsp; &nbsp;</ion-label>
                                             <select class="text-small" formControlName="nationality">
                                                 <option [value]="0" selected disabled>
                                                     Select Nationality
@@ -228,7 +261,8 @@
                                     <ion-col>
 
                                         <ion-item class="item-select" lines="none">
-                                            <ion-label position="stacked">Are you Differently Abled? </ion-label>
+                                            <ion-label position="stacked">Are you Differently Abled? <span
+                                                    style="color: red;">*</span> &nbsp; &nbsp; </ion-label>
 
                                             <select class="text-small" formControlName="disabilities"
                                                 interface="popover">
@@ -258,7 +292,10 @@
                                     <ion-col>
                                         <!--phone -->
                                         <ion-item lines="none">
-                                            <ion-label position="stacked">Phone</ion-label>
+                                            <ion-label position="stacked">Phone <span style="color: red;">*</span>
+                                                &nbsp; &nbsp;
+                                                <span style="color: rgb(138, 138, 138);"> (Ex: 0342245567)</span>
+                                            </ion-label>
                                             <ion-input maxlength="10" formControlName="phone" type="text" required>
                                             </ion-input>
                                         </ion-item>
@@ -275,7 +312,10 @@
                                     <ion-col>
                                         <!--mobile -->
                                         <ion-item lines="none">
-                                            <ion-label position="stacked">Mobile</ion-label>
+                                            <ion-label position="stacked">Mobile <span style="color: red;">*</span>
+                                                &nbsp; &nbsp;
+                                                <span style="color: rgb(138, 138, 138);"> (Ex: 0770001111)</span>
+                                            </ion-label>
                                             <ion-input maxlength="10" formControlName="mobile" type="text" required>
                                             </ion-input>
                                         </ion-item>
@@ -296,7 +336,8 @@
                                     <ion-col>
 
                                         <ion-item lines="none">
-                                            <ion-label position="stacked">Address 1</ion-label>
+                                            <ion-label position="stacked">Address 1 <span style="color: red;">*</span>
+                                            </ion-label>
                                             <ion-input formControlName="address1" type="text"></ion-input>
 
                                         </ion-item>
@@ -311,7 +352,8 @@
                                 <ion-row>
                                     <ion-col>
                                         <ion-item lines="none">
-                                            <ion-label position="stacked">Address 2</ion-label>
+                                            <ion-label position="stacked">Address 2 <span style="color: red;">*</span>
+                                            </ion-label>
                                             <ion-input formControlName="address2" type="text"></ion-input>
 
                                         </ion-item>
@@ -326,7 +368,8 @@
                                 <ion-row>
                                     <ion-col>
                                         <ion-item lines="none">
-                                            <ion-label position="stacked">Address 3</ion-label>
+                                            <ion-label position="stacked">Address 3 <span style="color: red;">*</span>
+                                            </ion-label>
                                             <ion-input formControlName="address3" type="text"></ion-input>
 
                                         </ion-item>
@@ -342,7 +385,8 @@
                                 <ion-row>
                                     <ion-col>
                                         <ion-item class="item-select" lines="none">
-                                            <ion-label position="stacked">District</ion-label>
+                                            <ion-label position="stacked">District <span style="color: red;">*</span>
+                                            </ion-label>
                                             <select class="text-small" formControlName="district">
                                                 <option [value]="0" selected disabled>
                                                     Select District
@@ -357,7 +401,8 @@
                                     <!-- country -->
                                     <ion-col>
                                         <ion-item class="item-select" lines="none">
-                                            <ion-label position="stacked">Country</ion-label>
+                                            <ion-label position="stacked">Country <span style="color: red;">*</span>
+                                            </ion-label>
                                             <select class="text-small" formControlName="country">
                                                 <option [value]="0" selected disabled>
                                                     Select Country
@@ -407,7 +452,8 @@
                                     </ion-col>
                                     <ion-col>
                                         <ion-item class="item-select" lines="none">
-                                            <ion-label position="stacked">Year</ion-label>
+                                            <ion-label position="stacked">Year <span style="color: red;">*</span>
+                                            </ion-label>
                                             <select class="text-small" formControlName="ol_year1" interface="popover">
 
                                                 <option [value]="0" selected disabled>
@@ -421,7 +467,8 @@
                                     </ion-col>
                                     <ion-col>
                                         <ion-item lines="none">
-                                            <ion-label position="stacked"> Index No</ion-label>
+                                            <ion-label position="stacked"> Index No <span style="color: red;">*</span>
+                                            </ion-label>
                                             <ion-input formControlName="ol_index1" type="text"></ion-input>
 
                                         </ion-item>
@@ -429,7 +476,8 @@
                                     <ion-col>
 
                                         <ion-item class="item-select" lines="none">
-                                            <ion-label position="stacked">Result</ion-label>
+                                            <ion-label position="stacked">Result <span style="color: red;">*</span>
+                                            </ion-label>
                                             <select class="text-small" formControlName="ol_result1" interface="popover">
 
                                                 <option value="0" selected disabled>
@@ -452,12 +500,13 @@
 
                                     <ion-col>
                                         <ion-item class="item-select" lines="none">
-                                            <ion-label position="stacked">English</ion-label>
+                                            <ion-label position="stacked">English </ion-label>
                                         </ion-item>
                                     </ion-col>
                                     <ion-col>
                                         <ion-item class="item-select" lines="none">
-                                            <ion-label position="stacked">Year</ion-label>
+                                            <ion-label position="stacked">Year <span style="color: red;">*</span>
+                                            </ion-label>
                                             <select class="text-small" formControlName="ol_year2" interface="popover">
 
                                                 <option value="0" selected disabled>
@@ -471,7 +520,8 @@
                                     </ion-col>
                                     <ion-col>
                                         <ion-item lines="none">
-                                            <ion-label position="stacked"> Index No</ion-label>
+                                            <ion-label position="stacked"> Index No <span style="color: red;">*</span>
+                                            </ion-label>
                                             <ion-input formControlName="ol_index2" type="text"></ion-input>
 
                                         </ion-item>
@@ -479,7 +529,8 @@
                                     <ion-col>
 
                                         <ion-item class="item-select" lines="none">
-                                            <ion-label position="stacked">Result</ion-label>
+                                            <ion-label position="stacked">Result <span style="color: red;">*</span>
+                                            </ion-label>
                                             <select class="text-small" formControlName="ol_result2" interface="popover">
 
                                                 <option value="0" selected disabled>
@@ -503,6 +554,7 @@
                                     <ion-col>
                                         <ion-item class="item-select" lines="none">
                                             <ion-label position="stacked">Please Select Your Academic qualification
+                                                <span style="color: red;">*</span>
                                             </ion-label>
                                             <select class="text-small" formControlName="qualification_type"
                                                 interface="popover" (change)="changeEducationVisibility($event)">
@@ -528,11 +580,12 @@
                                     <ion-row>
                                         <ion-col>
                                             <ion-item class="item-select" lines="none">
-                                                <ion-label position="stacked">CGE A/L Year</ion-label>
+                                                <ion-label position="stacked">CGE A/L Year <span
+                                                        style="color: red;">*</span></ion-label>
                                                 <select class="text-small" formControlName="al_year"
                                                     interface="popover">
 
-                                                    <option [value]="0" selected disabled>
+                                                    <option value="0" selected disabled>
                                                         Select A/L Year
                                                     </option>
                                                     <option *ngFor="let year of yearList" [value]="year">
@@ -544,7 +597,8 @@
                                         </ion-col>
                                         <ion-col>
                                             <ion-item lines="none">
-                                                <ion-label position="stacked">GCE A/L Index No</ion-label>
+                                                <ion-label position="stacked">GCE A/L Index No <span
+                                                        style="color: red;">*</span></ion-label>
                                                 <ion-input formControlName="al_index_no" type="text"></ion-input>
 
                                             </ion-item>
@@ -555,11 +609,12 @@
                                     <ion-row>
                                         <ion-col>
                                             <ion-item class="item-select" lines="none">
-                                                <ion-label position="stacked">Subject</ion-label>
+                                                <ion-label position="stacked">Subject <span style="color: red;">*</span>
+                                                </ion-label>
                                                 <select class="text-small" formControlName="al_subject1"
                                                     interface="popover">
 
-                                                    <option [value]="null" selected disabled>
+                                                    <option value="0" selected disabled>
                                                         Select Subject
                                                     </option>
                                                     <option *ngFor="let subject of ALsubjectList" [value]="subject">
@@ -575,7 +630,7 @@
                                                 <select class="text-small" formControlName="al_result1"
                                                     interface="popover">
 
-                                                    <option [value]="null" selected disabled>
+                                                    <option value="0" selected disabled>
                                                         Select Result
                                                     </option>
                                                     <option *ngFor="let result of resultList" [value]="result">
@@ -592,11 +647,12 @@
 
                                         <ion-col>
                                             <ion-item class="item-select" lines="none">
-                                                <ion-label position="stacked">Subject</ion-label>
+                                                <ion-label position="stacked">Subject <span style="color: red;">*</span>
+                                                </ion-label>
                                                 <select class="text-small" formControlName="al_subject2"
                                                     interface="popover">
 
-                                                    <option [value]="null" selected disabled>
+                                                    <option value="0" selected disabled>
                                                         Select Subject
                                                     </option>
                                                     <option *ngFor="let subject of ALsubjectList" [value]="subject">
@@ -608,11 +664,12 @@
                                         <ion-col>
 
                                             <ion-item class="item-select" lines="none">
-                                                <ion-label position="stacked">Result</ion-label>
+                                                <ion-label position="stacked">Result <span style="color: red;">*</span>
+                                                </ion-label>
                                                 <select class="text-small" formControlName="al_result2"
                                                     interface="popover">
 
-                                                    <option [value]="null" selected disabled>
+                                                    <option value="0" selected disabled>
                                                         Select Result
                                                     </option>
                                                     <option *ngFor="let result of resultList" [value]="result">
@@ -627,11 +684,12 @@
                                     <ion-row>
                                         <ion-col>
                                             <ion-item class="item-select" lines="none">
-                                                <ion-label position="stacked">Subject</ion-label>
+                                                <ion-label position="stacked">Subject <span style="color: red;">*</span>
+                                                </ion-label>
                                                 <select class="text-small" formControlName="al_subject3"
                                                     interface="popover">
 
-                                                    <option [value]="null" selected disabled>
+                                                    <option value="0" selected disabled>
                                                         Select Subject
                                                     </option>
                                                     <option *ngFor="let subject of ALsubjectList" [value]="subject">
@@ -643,7 +701,8 @@
                                         <ion-col>
 
                                             <ion-item class="item-select" lines="none">
-                                                <ion-label position="stacked">Result</ion-label>
+                                                <ion-label position="stacked">Result <span style="color: red;">*</span>
+                                                </ion-label>
                                                 <select class="text-small" formControlName="al_result3"
                                                     interface="popover">
 
@@ -667,7 +726,7 @@
                                                 <select class="text-small" formControlName="al_subject4"
                                                     interface="popover">
 
-                                                    <option [value]="0" selected disabled>
+                                                    <option value="0" selected disabled>
                                                         Select Subject
                                                     </option>
                                                     <option *ngFor="let subject of ALsubjectList" [value]="subject">
@@ -683,7 +742,7 @@
                                                 <select class="text-small" formControlName="al_result4"
                                                     interface="popover">
 
-                                                    <option [value]="0" selected disabled>
+                                                    <option value="0" selected disabled>
                                                         Select Result
                                                     </option>
                                                     <option *ngFor="let result of resultList" [value]="result">
@@ -708,11 +767,12 @@
 
                                         <ion-col>
                                             <ion-item class="item-select" lines="none">
-                                                <ion-label position="stacked">UCSC FIT Year</ion-label>
+                                                <ion-label position="stacked">UCSC FIT Year <span
+                                                        style="color: red;">*</span></ion-label>
                                                 <select class="text-small" formControlName="fit_year"
                                                     interface="popover">
 
-                                                    <option [value]="null" selected disabled>
+                                                    <option [value]="0" selected disabled>
                                                         Select UCSC FIT Year
                                                     </option>
                                                     <option *ngFor="let year of yearList" [value]="year">
@@ -724,7 +784,8 @@
                                         </ion-col>
                                         <ion-col>
                                             <ion-item class="item-select" lines="none">
-                                                <ion-label position="stacked">UCSC FIT Index No</ion-label>
+                                                <ion-label position="stacked">UCSC FIT Index No <span
+                                                        style="color: red;">*</span></ion-label>
                                                 <ion-input formControlName="fit_registration_no" type="text">
                                                 </ion-input>
 
