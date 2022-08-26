@@ -73,6 +73,8 @@ export class LateralEntryPage implements OnInit {
   application_status: string;
   status_response: any;
 
+  disable_submit:boolean = false;
+
 
   constructor(public formBuilder: FormBuilder,
     private router: Router,
@@ -447,6 +449,9 @@ export class LateralEntryPage implements OnInit {
 
   }
 
+  changeButtonDisability(){
+    this.disable_submit = !this.disable_submit;
+  }
 
   savePersonalInfo() {
 

@@ -821,14 +821,10 @@
                                         <ion-item lines="none">
                                             <ion-label position="stacked">
                                                 <span class="summary-data">Full Name :</span>
-
-
                                             </ion-label>
                                             <ion-label position="stacked">
-
                                                 <span
                                                     class="summary-value">{{FormPersonalInfo['value']['full_name']}}</span>
-
                                             </ion-label>
 
                                         </ion-item>
@@ -879,8 +875,11 @@
 
                                             <ion-label position="stacked">
 
-                                                <span
-                                                    class="summary-value">{{FormPersonalInfo['value']['title']}}</span>
+                                                <span class="summary-value" *ngFor="let title of this.titleListNew ">
+                                                    <span *ngIf="title.key ==  FormPersonalInfo['value']['title']">
+                                                        {{ title.value}}</span>
+
+                                                </span>
 
                                             </ion-label>
 
@@ -900,8 +899,10 @@
 
                                             <ion-label position="stacked">
 
-                                                <span
-                                                    class="summary-value">{{FormPersonalInfo['value']['gender']}}</span>
+                                                <span class="summary-value"
+                                                    *ngIf="FormPersonalInfo['value']['gender'] == '1'">Male</span>
+                                                <span class="summary-value"
+                                                    *ngIf="FormPersonalInfo['value']['gender'] == '2'">Female</span>
 
                                             </ion-label>
 
@@ -1335,12 +1336,20 @@
                                 </ion-row>
 
 
-
-
-
-
-
                             </ion-grid>
+                            <ion-grid class="summary-grid">
+                                <ion-row>
+                                    <ion-label class="summary-grid-header">Note</ion-label>
+                                    <span>
+                                        <ion-text color="dark" style="  font-size: 14px; padding-top: 2%;">
+                                            <ion-icon name="star-sharp"></ion-icon> If any of the Information that you
+                                            have entered above are Incorrect , Please go Back and Correct.
+                                        </ion-text>
+
+                                    </span>
+                                </ion-row>
+                            </ion-grid>
+
                             <ion-grid class="summary-grid">
                                 <ion-row>
                                     <ion-label class="summary-grid-header">Declaration</ion-label>
@@ -1348,30 +1357,32 @@
                                 <ion-row>
 
                                     <ion-item>
-                                        <ion-text color="dark">
-                                            <h6 class="dec-text">I do hereby certify that the above particulars
-                                                furnished by
-                                                me are true and correct. In the event of my application for registration
-                                                being accepted, I shall abide by all the regulations governing external
-                                                candidates of the University of Colombo School of Computing. I agree
-                                                that the University has the right to cancel my registration at any time,
-                                                either if I am found to have furnished false information or if I do not
-                                                abide
-                                                by the regulations governing external candidates of the University of
-                                                Colombo School of Computing.</h6>
+                                        <ion-text color="dark" style="
+                                        padding-top: 1%;font-size: 16px; font-family: fangsong; padding-bottom: 2%;
+                                    ">
+                                            I do hereby certify that the above particulars
+                                            furnished by
+                                            me are true and correct. In the event of my application for registration
+                                            being accepted, I shall abide by all the regulations governing external
+                                            candidates of the University of Colombo School of Computing. I agree
+                                            that the University has the right to cancel my registration at any time,
+                                            either if I am found to have furnished false information or if I do not
+                                            abide
+                                            by the regulations governing external candidates of the University of
+                                            Colombo School of Computing.
                                         </ion-text>
 
                                     </ion-item>
 
                                     <ion-item>
 
-                                        <ion-checkbox checked="false"></ion-checkbox>
-                                        <ion-label position="inline"> I Agree</ion-label>
+                                        <ion-checkbox checked="this.disable_submit" (change)="changeButtonDisability()"></ion-checkbox>
+                                        <ion-label position="inline" style="font-family: 'Courier New', Courier, monospace;"> I Agree</ion-label>
                                     </ion-item>
                                 </ion-row>
                                 <ion-row class="ion-align-items-center">
                                     <ion-col size="12" class="ion-text-center">
-                                        <ion-button color="danger" (click)="submitApplication()">Submit BIT 2022
+                                        <ion-button color="danger" disabled="this.disable_submit" (click)="submitApplication()">Submit BIT 2022
                                             Application PART I </ion-button>
                                     </ion-col>
                                 </ion-row>
