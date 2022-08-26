@@ -1376,13 +1376,13 @@
 
                                     <ion-item>
 
-                                        <ion-checkbox checked="this.disable_submit" (change)="changeButtonDisability()"></ion-checkbox>
+                                        <ion-checkbox checked="this.disable_submit" (click)="changeButtonDisability()"></ion-checkbox>
                                         <ion-label position="inline" style="font-family: 'Courier New', Courier, monospace;"> I Agree</ion-label>
                                     </ion-item>
                                 </ion-row>
                                 <ion-row class="ion-align-items-center">
                                     <ion-col size="12" class="ion-text-center">
-                                        <ion-button color="danger" disabled="this.disable_submit" (click)="submitApplication()">Submit BIT 2022
+                                        <ion-button color="danger" [disabled]="this.disable_submit" (click)="submitApplication()">Submit BIT 2022
                                             Application PART I </ion-button>
                                     </ion-col>
                                 </ion-row>

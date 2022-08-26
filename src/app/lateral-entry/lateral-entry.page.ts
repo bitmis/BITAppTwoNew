@@ -451,6 +451,7 @@ export class LateralEntryPage implements OnInit {
 
   changeButtonDisability(){
     this.disable_submit = !this.disable_submit;
+    console.log(this.disable_submit);
   }
 
   savePersonalInfo() {
