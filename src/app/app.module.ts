@@ -1,3 +1,4 @@
+import { PaymentVoucherComponent } from './payment-voucher/payment-voucher.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';

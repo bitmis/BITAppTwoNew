@@ -33,6 +33,8 @@ export class PaymentPage implements OnInit {
 
   payment_method: string = '0';
 
+  showVoucher:boolean= false;
+
 
 
   constructor(public formBuilder: FormBuilder,
@@ -408,6 +410,13 @@ export class PaymentPage implements OnInit {
           this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
         }
       );
+  }
+
+
+
+  loadMyChildComponent() {
+    this.showVoucher = !this.showVoucher;
+     
   }
 }
 

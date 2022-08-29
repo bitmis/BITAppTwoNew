@@ -38,7 +38,8 @@
 
             <ion-row *ngIf="this.payment_method == '1'" style=" padding-top: 3%; ">
 
-                <ion-button> Download Payment Voucher</ion-button>
+                <ion-button (click)="loadMyChildComponent();"> Download Payment Voucher</ion-button>
+                <app-payment-voucher *ngIf="showVoucher"></app-payment-voucher>
 
             </ion-row>
             <ion-row *ngIf="this.payment_method == '2'" style="padding-top: 3%; ">

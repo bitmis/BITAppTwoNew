@@ -10,6 +10,7 @@ import html2canvas from 'html2canvas';
 export class PaymentVoucherComponent implements OnInit {
 
   @ViewChild('invoice') invoiceElement!: ElementRef;
+ 
   
   constructor() { }
 
@@ -28,6 +29,6 @@ export class PaymentVoucherComponent implements OnInit {
     });
 
 }
-
+}
 
 //https://howtojs.io/how-to-generate-pdf-file-in-angular-13-application-in-multiple-ways/
