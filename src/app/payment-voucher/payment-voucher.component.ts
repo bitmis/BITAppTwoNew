@@ -9,8 +9,8 @@ import html2canvas from 'html2canvas';
 })
 export class PaymentVoucherComponent implements OnInit {
 
-  @ViewChild('invoice') invoiceElement!: ElementRef;
- 
+ // @ViewChild('invoice') invoiceElement!: ElementRef;
+  @ViewChild('payment_voucher') paymentVoucher!: ElementRef;
   
   constructor() { }
 
@@ -18,13 +18,13 @@ export class PaymentVoucherComponent implements OnInit {
 
   public generatePDF(): void {
 
-    html2canvas(this.invoiceElement.nativeElement, { scale: 3 }).then((canvas) => {
+    html2canvas(this.paymentVoucher.nativeElement, { scale: 3 }).then((canvas) => {
       const imageGeneratedFromTemplate = canvas.toDataURL('image/png');
       const fileWidth = 200;
       const generatedImageHeight = (canvas.height * fileWidth) / canvas.width;
       let PDF = new jsPDF('p', 'mm', 'a4',);
-      PDF.addImage(imageGeneratedFromTemplate, 'PNG', 0, 5, fileWidth, generatedImageHeight,);
-      PDF.html(this.invoiceElement.nativeElement.innerHTML)
+      PDF.addImage(imageGeneratedFromTemplate, 'PNG', 0, 5, fileWidth, generatedImageHeight,'FAST');
+      PDF.html(this.paymentVoucher.nativeElement.innerHTML)
       PDF.save('angular-invoice-pdf-demo.pdf');
     });
 
