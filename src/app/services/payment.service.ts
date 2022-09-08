@@ -47,6 +47,16 @@ export class PaymentService {
       .pipe(retry(1), catchError(this.handleError));
   }
 
+
+  // get payment voucher
+  getPaymentVoucher( application_no:string): Observable<any> {
+    
+      return this.http.get(this.apiURL + '/get_payment_voucher' + "/"+application_no
+       );
+  }
+
+  
+
    // Error handling
    handleError(error: any) {
     let errorMessage = '';

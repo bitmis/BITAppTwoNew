@@ -5,11 +5,12 @@
             <ion-back-button defaultHref="/reg-selection"></ion-back-button>
 
         </ion-buttons>
-        <ion-title><ion-row>
-            <ion-col>UCSC BIT - Lateral Registration - 2022</ion-col>
-            <ion-col>Application No : {{this.application_no}}</ion-col>
-            <ion-col>Eligible Year : {{this.eligible_year}}</ion-col>
-        </ion-row>
+        <ion-title>
+            <ion-row>
+                <ion-col>UCSC BIT - Lateral Registration - 2022</ion-col>
+                <ion-col>Application No : {{this.application_no}}</ion-col>
+                <ion-col>Eligible Year : {{this.eligible_year}}</ion-col>
+            </ion-row>
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -38,8 +39,7 @@
 
             <ion-row *ngIf="this.payment_method == '1'" style=" padding-top: 3%; ">
 
-                <ion-button (click)="loadMyChildComponent();"> Download Payment Voucher</ion-button>
-                <app-payment-voucher *ngIf="showVoucher"></app-payment-voucher>
+                <ion-button (click)="downloadPaymentVoucher()"> Download Payment Voucher</ion-button>
 
             </ion-row>
             <ion-row *ngIf="this.payment_method == '2'" style="padding-top: 3%; ">
@@ -128,25 +128,38 @@
 
                 </ion-col>
             </ion-row>
+
             <ion-row *ngIf="payment_method == '1'">
+
+
                 <ion-col>
-<!-- 
-                    <input type="file" (change)="onFileChanged($event)">
-                
-                    <input type="button" (click)="onUpload()" value="upload"> -->
-        
+                    <ion-item class="item-select" lines="none">
+                        <ion-label position="stacked">Image of Paid Voucher -Front</ion-label>
+                        <input type="file" accept="image/*" (change)="onImageOneChanged($event)">
+                        <!-- <ion-button (click)="onUpload()">Upload Image (Front)</ion-button> -->
+                    </ion-item>
                 </ion-col>
-    
-                <!-- <ion-col>
-    
-                    <input type="file" (change)="onFileChanged($event)">
-                
-                    <input type="button" (click)="onUpload()" value="upload">
-        
-                </ion-col> -->
+
+                <ion-col>
+                    <ion-item class="item-select" lines="none">
+                        <ion-label position="stacked">Image of Paid Voucher -Back</ion-label>
+                        <input type="file" accept="image/*" (change)="onImageTwoChanged($event)">
+                        <!-- <ion-button (click)="onUpload()">Upload Image (Back)</ion-button> -->
+
+
+                    </ion-item>
+                </ion-col>
+                <ion-item>
+                    <ion-text color="dark"
+                        style="
+                    padding-top: 1%;font-size: 16px; font-family: 'Times New Roman', Times, serif; padding-bottom: 2%; color:red">
+                        Make sure the bank seal is clearly visible on the Image you upload.
+                        The Image extension must be "jpg" and the file size should be less than 5MB
+                    </ion-text>
+                </ion-item>
             </ion-row>
- 
-           
+
+
 
             <ion-row class="ion-align-items-center">
                 <ion-col size="12" class="ion-text-center">
@@ -157,11 +170,10 @@
         </ion-grid>
     </form>
 
-    <ion-row>
+</ion-content>
 
-        
-    
-    <!-- <ion-col>
+
+<!-- <ion-col>
         <div class="container row">
             <div class="col-md-12">
                 <div *ngIf=message>{{message}}</div>
@@ -183,10 +195,9 @@
                 </div>
             </div>
         </div>
-    </ion-col> -->
+    </ion-col>  
+</ion-row> -->
 
-</ion-row>
-</ion-content>
 
 
 
@@ -217,4 +228,4 @@
             <img class="img-thumb" [src]="imagePath2" *ngIf="imagePath2">
         </div>
     </div>
-</ion-col> -->
+</ion-col>   -->

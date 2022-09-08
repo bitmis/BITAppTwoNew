@@ -33,7 +33,7 @@ export class PaymentPage implements OnInit {
 
   payment_method: string = '0';
 
-  showVoucher:boolean= false;
+  showVoucher: boolean = false;
 
 
 
@@ -123,7 +123,7 @@ export class PaymentPage implements OnInit {
   }
 
 
-  async presentAlert(message:string) {
+  async presentAlert(message: string) {
     const alert = await this.alertController.create({
       header: 'Error',
       subHeader: '',
@@ -158,7 +158,7 @@ export class PaymentPage implements OnInit {
         } else {
 
           this.presentAlert("Error occured While Saving Payments")
-         }
+        }
 
       });
 
@@ -215,9 +215,6 @@ export class PaymentPage implements OnInit {
   }
 
 
-
-
-
   changeEducationVisibility(e) {
     console.log(e.target.value);
     this.payment_method = e.target.value;
@@ -241,152 +238,67 @@ export class PaymentPage implements OnInit {
 
     }
 
-
-
-
-  }
-  async presentActionSheet1() {
-
-    const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Choose an option',
-      buttons: [{
-        text: 'Photo Library',
-        handler: () => {
-          this.chooseImage1(CameraSource.Photos);
-        }
-      }, {
-        text: 'Camera',
-        handler: () => {
-          this.chooseImage1(CameraSource.Camera);
-        }
-      }, {
-        text: 'Cancel',
-        role: 'cancel'
-      }]
-    });
-
-    return await actionSheet.present();
   }
 
-  async chooseImage1(source: CameraSource) {
-
-    try {
-
-      const image = await Camera.getPhoto({
-        quality: 70,
-        width: 600,
-        height: 600,
-
-        allowEditing: true,
-        correctOrientation: true,
-        source: source,
-        resultType: CameraResultType.Uri,
-      });
-
-      const safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(image.webPath);
-      this.imagePath1 = safeUrl;
-
-      const response = await fetch(image.webPath);
-      const blob = await response.blob();
-
-      const base64 = await this.convertBlobToBase64(blob) as string;
-
-      // Send encoded string to server...
-
-    } catch (error) {
-      console.warn(error);
-    }
-
-  }
-
-  async presentActionSheet2() {
-
-    const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Choose an option',
-      buttons: [{
-        text: 'Photo Library',
-        handler: () => {
-          this.chooseImage2(CameraSource.Photos);
-        }
-      }, {
-        text: 'Camera',
-        handler: () => {
-          this.chooseImage2(CameraSource.Camera);
-        }
-      }, {
-        text: 'Cancel',
-        role: 'cancel'
-      }]
-    });
-
-    return await actionSheet.present();
-  }
-
-  async chooseImage2(source: CameraSource) {
-
-    try {
-
-      const image = await Camera.getPhoto({
-        quality: 70,
-        width: 400,
-        height: 500,
-
-        allowEditing: true,
-        correctOrientation: true,
-        source: source,
-        resultType: CameraResultType.Uri,
-      });
-
-      const safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(image.webPath);
-      this.imagePath2 = safeUrl;
-
-      const response = await fetch(image.webPath);
-      const blob = await response.blob();
-
-      const base64 = await this.convertBlobToBase64(blob) as string;
-
-      console.log(base64);
-
-      // Send encoded string to server...
-
-    } catch (error) {
-      console.warn(error);
-    }
-
-  }
-
-  convertBlobToBase64 = (blob: Blob) => new Promise((resolve, reject) => {
-    const reader = new FileReader;
-    reader.onerror = reject;
-    reader.onload = () => resolve(reader.result);
-    reader.readAsDataURL(blob);
-  });
 
 
 
 
 
 
-  selectedFile: File;
+  //selectedFile: File;
   retrievedImage: any;
   base64Data: any;
   retrieveResonse: any;
   message: string;
   imageName: any;
 
+  selectedImage_1:File;
+  selectedImage_2:File;
+
 
   //Gets called when the user selects an image
-  public onFileChanged(event) {
-    //Select File
-    this.selectedFile = event.target.files[0];
-  }
-  //Gets called when the user clicks on submit to upload the image
-  onUpload() {
-    console.log(this.selectedFile);
+  // public onFileChanged(event) {
+  //   //Select File
+  //   this.selectedFile = event.target.files[0];
+  //   console.log(this.selectedFile);
+  // }
 
-    //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
+  public onImageOneChanged(event) {
+    //Select Image 1
+    this.selectedImage_1 = event.target.files[0];
+    console.log(this.selectedImage_1);
+    this.onUploadImageOne() ;
+  }
+  onUploadImageOne() {
+    console.log(this.selectedImage_1);
+
     const uploadImageData = new FormData();
-    uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+    uploadImageData.append('imageFile', this.selectedImage_1, this.application_no+"_1.jpg");
+    
+    //Make a call to the Spring Boot Application to save the image
+    this.httpClient.post('http://localhost:8080/api/upload', uploadImageData, { observe: 'response' })
+      .subscribe((response) => {
+        if (response.status === 200) {
+          this.message = 'Image uploaded successfully';
+        } else {
+          this.message = 'Image not uploaded successfully';
+        }
+      }
+      );
+  }
+  public onImageTwoChanged(event) {
+    //Select Image 2
+    this.selectedImage_2 = event.target.files[0];
+    console.log(this.selectedImage_2);
+    this.onUploadImageTwo() ;
+  }
+
+  onUploadImageTwo() {
+    console.log(this.selectedImage_2);
+
+    const uploadImageData = new FormData();
+    uploadImageData.append('imageFile', this.selectedImage_2, this.application_no+"_2.jpg");
 
     //Make a call to the Spring Boot Application to save the image
     this.httpClient.post('http://localhost:8080/api/upload', uploadImageData, { observe: 'response' })
@@ -399,6 +311,27 @@ export class PaymentPage implements OnInit {
       }
       );
   }
+
+
+  //Gets called when the user clicks on submit to upload the image
+  // onUpload() {
+  //   console.log(this.selectedFile);
+
+  //   //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
+  //   const uploadImageData = new FormData();
+  //   uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+
+  //   //Make a call to the Spring Boot Application to save the image
+  //   this.httpClient.post('http://localhost:8080/api/upload', uploadImageData, { observe: 'response' })
+  //     .subscribe((response) => {
+  //       if (response.status === 200) {
+  //         this.message = 'Image uploaded successfully';
+  //       } else {
+  //         this.message = 'Image not uploaded successfully';
+  //       }
+  //     }
+  //     );
+  // }
   //Gets called when the user clicks on retieve image button to get the image from back end
   getImage() {
     //Make a call to Sprinf Boot to get the Image Bytes.
@@ -414,9 +347,24 @@ export class PaymentPage implements OnInit {
 
 
 
-  loadMyChildComponent() {
-    this.showVoucher = !this.showVoucher;
-     
+  downloadPaymentVoucher() {
+
+
+    let paymentVoucherURL = "http://localhost:8080/api/get_payment_voucher/" + this.application_no;
+
+    this.httpClient.get(paymentVoucherURL, { responseType: 'blob' }).subscribe(res => {
+      let blob = new Blob([res], { type: 'application/pdf' });
+      let pdfUrl = window.URL.createObjectURL(blob);
+
+      var PDF_link = document.createElement('a');
+      PDF_link.href = pdfUrl;
+      //   TO OPEN PDF ON BROWSER IN NEW TAB
+      //window.open(pdfUrl, '_blank');
+
+      //   TO DOWNLOAD PDF TO YOUR COMPUTER
+      PDF_link.download = this.application_no + "_payment_voucher.pdf";
+      PDF_link.click();
+    });
   }
 }
 
@@ -424,3 +372,120 @@ export class PaymentPage implements OnInit {
  //https://medium.com/@rameez.s.shaikh/upload-and-retrieve-images-using-spring-boot-angular-8-mysql-18c166f7bc98
 
   //https://www.techiediaries.com/ionic-formdata-multiple-file-upload-tutorial/
+
+/*  async presentActionSheet1() {
+
+  const actionSheet = await this.actionSheetCtrl.create({
+    header: 'Choose an option',
+    buttons: [{
+      text: 'Photo Library',
+      handler: () => {
+        this.chooseImage1(CameraSource.Photos);
+      }
+    }, {
+      text: 'Camera',
+      handler: () => {
+        this.chooseImage1(CameraSource.Camera);
+      }
+    }, {
+      text: 'Cancel',
+      role: 'cancel'
+    }]
+  });
+
+  return await actionSheet.present();
+}
+
+async chooseImage1(source: CameraSource) {
+
+  try {
+
+    const image = await Camera.getPhoto({
+      quality: 70,
+      width: 600,
+      height: 600,
+
+      allowEditing: true,
+      correctOrientation: true,
+      source: source,
+      resultType: CameraResultType.Uri,
+    });
+
+    const safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(image.webPath);
+    this.imagePath1 = safeUrl;
+
+    const response = await fetch(image.webPath);
+    const blob = await response.blob();
+
+    const base64 = await this.convertBlobToBase64(blob) as string;
+
+    // Send encoded string to server...
+
+  } catch (error) {
+    console.warn(error);
+  }
+
+}
+
+async presentActionSheet2() {
+
+  const actionSheet = await this.actionSheetCtrl.create({
+    header: 'Choose an option',
+    buttons: [{
+      text: 'Photo Library',
+      handler: () => {
+        this.chooseImage2(CameraSource.Photos);
+      }
+    }, {
+      text: 'Camera',
+      handler: () => {
+        this.chooseImage2(CameraSource.Camera);
+      }
+    }, {
+      text: 'Cancel',
+      role: 'cancel'
+    }]
+  });
+
+  return await actionSheet.present();
+}
+
+async chooseImage2(source: CameraSource) {
+
+  try {
+
+    const image = await Camera.getPhoto({
+      quality: 70,
+      width: 400,
+      height: 500,
+
+      allowEditing: true,
+      correctOrientation: true,
+      source: source,
+      resultType: CameraResultType.Uri,
+    });
+
+    const safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(image.webPath);
+    this.imagePath2 = safeUrl;
+
+    const response = await fetch(image.webPath);
+    const blob = await response.blob();
+
+    const base64 = await this.convertBlobToBase64(blob) as string;
+
+    console.log(base64);
+
+    // Send encoded string to server...
+
+  } catch (error) {
+    console.warn(error);
+  }
+
+}
+
+convertBlobToBase64 = (blob: Blob) => new Promise((resolve, reject) => {
+  const reader = new FileReader;
+  reader.onerror = reject;
+  reader.onload = () => resolve(reader.result);
+  reader.readAsDataURL(blob);
+}); */
