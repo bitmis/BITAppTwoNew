@@ -59,10 +59,10 @@
                                             <ion-label position="stacked">
                                                 Full Name
                                                 <span style="color: red;">*</span> &nbsp; &nbsp;
-                                                <span style="color: rgb(138, 138, 138);"> (Ex: Dissanayake Mudiyanselage
-                                                    Amila Bandara)</span>
+                                                <span style="color: rgb(138, 138, 138);"> (Ex: DISSANAYAKE MUDIYANSELAGE
+                                                    AMILA BANDARA)</span>
                                             </ion-label>
-                                            <ion-input formControlName="full_name" type="text"></ion-input>
+                                            <ion-input formControlName="full_name" type="text" style="text-transform: uppercase;"></ion-input>
 
                                         </ion-item>
                                         <span class="error ion-padding"
@@ -85,7 +85,7 @@
                                                 <span style="color: red;">*</span> &nbsp; &nbsp;
                                                 <span style="color: rgb(138, 138, 138);"> (Ex: D M A)</span>
                                             </ion-label>
-                                            <ion-input formControlName="initials" type="text"></ion-input>
+                                            <ion-input formControlName="initials" type="text" style="text-transform: uppercase;"></ion-input>
 
                                         </ion-item>
                                         <span class="error ion-padding"
@@ -103,9 +103,9 @@
                                             <ion-label position="stacked">Last Name
 
                                                 <span style="color: red;">*</span> &nbsp; &nbsp;
-                                                <span style="color: rgb(138, 138, 138);"> (Ex: Bandara)</span>
+                                                <span style="color: rgb(138, 138, 138);"> (Ex: BANDARA)</span>
                                             </ion-label>
-                                            <ion-input formControlName="name_marking" type="text"></ion-input>
+                                            <ion-input formControlName="name_marking" type="text" style="text-transform: uppercase;"></ion-input>
                                         </ion-item>
                                         <span class="error ion-padding"
                                             *ngIf="isSubmitted && errorControl.name_marking.errors?.required">

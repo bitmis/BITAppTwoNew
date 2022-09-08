@@ -170,4 +170,9 @@ export class RegSelectionPage implements OnInit {
       }]);
   }
 
+  downloadApplication(){
+
+    
+  }
+
 }

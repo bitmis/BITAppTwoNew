@@ -1,7 +1,8 @@
 <ion-header>
   <ion-toolbar color="dark">
-    <ion-title style="color: white;">Lateral Entry Registration  &nbsp; &nbsp;{{this.new_application_no}}</ion-title>
-    <ion-button color="medium" slot="end" style="padding-right:1%" routerLink="/login"><ion-icon name="log-out-outline"></ion-icon>Log Out
+    <ion-title style="color: white;">Lateral Entry Registration &nbsp; &nbsp;{{this.new_application_no}}</ion-title>
+    <ion-button color="medium" slot="end" style="padding-right:1%" routerLink="/login">
+      <ion-icon name="log-out-outline"></ion-icon>Log Out
     </ion-button>
   </ion-toolbar>
 </ion-header>
@@ -32,24 +33,28 @@
     </ion-row>
     <ion-row *ngIf="show_start_application">
       <ion-col class="button-col">
-        <ion-button color="dark" class="selection-button"  (click)="createApplicationNumber(this.eligible_year)">Start Lateral Entry Application
+        <ion-button color="dark" class="selection-button" (click)="createApplicationNumber(this.eligible_year)">Start
+          Lateral Entry Application
         </ion-button>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="show_continue_application">
       <ion-col class="button-col">
-        <ion-button color="dark" class="selection-button" (click)="continueApplication()">Continue Lateral Entry Application </ion-button>
+        <ion-button color="dark" class="selection-button" (click)="continueApplication()">Continue Lateral Entry
+          Application </ion-button>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="show_payment_application">
       <ion-col class="button-col">
-        <ion-button color="dark" class="selection-button" (click)="continuePayments()">proceed To Enter Payment Information </ion-button>
+        <ion-button color="dark" class="selection-button" (click)="continuePayments()">proceed To Enter Payment
+          Information </ion-button>
       </ion-col>
     </ion-row>
 
     <ion-row *ngIf="show_complete_application">
       <ion-col class="button-col">
-        <ion-button color="dark" class="selection-button"> Your Application is Already Submitted. <br> Please Click to Download the Application </ion-button>
+        <ion-button color="dark" class="selection-button" (click)="downloadApplication()"> Your Application is Already
+          Submitted. <br> Please Click to Download the Application </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

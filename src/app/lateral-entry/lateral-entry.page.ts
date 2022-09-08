@@ -73,7 +73,7 @@ export class LateralEntryPage implements OnInit {
   application_status: string;
   status_response: any;
 
-  disable_submit:boolean = false;
+  disable_submit: boolean = false;
 
 
   constructor(public formBuilder: FormBuilder,
@@ -273,7 +273,6 @@ export class LateralEntryPage implements OnInit {
 
     });
 
-
     this.FormContactInfo = this.formBuilder.group({
 
       mobile: [this.applicantInfoService.aPPLICATION_INFO.mobile, [Validators.required, Validators.pattern('^[0-9]+$')]],
@@ -324,7 +323,7 @@ export class LateralEntryPage implements OnInit {
     });
 
 
-    this.FormSummary = this.formBuilder.group({ });
+    this.FormSummary = this.formBuilder.group({});
 
 
   }
@@ -359,7 +358,7 @@ export class LateralEntryPage implements OnInit {
     if (this.currentSlide === 'Personal-Information') {
 
 
-      
+
       if (this.FormPersonalInfo.valid) {
 
         this.savePersonalInfo();
@@ -449,7 +448,7 @@ export class LateralEntryPage implements OnInit {
 
   }
 
-  changeButtonDisability(){
+  changeButtonDisability() {
     this.disable_submit = !this.disable_submit;
     console.log(this.disable_submit);
   }
