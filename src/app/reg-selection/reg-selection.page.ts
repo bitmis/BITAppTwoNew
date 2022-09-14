@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ApplicantInfoService } from '../services/application-info.service';
@@ -18,7 +19,7 @@ export class RegSelectionPage implements OnInit {
   id_no: string;
   eligible_year: string;
   prev_bit_regno: string;
-  new_application_no:string;
+  new_application_no: string;
 
 
 
@@ -28,7 +29,7 @@ export class RegSelectionPage implements OnInit {
   show_complete_application: boolean = false;
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private regSelectionService: RegSelectionService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private regSelectionService: RegSelectionService, private httpClient: HttpClient) { }
 
   ngOnInit() {
 
@@ -54,7 +55,7 @@ export class RegSelectionPage implements OnInit {
 
         this.status_response = res;
         //console.log("-application no -- " + this.status_response['application_no']);
-       
+
         if (this.status_response == null) {
 
           this.show_start_application = true;
@@ -83,7 +84,7 @@ export class RegSelectionPage implements OnInit {
 
         this.status_response = res;
         console.log("- -- " + this.status_response);
-        
+
         if (this.status_response == null) {
 
           this.show_start_application = true;
@@ -122,7 +123,7 @@ export class RegSelectionPage implements OnInit {
             eligible_year: this.eligible_year
           }]);
 
-          
+
 
       });
 
@@ -137,7 +138,7 @@ export class RegSelectionPage implements OnInit {
             eligible_year: this.eligible_year
           }]);
 
-          
+
 
 
       });
@@ -170,9 +171,25 @@ export class RegSelectionPage implements OnInit {
       }]);
   }
 
-  downloadApplication(){
+  downloadApplication() {
 
-    
+    let paymentVoucherURL = "http://localhost:8080/api/get_application/" + this.new_application_no;
+
+    this.httpClient.get(paymentVoucherURL, { responseType: 'blob' }).subscribe(res => {
+      let blob = new Blob([res], { type: 'application/pdf' });
+      let pdfUrl = window.URL.createObjectURL(blob);
+
+      var PDF_link = document.createElement('a');
+      PDF_link.href = pdfUrl;
+      //   TO OPEN PDF ON BROWSER IN NEW TAB
+      //window.open(pdfUrl, '_blank');
+
+      //   TO DOWNLOAD PDF TO YOUR COMPUTER
+      PDF_link.download = this.new_application_no + "_BIT2022_Application.pdf";
+      PDF_link.click();
+    });
+
+
   }
 
 }
