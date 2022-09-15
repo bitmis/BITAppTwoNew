@@ -33,9 +33,9 @@ export class LoginPage implements OnInit {
       if (this.response == null) {
 
         this.invalid_DIT_Login = true;
+        this.invalidLogin = true;
 
       } else {
-
 
         this.router.navigate(['/reg-selection',
           {
@@ -52,10 +52,11 @@ export class LoginPage implements OnInit {
     this.authService.login_HDIT(form['value']['reg_no'], form['value']['id_no']).subscribe((res) => {
 
       this.response = res;
-      console.log( this.response);
+      console.log(this.response);
       if (this.response == null) {
 
         this.invalid_HDIT_Login = true;
+        this.invalidLogin = true;
 
       } else {
 

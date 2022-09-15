@@ -6,15 +6,15 @@
         <ion-col size="3"></ion-col>
         <ion-col align-self-center size-md="6" size-lg="5" size-xs="12" style="border: 3px solid #97b6ec;">
           <div text-center>
-            <h3 style="text-align:center ;">BIT Online Portal Log In</h3>
+            <h3 style="text-align:center ;">BIT Lateral Entry Registration 2022 - Log In</h3>
           </div>
 
           <div padding>
             <ion-item>
-              <ion-input name="reg_no" type="text" placeholder="BIT Registration No" ngModel required></ion-input>
+              <ion-input name="reg_no" type="text" placeholder="BIT Registration No" ngModel required ></ion-input>
             </ion-item>
             <ion-item>
-              <ion-input name="id_no" type="text" placeholder="NIC" ngModel required></ion-input>
+              <ion-input name="id_no" type="text" placeholder="NIC" ngModel required ></ion-input>
             </ion-item>
           </div>
           <div padding>
@@ -22,7 +22,7 @@
               Login</ion-button>
           </div>
           <div padding *ngIf="invalidLogin" ngModel required>
-            <ion-label style="text-align: center;">Please Insert Correct Registeration No and NIC No</ion-label>
+            <ion-label style="padding:15%; color:red; font-size:12px;font-weight:bold;">Please Insert Correct the Registration No and NIC No</ion-label>
           </div>
         </ion-col>
         <ion-col size="3"></ion-col>
