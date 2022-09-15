@@ -215,7 +215,7 @@ export class PaymentPage implements OnInit {
   }
 
 
-  changeEducationVisibility(e) {
+  changePaymentVisibility(e) {
     console.log(e.target.value);
     this.payment_method = e.target.value;
 
