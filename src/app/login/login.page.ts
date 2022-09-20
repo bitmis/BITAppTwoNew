@@ -32,8 +32,7 @@ export class LoginPage implements OnInit {
       console.log(this.response);
       if (this.response == null) {
 
-        this.invalid_DIT_Login = true;
-        this.invalidLogin = true;
+        this.loginHDIT(form);
 
       } else {
 
@@ -48,6 +47,11 @@ export class LoginPage implements OnInit {
       }
 
     });
+
+
+  }
+
+  loginHDIT(form: any) {
 
     this.authService.login_HDIT(form['value']['reg_no'], form['value']['id_no']).subscribe((res) => {
 
@@ -55,7 +59,6 @@ export class LoginPage implements OnInit {
       console.log(this.response);
       if (this.response == null) {
 
-        this.invalid_HDIT_Login = true;
         this.invalidLogin = true;
 
       } else {
@@ -71,6 +74,7 @@ export class LoginPage implements OnInit {
       }
 
     });
+
   }
 
 }
