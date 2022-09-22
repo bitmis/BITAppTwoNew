@@ -30,6 +30,7 @@ export class PaymentPage implements OnInit {
   application_no: string;
   application_status: string;
   status_response: any;
+  id_no: string;
 
   payment_method: string = '0';
 
@@ -66,7 +67,9 @@ export class PaymentPage implements OnInit {
         this.status_response = res2;
         this.application_status = res2['application_status'];
         this.application_no = res2['application_no'];
+        this.id_no = res2['id'];
         console.log(this.application_status + " -> " + this.application_no);
+        // this.setUpForm();
 
 
       });
@@ -79,18 +82,20 @@ export class PaymentPage implements OnInit {
         this.status_response = res3;
         this.application_status = res3['application_status'];
         this.application_no = res3['application_no'];
+        this.id_no = res3['id'];
         console.log(this.application_status + " -> " + this.application_no);
-
+        //  this.setUpForm();
 
 
       });
 
     }
-
     this.setUpForm();
+
   }
 
   setUpForm() {
+
 
     this.FormPayment = this.formBuilder.group({
 
@@ -105,12 +110,7 @@ export class PaymentPage implements OnInit {
 
       bank: ['Peoples Bank', [Validators.required]],
       bank_branch: ['', [Validators.required]],
-
-
       invoice_no: ['', [Validators.required]],
-
-
-
 
     });
 
@@ -119,6 +119,8 @@ export class PaymentPage implements OnInit {
     this.payment_method = this.FormPayment['value']['type'];
 
     console.log("this.payment_method  " + this.payment_method);
+
+
 
   }
 
@@ -182,7 +184,7 @@ export class PaymentPage implements OnInit {
               {
                 application_no: this.application_no,
                 application_status: "completed",
-                id_no: this.applicantInfoService.aPPLICATION_INFO.id_no,
+                id_no: this.id_no,
                 registration_no: this.prev_bit_regno,
                 year: this.eligible_year
               }]);
@@ -197,7 +199,7 @@ export class PaymentPage implements OnInit {
               {
                 application_no: this.application_no,
                 application_status: "completed",
-                id_no: this.applicantInfoService.aPPLICATION_INFO.id_no,
+                id_no: this.id_no,
                 registration_no: this.prev_bit_regno,
                 year: this.eligible_year
               }]);
@@ -253,8 +255,8 @@ export class PaymentPage implements OnInit {
   message: string;
   imageName: any;
 
-  selectedImage_1:File;
-  selectedImage_2:File;
+  selectedImage_1: File;
+  selectedImage_2: File;
 
 
   //Gets called when the user selects an image
@@ -268,14 +270,14 @@ export class PaymentPage implements OnInit {
     //Select Image 1
     this.selectedImage_1 = event.target.files[0];
     console.log(this.selectedImage_1);
-    this.onUploadImageOne() ;
+    this.onUploadImageOne();
   }
   onUploadImageOne() {
     console.log(this.selectedImage_1);
 
     const uploadImageData = new FormData();
-    uploadImageData.append('imageFile', this.selectedImage_1, this.application_no+"_1.jpg");
-    
+    uploadImageData.append('imageFile', this.selectedImage_1, this.application_no + "_1.jpg");
+
     //Make a call to the Spring Boot Application to save the image
     this.httpClient.post('http://localhost:8080/api/upload', uploadImageData, { observe: 'response' })
       .subscribe((response) => {
@@ -291,14 +293,14 @@ export class PaymentPage implements OnInit {
     //Select Image 2
     this.selectedImage_2 = event.target.files[0];
     console.log(this.selectedImage_2);
-    this.onUploadImageTwo() ;
+    this.onUploadImageTwo();
   }
 
   onUploadImageTwo() {
     console.log(this.selectedImage_2);
 
     const uploadImageData = new FormData();
-    uploadImageData.append('imageFile', this.selectedImage_2, this.application_no+"_2.jpg");
+    uploadImageData.append('imageFile', this.selectedImage_2, this.application_no + "_2.jpg");
 
     //Make a call to the Spring Boot Application to save the image
     this.httpClient.post('http://localhost:8080/api/upload', uploadImageData, { observe: 'response' })

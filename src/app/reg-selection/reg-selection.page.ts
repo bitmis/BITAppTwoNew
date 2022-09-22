@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 import { ApplicantInfoService } from '../services/application-info.service';
 import { RegSelectionService } from '../services/reg-selection.service';
 
@@ -29,7 +30,8 @@ export class RegSelectionPage implements OnInit {
   show_complete_application: boolean = false;
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private regSelectionService: RegSelectionService, private httpClient: HttpClient) { }
+  constructor(private route: ActivatedRoute, private router: Router, 
+    private regSelectionService: RegSelectionService, private httpClient: HttpClient,public loadingController: LoadingController) { }
 
   ngOnInit() {
 
@@ -174,6 +176,7 @@ export class RegSelectionPage implements OnInit {
   downloadApplication() {
 
     let paymentVoucherURL = "http://localhost:8080/api/get_application/" + this.new_application_no;
+    this.presentLoading();
 
     this.httpClient.get(paymentVoucherURL, { responseType: 'blob' }).subscribe(res => {
       let blob = new Blob([res], { type: 'application/pdf' });
@@ -190,6 +193,18 @@ export class RegSelectionPage implements OnInit {
     });
 
 
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Please Wait',
+      duration: 2000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+
+    console.log('Loading dismissed!');
   }
 
 }
