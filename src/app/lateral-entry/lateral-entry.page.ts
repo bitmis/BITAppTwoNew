@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { LateralApplicantInfo } from '../interface/lateral-applicant-info';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { IonContent, IonSlides } from '@ionic/angular';
+import { AlertController, IonContent, IonSlides } from '@ionic/angular';
 import { ApplicantInfoService } from 'src/app/services/application-info.service';
 import { RegSelectionService } from '../services/reg-selection.service';
 
@@ -81,7 +81,8 @@ export class LateralEntryPage implements OnInit {
     private route: ActivatedRoute,
     private regSelectionService: RegSelectionService,
     private applicantInfoService: ApplicantInfoService,
-    private masterDataService: MasterDataService
+    private masterDataService: MasterDataService,
+    private alertController: AlertController
 
   ) { }
 
@@ -396,7 +397,16 @@ export class LateralEntryPage implements OnInit {
 
   }
 
+  async presentAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      subHeader: '',
+      message: message,
+      buttons: ['OK'],
+    });
 
+    await alert.present();
+  }
   changeEducationVisibility(e) {
 
     console.log(e.target.value);
