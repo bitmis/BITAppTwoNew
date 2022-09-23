@@ -198,7 +198,8 @@ export class RegSelectionPage implements OnInit {
   async presentLoading() {
     const loading = await this.loadingController.create({
       message: 'Please Wait',
-      duration: 2000
+      duration: 3000,
+      
     });
     await loading.present();
 
