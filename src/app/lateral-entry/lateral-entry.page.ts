@@ -57,7 +57,7 @@ export class LateralEntryPage implements OnInit {
   titleListNew = [{ "key": "3", "value": "Mr." }, { "key": "6", "value": "Ms." }, { "key": "1", "value": "Rev." }, { "key": "2", "value": "Dr." }]
 
 
-  yearList = ['2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014'];
+  yearList = ['2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2010', '2009', '2008', '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000'];
   ALsubjectList: Array<string> = [];
   resultList = ['A', 'B', 'C', 'S', 'F'];
   entry_qualification = [{ "key": "1", "value": "GCE A/L Qualified" }, { "key": "2", "value": "UCSC FIT Qualified" }
@@ -259,7 +259,7 @@ export class LateralEntryPage implements OnInit {
 
     this.FormPersonalInfo = this.formBuilder.group({
       full_name: [this.applicantInfoService.aPPLICATION_INFO.full_name, [Validators.required, Validators.minLength(2)]],
-      initials: [this.applicantInfoService.aPPLICATION_INFO.initials, [Validators.required, Validators.minLength(2)]],
+      initials: [this.applicantInfoService.aPPLICATION_INFO.initials, [Validators.required, Validators.minLength(1)]],
       name_marking: [this.applicantInfoService.aPPLICATION_INFO.name_marking, [Validators.required, Validators.minLength(2)]],
       title: [this.applicantInfoService.aPPLICATION_INFO.title, [Validators.required]],
       gender: [this.applicantInfoService.aPPLICATION_INFO.gender, [Validators.required]],
@@ -471,6 +471,7 @@ export class LateralEntryPage implements OnInit {
     personal_infor_obj.application_no = this.application_no;
     personal_infor_obj.apply_bit_year = this.eligible_year;
     personal_infor_obj.application_status = this.application_status;
+
 
     console.log(personal_infor_obj);
 
