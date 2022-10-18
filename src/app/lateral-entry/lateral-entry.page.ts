@@ -265,7 +265,6 @@ export class LateralEntryPage implements OnInit {
       gender: [this.applicantInfoService.aPPLICATION_INFO.gender, [Validators.required]],
       id_type: [this.applicantInfoService.aPPLICATION_INFO.id_type, [Validators.required]],
       id_no: [this.applicantInfoService.aPPLICATION_INFO.id_no, [Validators.required]],
-      email: [this.applicantInfoService.aPPLICATION_INFO.email, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       dob: [this.applicantInfoService.aPPLICATION_INFO.dob],
       citizenship: [this.applicantInfoService.aPPLICATION_INFO.citizenship, [Validators.required]],
       nationality: [this.applicantInfoService.aPPLICATION_INFO.nationality, [Validators.required]],
@@ -283,6 +282,8 @@ export class LateralEntryPage implements OnInit {
       address3: [this.applicantInfoService.aPPLICATION_INFO.address3, [Validators.required]],
       district: [this.applicantInfoService.aPPLICATION_INFO.district, [Validators.required]],
       country: [this.applicantInfoService.aPPLICATION_INFO.country, [Validators.required]],
+      email: [this.applicantInfoService.aPPLICATION_INFO.email, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]]
+
 
     })
 
@@ -358,8 +359,6 @@ export class LateralEntryPage implements OnInit {
 
     if (this.currentSlide === 'Personal-Information') {
 
-
-
       if (this.FormPersonalInfo.valid) {
 
         this.savePersonalInfo();
@@ -371,7 +370,6 @@ export class LateralEntryPage implements OnInit {
     else if (this.currentSlide === 'Contact-Information') {
 
       if (this.FormContactInfo.valid) {
-
 
         this.saveContactInfo();
         this.ionSlides.slideNext();
@@ -415,42 +413,10 @@ export class LateralEntryPage implements OnInit {
 
     if (this.selectedValue == '2') {
 
-      this.FormEducation.patchValue({
-
-        al_index_no: "",
-        al_year: "",
-        al_subject1: "",
-        al_result1: "",
-        al_subject2: "",
-        al_result2: "",
-        al_subject3: "",
-        al_result3: "",
-        al_subject4: "",
-        al_result4: "",
-
-        fit_registration_no: "",
-        fit_year: "",
-      })
+      this.FormEducation.patchValue({})
     } else if (this.selectedValue == '1') {
 
-
-      this.FormEducation.patchValue({
-
-        fit_index: "",
-        fit_year: "",
-
-        al_index_no: "",
-        al_year: "",
-        al_subject1: "",
-        al_result1: "",
-        al_subject2: "",
-        al_result2: "",
-        al_subject3: "",
-        al_result3: "",
-        al_subject4: "",
-        al_result4: "",
-
-      })
+      this.FormEducation.patchValue({})
 
     }
 

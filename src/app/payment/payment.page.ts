@@ -5,7 +5,7 @@ import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { ActionSheetController, AlertController } from '@ionic/angular';
+import { ActionSheetController, AlertController, LoadingController } from '@ionic/angular';
 import { RegSelectionService } from '../services/reg-selection.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApplicantInfoService } from '../services/application-info.service';
@@ -41,13 +41,11 @@ export class PaymentPage implements OnInit {
   constructor(public formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer,
-    private actionSheetCtrl: ActionSheetController,
     private regSelectionService: RegSelectionService,
     private httpClient: HttpClient,
     private paymentService: PaymentService,
-    private applicantInfoService: ApplicantInfoService,
-    private alertController: AlertController) { }
+    private alertController: AlertController,
+    public loadingController: LoadingController) { }
 
 
 
@@ -179,7 +177,7 @@ export class PaymentPage implements OnInit {
 
         if (this.eligible_year == "2") {
 
-          this.regSelectionService.update_DIT_Application_status(this.application_no, "completed").subscribe((result2) => {
+          this.regSelectionService.update_DIT_Application_status(this.application_no, "completed").subscribe(() => {
             this.router.navigate(['/reg-selection',
               {
                 application_no: this.application_no,
@@ -193,7 +191,7 @@ export class PaymentPage implements OnInit {
         }
         else if (this.eligible_year == "3") {
 
-          this.regSelectionService.update_HDIT_Application_status(this.application_no, "completed").subscribe((result2) => {
+          this.regSelectionService.update_HDIT_Application_status(this.application_no, "completed").subscribe(() => {
 
             this.router.navigate(['/reg-selection',
               {
@@ -353,6 +351,7 @@ export class PaymentPage implements OnInit {
 
 
     let paymentVoucherURL = "http://localhost:8080/api/get_payment_voucher/" + this.application_no;
+    this.presentLoading();
 
     this.httpClient.get(paymentVoucherURL, { responseType: 'blob' }).subscribe(res => {
       let blob = new Blob([res], { type: 'application/pdf' });
@@ -367,6 +366,19 @@ export class PaymentPage implements OnInit {
       PDF_link.download = this.application_no + "_payment_voucher.pdf";
       PDF_link.click();
     });
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Please Wait while the Payment Voucher is being prepared for download',
+      duration: 3000,
+      
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+
+    console.log('Loading dismissed!');
   }
 }
 

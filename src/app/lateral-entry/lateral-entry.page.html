@@ -62,7 +62,8 @@
                                                 <span style="color: rgb(138, 138, 138);"> (Ex: DISSANAYAKE MUDIYANSELAGE
                                                     AMILA BANDARA)</span>
                                             </ion-label>
-                                            <ion-input formControlName="full_name" type="text" style="text-transform: uppercase;"></ion-input>
+                                            <ion-input formControlName="full_name" type="text"
+                                                style="text-transform: uppercase;"></ion-input>
 
                                         </ion-item>
                                         <span class="error ion-padding"
@@ -85,7 +86,8 @@
                                                 <span style="color: red;">*</span> &nbsp; &nbsp;
                                                 <span style="color: rgb(138, 138, 138);"> (Ex: D M A)</span>
                                             </ion-label>
-                                            <ion-input formControlName="initials" type="text" style="text-transform: uppercase;"></ion-input>
+                                            <ion-input formControlName="initials" type="text"
+                                                style="text-transform: uppercase;"></ion-input>
 
                                         </ion-item>
                                         <span class="error ion-padding"
@@ -105,7 +107,8 @@
                                                 <span style="color: red;">*</span> &nbsp; &nbsp;
                                                 <span style="color: rgb(138, 138, 138);"> (Ex: BANDARA)</span>
                                             </ion-label>
-                                            <ion-input formControlName="name_marking" type="text" style="text-transform: uppercase;"></ion-input>
+                                            <ion-input formControlName="name_marking" type="text"
+                                                style="text-transform: uppercase;"></ion-input>
                                         </ion-item>
                                         <span class="error ion-padding"
                                             *ngIf="isSubmitted && errorControl.name_marking.errors?.required">
@@ -186,26 +189,6 @@
 
                                 <ion-row>
 
-
-                                    <!--email -->
-                                    <ion-col>
-                                        <ion-item lines="none">
-                                            <ion-label position="stacked">Email <span style="color: red;">*</span>
-                                                &nbsp; &nbsp;
-                                                <span style="color: rgb(138, 138, 138);"> (Ex: dmamila@gmail.com)</span>
-                                            </ion-label>
-                                            <ion-input formControlName="email" type="email"></ion-input>
-                                        </ion-item>
-                                        <span class="error ion-padding"
-                                            *ngIf="isSubmitted && errorControl.email.errors?.required">
-                                            Email is required.
-                                        </span>
-                                        <span class="error ion-padding"
-                                            *ngIf="isSubmitted && errorControl.email.errors?.pattern">
-                                            Please provide valid email id.
-                                        </span>
-                                    </ion-col>
-
                                     <ion-col>
                                         <!--DOB -->
                                         <ion-item class="item-select" lines="none">
@@ -214,6 +197,21 @@
                                             </ion-label>
                                             <input type="date" formControlName="dob">
                                         </ion-item>
+                                    </ion-col>
+                                    <ion-col>
+
+                                        <ion-item class="item-select" lines="none">
+                                            <ion-label position="stacked">Are you Differently Abled? <span
+                                                    style="color: red;">*</span> &nbsp; &nbsp; </ion-label>
+
+                                            <select class="text-small" formControlName="disabilities"
+                                                interface="popover">
+                                                <option value="No" selected> No</option>
+                                                <option value="Yes">Yes</option>
+                                            </select>
+
+                                        </ion-item>
+
                                     </ion-col>
                                 </ion-row>
 
@@ -257,31 +255,6 @@
                                     </ion-col>
                                 </ion-row>
 
-                                <ion-row>
-                                    <ion-col>
-
-                                        <ion-item class="item-select" lines="none">
-                                            <ion-label position="stacked">Are you Differently Abled? <span
-                                                    style="color: red;">*</span> &nbsp; &nbsp; </ion-label>
-
-                                            <select class="text-small" formControlName="disabilities"
-                                                interface="popover">
-                                                <option value="No" selected> No</option>
-                                                <option value="Yes">Yes</option>
-                                            </select>
-
-                                        </ion-item>
-
-                                    </ion-col>
-                                    <ion-col>
-
-                                        <!-- <ion-button style="width: 300px;" shape="round" color="dark"
-                                            (click)="savePersonalInfo()"> Save Personal Info
-                                        </ion-button> -->
-
-
-                                    </ion-col>
-                                </ion-row>
 
                             </ion-grid>
                         </form>
@@ -346,10 +319,7 @@
                                             Address 1 is required.
                                         </span>
                                     </ion-col>
-                                </ion-row>
-
-                                <!--address2 -->
-                                <ion-row>
+                                    <!--address2 -->
                                     <ion-col>
                                         <ion-item lines="none">
                                             <ion-label position="stacked">Address 2 <span style="color: red;">*</span>
@@ -378,11 +348,7 @@
                                             Address 3 is required.
                                         </span>
                                     </ion-col>
-                                </ion-row>
-
-
-                                <!-- district -->
-                                <ion-row>
+                                    <!-- district -->
                                     <ion-col>
                                         <ion-item class="item-select" lines="none">
                                             <ion-label position="stacked">District <span style="color: red;">*</span>
@@ -398,6 +364,13 @@
                                         </ion-item>
 
                                     </ion-col>
+
+                                </ion-row>
+
+
+
+                                <ion-row>
+
                                     <!-- country -->
                                     <ion-col>
                                         <ion-item class="item-select" lines="none">
@@ -414,16 +387,23 @@
                                         </ion-item>
 
                                     </ion-col>
-                                </ion-row>
-                                <ion-row>
-                                    <ion-col></ion-col>
+                                    <!--email -->
                                     <ion-col>
-
-                                        <!-- <ion-button style="width: 300px;" shape="round" color="dark"
-                                            (click)="saveContactInfo()"> Save Contact Info
-                                        </ion-button> -->
-
-
+                                        <ion-item lines="none">
+                                            <ion-label position="stacked">Email <span style="color: red;">*</span>
+                                                &nbsp; &nbsp;
+                                                <span style="color: rgb(138, 138, 138);"> (Ex: dmamila@gmail.com)</span>
+                                            </ion-label>
+                                            <ion-input formControlName="email" type="email"></ion-input>
+                                        </ion-item>
+                                        <span class="error ion-padding"
+                                            *ngIf="isSubmitted && errorControl.email.errors?.required">
+                                            Email is required.
+                                        </span>
+                                        <span class="error ion-padding"
+                                            *ngIf="isSubmitted && errorControl.email.errors?.pattern">
+                                            Please provide valid email id.
+                                        </span>
                                     </ion-col>
                                 </ion-row>
 
@@ -823,8 +803,8 @@
                                                 <span class="summary-data">Full Name :</span>
                                             </ion-label>
                                             <ion-label position="stacked">
-                                                <span
-                                                    class="summary-value" style="text-transform: uppercase;">{{FormPersonalInfo['value']['full_name']}}</span>
+                                                <span class="summary-value"
+                                                    style="text-transform: uppercase;">{{FormPersonalInfo['value']['full_name']}}</span>
                                             </ion-label>
 
                                         </ion-item>
@@ -840,7 +820,8 @@
 
                                             </ion-label>
                                             <ion-label position="stacked">
-                                                <span class="summary-value" style="text-transform: uppercase;">{{FormPersonalInfo['value']['initials']}}
+                                                <span class="summary-value"
+                                                    style="text-transform: uppercase;">{{FormPersonalInfo['value']['initials']}}
                                                 </span>
 
                                             </ion-label>
@@ -851,14 +832,14 @@
                                     <ion-col>
                                         <ion-item lines="none">
                                             <ion-label position="stacked">
-                                                <span class="summary-data" >Last Name :</span>
+                                                <span class="summary-data">Last Name :</span>
 
 
                                             </ion-label>
                                             <ion-label position="stacked">
 
-                                                <span
-                                                    class="summary-value" style="text-transform: uppercase;">{{FormPersonalInfo['value']['name_marking']}}</span>
+                                                <span class="summary-value"
+                                                    style="text-transform: uppercase;">{{FormPersonalInfo['value']['name_marking']}}</span>
 
                                             </ion-label>
 
@@ -1296,6 +1277,18 @@
                                                 </ion-col>
 
                                             </ion-row>
+                                            <ion-row>
+
+                                                <ion-col>
+                                                    <ion-label class="ol-data">
+                                                        {{FormEducation['value']['al_subject4']}}</ion-label>
+                                                </ion-col>
+                                                <ion-col>
+                                                    <ion-label class="ol-data">
+                                                        {{FormEducation['value']['al_result4']}}</ion-label>
+                                                </ion-col>
+
+                                            </ion-row>
                                         </div>
 
                                         <div *ngIf="FormEducation['value']['qualification_type'] ==2">
@@ -1358,7 +1351,7 @@
 
                                     <ion-item>
                                         <ion-text color="dark" style="
-                                        padding-top: 1%;font-size: 16px; font-family: fangsong; padding-bottom: 2%;
+                                        padding-top: 1%;font-size: 16px; font-family: auto; padding-bottom: 2%;
                                     ">
                                             I do hereby certify that the above particulars
                                             furnished by
@@ -1376,13 +1369,16 @@
 
                                     <ion-item>
 
-                                        <ion-checkbox [checked]="this.disable_submit" (click)="changeButtonDisability()"></ion-checkbox>
-                                        <ion-label position="inline" style="font-family: 'Courier New', Courier, monospace;"> I Agree</ion-label>
+                                        <ion-checkbox [checked]="this.disable_submit"
+                                            (click)="changeButtonDisability()"></ion-checkbox>
+                                        <ion-label position="inline"
+                                            style="font-family: 'Courier New', Courier, monospace;"> I Agree</ion-label>
                                     </ion-item>
                                 </ion-row>
                                 <ion-row class="ion-align-items-center">
                                     <ion-col size="12" class="ion-text-center">
-                                        <ion-button color="danger" [disabled]="!this.disable_submit" (click)="submitApplication()">Submit BIT 2022
+                                        <ion-button color="danger" [disabled]="!this.disable_submit"
+                                            (click)="submitApplication()">Submit BIT 2022
                                             Application PART I </ion-button>
                                     </ion-col>
                                 </ion-row>
