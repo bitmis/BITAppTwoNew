@@ -13,24 +13,33 @@
     <ion-row class="header-data-row">
       <ion-col>
         <ion-card class="header-data-card">
-          <ion-label>NIC No : <span class="header-value">{{this.id_no}}</span>
+          <ion-label>
+            <span class="header-header"> NIC No : </span><br>
+            <span class="header-value">{{this.id_no}}</span>
           </ion-label>
         </ion-card>
       </ion-col>
       <ion-col>
         <ion-card class="header-data-card">
-          <ion-label>Previous BIT Registration No : <span class="header-value">{{this.prev_bit_regno}}</span>
+          <ion-label>
+            <span class="header-header"> Previous BIT Registration No : </span><br>
+            <span class="header-value">{{this.prev_bit_regno}}</span>
           </ion-label>
         </ion-card>
       </ion-col>
       <ion-col>
         <ion-card class="header-data-card">
-          <ion-label>Eligible Year : <span class="header-value"> {{this.eligible_year}}</span>
+          <ion-label>
+
+            <span class="header-header"> Eligible Year : </span><br>
+            <span class="header-value"> {{this.eligible_year}}</span>
           </ion-label>
 
         </ion-card>
       </ion-col>
     </ion-row>
+  </ion-grid>
+  <ion-grid class="reg-selection-grid">
     <ion-row *ngIf="show_start_application">
       <ion-col class="button-col">
         <ion-button color="dark" class="selection-button" (click)="createApplicationNumber(this.eligible_year)">Start
@@ -55,9 +64,12 @@
       <ion-col class="button-col">
         <ion-button color="dark" class="selection-button" (click)="downloadApplication()"> Your Application is
           Submitted. <br> Please Click to Download the Application </ion-button>
-          
+
       </ion-col>
     </ion-row>
+  </ion-grid>
+  <ion-grid>
+
   </ion-grid>
 
 </ion-content>

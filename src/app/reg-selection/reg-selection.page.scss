@@ -1,17 +1,16 @@
 .button-col.md.hydrated {
 
-    width: 90%;
-    margin-top: 5%;
-
+     margin : 8%;
+     
 }
 
 .selection-button.md.button.button-solid.ion-activatable.ion-focusable.hydrated {
 
 
-    margin-left: 20%;
-    height: 100px;
-    width: 50%;
-    font-size: 16px;
+     
+    height: 150%;
+    width: 100%;
+   // font-size: 1.5vw;
     font-weight: bold;
     background-color: rgb(28, 28, 28);
 
@@ -20,7 +19,7 @@
 .header-data-card.md.hydrated {
 
     font-weight: bold;
-    height: 40px;
+    height: 90%;
     text-align: center;
     padding: 2%;
     color: #3880ff;
@@ -28,8 +27,15 @@
 }
 
 .header-value{
-    font-size: 18px;
+    font-size: 15px;
     font-weight: bold;
     color: rgb(63, 54, 54);
+
+}
+
+.header-header{
+    //font-size: 15px;
+    font-weight: bold;
+     
 
 }
